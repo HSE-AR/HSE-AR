@@ -158,7 +158,7 @@ export default {
 	
 	async LoadSceneFromBack()
 	{
-      	await axios.get(this.$store.state.port +'/api/models/'+this.$store.state.sceneTestId).then(response =>{
+      	await axios.get(this.$store.state.port +'models/'+this.$store.state.sceneTestId).then(response =>{
 			console.log(response)
 			this.editor.idFromBack = response.data.id;
 			this.editor.loader.MyLoader(response.data.scene);

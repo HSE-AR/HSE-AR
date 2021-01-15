@@ -62,7 +62,7 @@ export default {
     async LoadSceneFromBack(renderer){
         const vm = this;
       
-      	await axios.get(this.$store.state.port +'/api/models/'+this.$store.state.sceneTestId).then(response =>{
+      	await axios.get(this.$store.state.port +'models/'+this.$store.state.sceneTestId).then(response =>{
 
             var loader = new THREE.ObjectLoader();
 
