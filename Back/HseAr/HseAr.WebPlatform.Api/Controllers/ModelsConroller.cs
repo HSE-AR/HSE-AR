@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HseAr.WebPlatform.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("wapi/[controller]")]
     public class ModelsController : Controller
     {
         private readonly ModelsRepository _modelsRepository;
