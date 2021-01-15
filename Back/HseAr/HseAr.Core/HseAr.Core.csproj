@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="2.12.0-beta1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HseAr.DataAccess.EFCore\HseAr.DataAccess.EFCore.csproj" />
+      <ProjectReference Include="..\HseAr.DataAccess.Mongodb\HseAr.DataAccess.Mongodb.csproj" />
+      <ProjectReference Include="..\HseAr.Data\HseAr.Data.csproj" />
+    </ItemGroup>
+
+</Project>
