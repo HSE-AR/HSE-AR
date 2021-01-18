@@ -27,10 +27,13 @@ namespace HseAr.WebPlatform.Api
                     x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services
+                .AddSettings(Configuration)
+                .ConfigureIdentity()
+                .ConfigureAuthentication(Configuration)
                 .AddRepositories()
                 .AddServices()
-                .AddSettings(Configuration)
-                .AddDbConnections();
+                .AddDbConnections(Configuration);
+
 
             services.AddSwagger();
         }
@@ -44,6 +47,8 @@ namespace HseAr.WebPlatform.Api
             }
             
             app.UseExceptionHandler(err => err.UseCustomErrors(env));
+            
+            app.UseAuthentication(); 
 
             app.UseRouting();
             

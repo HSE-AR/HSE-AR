@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HseAr.Data.DTO;
 using HseAr.Data.Entities;
+using HseAr.Data.Repositories;
 using HseAr.DataAccess.Mongodb;
 using HseAr.DataAccess.Mongodb.Repositories;
 using MongoDB.Bson;
@@ -16,20 +17,23 @@ namespace HseAr.BusinessLayer.Modification
         private readonly ModificationRepository _modificationRepository;
         //нужен прямой доступ к коллекции (а не к репозиторию), для экономии памяти и времени 
         private readonly IMongoCollection<BsonDocument> _models;
+        private readonly IUserModelIdRepository _userModelIdRepository;
 
 
-        public ModificationService(MongoContext context, ModificationRepository modRep)
+        public ModificationService(MongoContext context, ModificationRepository modRep, IUserModelIdRepository userModelIdRepository)
         {
             _modificationRepository = modRep;
             _models = context.ModelsAsBsonDocument;
+            _userModelIdRepository = userModelIdRepository;
         }
 
         public async Task<IEnumerable<ModificationDto>> GetAsync() =>
             (await _modificationRepository.GetAsync()).Select(x => new ModificationDto(x));
 
-        public async Task<bool> ModifyModel(ModificationDto modificationDto)
+        public async Task<bool> ModifyModel(ModificationDto modificationDto, Guid userId)
         {
-            SceneModification mod = new SceneModification(modificationDto);
+            CheckModelOwnership(modificationDto.ModelId, userId);
+            var mod = new SceneModification(modificationDto);
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(mod.ModelId));
             UpdateResult result;
@@ -60,15 +64,22 @@ namespace HseAr.BusinessLayer.Modification
             return true;
         }
 
-        public async Task<bool> ModifyModels(IEnumerable<ModificationDto> modificationDtos)
+        public async Task<bool> ModifyModels(IEnumerable<ModificationDto> modificationDtos, Guid userId)
         {
             bool result = true;
             foreach (var moddto in modificationDtos)
-                result &= await ModifyModel(moddto);
+                result &= await ModifyModel(moddto, userId);
 
             return result;
         }
 
+        private bool CheckModelOwnership(string modelId, Guid userId)
+        {
+            var userModelId = _userModelIdRepository.GetAsync(modelId, userId);
+            if (userModelId == null)
+                throw new Exception("User has not rights to edit this model");
+            return true;
+        }
         #region private methods
 
         private async Task<UpdateResult> AddElementsToModelAsync(FilterDefinition<BsonDocument> filter, SceneModification modification)

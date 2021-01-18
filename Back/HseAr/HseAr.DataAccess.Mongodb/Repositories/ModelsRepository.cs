@@ -25,6 +25,8 @@ namespace HseAr.DataAccess.Mongodb.Repositories
         public async Task<ModelDto> GetAsync(string id) =>
             ModelConverter.Convert(await _models.Find(m => m.Id == id).FirstOrDefaultAsync());
 
+        public async Task<ICollection<ModelDto>> GetAsync(ICollection<string> ids) =>
+            ModelConverter.Convert(await _models.Find(m => ids.Contains(m.Id)).ToListAsync());
 
         public async Task<ModelDto> CreateAsync(ModelDto modelDto)
         {

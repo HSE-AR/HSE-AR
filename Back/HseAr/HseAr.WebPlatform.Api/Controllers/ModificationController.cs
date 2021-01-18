@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.Modification;
 using HseAr.Data.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HseAr.WebPlatform.Api.Controllers
 {
-    //в чистовом проекте архитектура будет другая
-    //шаблонный репозиторий для запросов к бд для всех классов
-    //остальная логика реализована в сервисах
-    //в контроллерах только обращение к сервисам
-    //убрать конвертеры, реализовать данную логику через контсрукторы и др.
     [Route("wapi/[controller]")]
-    public class ModificationController : Controller
+    public class ModificationController : BaseAuthorizeController
     {
         private readonly IModificationService _modificationService;
 
@@ -23,16 +19,47 @@ namespace HseAr.WebPlatform.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "superadmin")]
         public async Task<ActionResult<IEnumerable<ModificationDto>>> GetAsync()
-            => new JsonResult(await _modificationService.GetAsync());
-        
+        {
+            try
+            {
+                return new JsonResult(await _modificationService.GetAsync());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<bool>> SetModification([FromBody] ModificationDto modificationDto)
-            => await _modificationService.ModifyModel(modificationDto);
-        
+        {
+            try
+            {
+                var userId = GetUserIdFromToken();
+                return await _modificationService.ModifyModel(modificationDto, userId);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         [HttpPost("list")]
+        [Authorize]
         public async Task<ActionResult<bool>> SetModifications([FromBody] IEnumerable<ModificationDto> modificationDtos)
-            => await _modificationService.ModifyModels(modificationDtos);
-        
+        {
+            try
+            {
+                var userId = GetUserIdFromToken();
+                return await _modificationService.ModifyModels(modificationDtos, userId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
     }
 }

@@ -1,12 +1,20 @@
-﻿using HseAr.DataAccess.Mongodb;
+﻿using HseAr.DataAccess.EFCore;
+using HseAr.DataAccess.Mongodb;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HseAr.WebPlatform.Api.Configurations
 {
     public static class ConnectionConfiguration
     {
-        public static IServiceCollection AddDbConnections(this IServiceCollection services)
-        {
+        public static IServiceCollection AddDbConnections(this IServiceCollection services, IConfiguration configuration)
+        { 
+            var connection = configuration["DB_CONNECTION"];
+            
+            services.AddDbContext<EFCoreContext>(options => options.UseSqlite(connection,
+                b => b.MigrationsAssembly("HseAr.WebPlatform.Api")));
+            
             services.AddSingleton<MongoContext>();
 
             return services;
