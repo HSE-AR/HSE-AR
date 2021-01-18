@@ -1,23 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using HseAr.BusinessLayer.Modification;
-using HseAr.BusinessLayer.Storage;
-using HseAr.Core.Settings;
-using HseAr.DataAccess.Mongodb;
-using HseAr.DataAccess.Mongodb.Repositories;
+using HseAr.WebPlatform.Api.Configurations;
+using HseAr.WebPlatform.Api.Helpers;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace HseAr.WebPlatform.Api
 {
@@ -38,13 +26,13 @@ namespace HseAr.WebPlatform.Api
                 .AddNewtonsoftJson(
                     x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            AddRepositories(services);
+            services
+                .AddRepositories()
+                .AddServices()
+                .AddSettings(Configuration)
+                .AddDbConnections();
 
-            AddSettings(services);
-
-            AddServices(services);
-
-            AddDbConnection(services);
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +42,8 @@ namespace HseAr.WebPlatform.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseExceptionHandler(err => err.UseCustomErrors(env));
 
             app.UseRouting();
             
@@ -63,58 +53,14 @@ namespace HseAr.WebPlatform.Api
                 .AllowAnyMethod());
 
             app.UseAuthorization();
+            
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wapi"));
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
-        
-        #region Private methods
-        private static void AddRepositories(IServiceCollection services)
-        {
-            //services.AddTransient<IGltfFileRepository, GltfFileRepository>();
-            services.AddSingleton<ModificationRepository>();
-            services.AddSingleton<ModelsRepository>();
-        }
-
-        private static void AddServices(IServiceCollection services)
-        {
-
-
-            services.AddSingleton<IModelsDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<ModelsDatabaseSettings>>().Value);
-            services.AddTransient<IStorageService, StorageService>();
-            services.AddTransient<IModificationService, ModificationService>();
-        }
-
-        private static void AddCorsConfiguration(IServiceCollection services) =>
-            services.AddCors(options => {
-                options.AddPolicy("AllowAll", builder =>
-                    builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
-            });
-
-        private void AddSettings(IServiceCollection services)
-        {
-            services.Configure<EnvironmentConfig>(Configuration);
-            services.Configure<ModelsDatabaseSettings>(
-                Configuration.GetSection(nameof(ModelsDatabaseSettings)));
-        }
-
-        private void AddDbConnection(IServiceCollection services)
-        {
-            var connection = Configuration["DB_CONNECTION"];
-
-            /*services.AddDbContext<GltfContext>(options => options.UseSqlite(connection,
-                b => b.MigrationsAssembly("Gltf_file_sharing.API")));*/
-
-            services.AddSingleton<MongoContext>();
-
-        }
-
-        #endregion
     }
 }

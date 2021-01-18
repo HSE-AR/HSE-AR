@@ -24,41 +24,15 @@ namespace HseAr.WebPlatform.Api.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ModificationDto>>> GetAsync()
-        {
-            try
-            {
-                return new JsonResult(await _modificationService.GetAsync());
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
+            => new JsonResult(await _modificationService.GetAsync());
+        
         [HttpPost]
         public async Task<ActionResult<bool>> SetModification([FromBody] ModificationDto modificationDto)
-        {
-            try
-            {
-                return await _modificationService.ModifyModel(modificationDto);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
+            => await _modificationService.ModifyModel(modificationDto);
+        
         [HttpPost("list")]
         public async Task<ActionResult<bool>> SetModifications([FromBody] IEnumerable<ModificationDto> modificationDtos)
-        {
-            try
-            {
-                return await _modificationService.ModifyModels(modificationDtos);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
+            => await _modificationService.ModifyModels(modificationDtos);
+        
     }
 }

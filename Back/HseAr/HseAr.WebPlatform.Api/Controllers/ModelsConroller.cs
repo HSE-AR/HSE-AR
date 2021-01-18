@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.Data.DTO;
 using HseAr.Data.Entities;
 using HseAr.DataAccess.Mongodb.Repositories;
+using HseAr.WebPlatform.Api.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HseAr.WebPlatform.Api.Controllers
@@ -20,7 +22,6 @@ namespace HseAr.WebPlatform.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<ICollection<ModelDto>>> Get() =>
             new JsonResult(await _modelsRepository.GetAsync());
- 
 
         [HttpGet("{id:length(24)}", Name = "GetModel")]
         public async Task<ActionResult<ModelDto>> Get(string id)
