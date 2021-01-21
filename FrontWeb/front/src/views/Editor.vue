@@ -162,7 +162,6 @@ export default {
 			console.log(response)
 			this.editor.idFromBack = response.data.id;
 			this.editor.loader.MyLoader(response.data.scene);
-
 			this.editor.select( null );
         })
 	},  
