@@ -1,5 +1,6 @@
 
 import * as Commands from './commands/Commands.js';
+import {SetPositionCommand} from "./commands/Commands";
 
 function History( editor ) {
 
@@ -315,8 +316,94 @@ History.prototype = {
 
 		this.goToState( id );
 
-	}
+	},
 
+	GetArrayOfModification: function() {
+		let arrayOfModifications = []
+		this.undos.forEach((mod) => {
+			const objectModificationData = this.GetCustomModificationObject(mod)
+			if (objectModificationData.ModelId !== null) {
+				arrayOfModifications.push(objectModificationData)
+				this.clear()
+			}
+		})
+		return arrayOfModifications
+	},
+
+	GetCustomModificationObject: function(modificationType) {
+		const objectModificationData = {
+			Type: 'Update',
+			ObjectType: 'ObjectChild',
+			PropertyModificationType: 'Update',
+			ModelId: null,
+			ObjectChild: null
+		}
+
+		switch(modificationType.type) {
+			case 'SetPositionCommand':
+			case 'SetRotationCommand':
+			case 'SetScaleCommand':
+				this.SetObjectModification(objectModificationData, modificationType)
+				break
+			case 'AddObjectCommand':
+				this.AddObjectModification(objectModificationData, modificationType)
+				break
+			case 'RemoveObjectCommand':
+				this.RemoveObjectModification(objectModificationData, modificationType)
+				break
+		}
+
+		return objectModificationData
+	},
+
+	SetObjectModification: function(objectModificationData,modificationType) {
+		objectModificationData.ObjectChild = {
+			uuid: modificationType.toJSON().objectUuid,
+			matrix: modificationType.object.matrix.elements
+		}
+		objectModificationData.ModelId = editor.idFromBack
+	},
+
+	AddObjectModification: function(objectModificationData, modificationType) {
+		objectModificationData.Type = "Add"
+		objectModificationData.ObjectType = 'ObjectChild'
+		objectModificationData.PropertyModificationType = 'Add'
+		objectModificationData.ModelId = editor.idFromBack
+		objectModificationData.ObjectChild = {
+			uuid: modificationType.object.uuid,
+			type: modificationType.object.type,
+			name: modificationType.object.name,
+			layers: modificationType.object.layers.mask,
+			matrix: modificationType.object.matrix.elements,
+			geometry: modificationType.object.geometry.uuid,
+			material: modificationType.object.material.uuid,
+		}
+		objectModificationData.Geometry = modificationType.object.geometry
+		objectModificationData.Material = modificationType.object.material
+
+		// if(modificationType.object.type.includes('Light')) { // добавление света на сцену
+		// 	objectModificationData.Type = "Add"
+		// 	objectModificationData.ObjectType = 'ObjectChild'
+		// 	objectModificationData.PropertyModificationType = 'Add'
+		// 	objectModificationData.ModelId = editor.idFromBack
+		// 	objectModificationData.ObjectChild = modificationType.object
+		// }
+	},
+
+	RemoveObjectModification: function(objectModificationData, modificationType) {
+		objectModificationData.Type = "Delete"
+		objectModificationData.PropertyModificationType = "Delete"
+		objectModificationData.ModelId = editor.idFromBack
+		objectModificationData.Object = {
+			uuid: modificationType.object.uuid,
+			type: modificationType.object.type,
+			name: modificationType.object.name,
+			layers: modificationType.object.layers.mask,
+			matrix: modificationType.object.matrix.elements,
+			geometry: modificationType.object.geometry.uuid,
+			material: modificationType.object.material.uuid,
+		}
+	}
 };
 
 export { History };
