@@ -1,3 +1,7 @@
+using System.Linq;
+using System.Reflection;
+using HseAr.Dependencies.Container;
+using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Configurations;
 using HseAr.WebPlatform.Api.Helpers;
 using Microsoft.AspNetCore.Builder;
@@ -32,8 +36,8 @@ namespace HseAr.WebPlatform.Api
                 .ConfigureAuthentication(Configuration)
                 .AddRepositories()
                 .AddServices()
+                .AddMappers()
                 .AddDbConnections(Configuration);
-
 
             services.AddSwagger();
         }

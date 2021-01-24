@@ -18,10 +18,14 @@
     <ItemGroup>
       <ProjectReference Include="..\HseAr.BusinessLayer\HseAr.BusinessLayer.csproj" />
       <ProjectReference Include="..\HseAr.Core\HseAr.Core.csproj" />
-      <ProjectReference Include="..\HseAr.DataAccess.EFCore\HseAr.DataAccess.EFCore.csproj" />
-      <ProjectReference Include="..\HseAr.DataAccess.Mongodb\HseAr.DataAccess.Mongodb.csproj" />
-      <ProjectReference Include="..\HseAr.Data\HseAr.Data.csproj" />
+      <ProjectReference Include="..\HseAr.Dependencies\HseAr.Dependencies.csproj" />
+      <ProjectReference Include="..\HseAr.Infrastructure\HseAr.Infrastructure.csproj" />
     </ItemGroup>
+
+    <PropertyGroup>
+		  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+		  <NoWarn>$(NoWarn);1591</NoWarn>
+	  </PropertyGroup>
 
 
 </Project>

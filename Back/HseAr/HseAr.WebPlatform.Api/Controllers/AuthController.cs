@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.Auth;
-using HseAr.Data.DTO;
+using HseAr.Data.DataProjections;
 using HseAr.WebPlatform.Api.Models.Auth;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +19,7 @@ namespace HseAr.WebPlatform.Api.Controllers
 
         [HttpPost]
         [Produces(typeof(object))]
-        public async Task<ActionResult<object>> Login([FromBody] LoginViewModel form)
+        public async Task<ActionResult<object>> Login([FromBody] LoginForm form)
         {
             try
             {
@@ -33,9 +33,12 @@ namespace HseAr.WebPlatform.Api.Controllers
 
         [HttpPost]
         [Produces(typeof(object))]
-        public async Task<ActionResult<object>> Register([FromBody]UserDto item)
+        public async Task<ActionResult<object>> Register([FromBody]RegisterForm form)
         {
-            return new JsonResult(await _authService.Register(item));
+            return new JsonResult(await _authService.Register(
+                    form.Email,
+                    form.Password,
+                    form.Name));
         }
     }
 }

@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.Jwt;
-using HseAr.Data.DTO;
+using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
+using HseAr.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace HseAr.BusinessLayer.Auth
 {
     public class AuthService : IAuthService
     {
+        private readonly IJwtGenerator _jwt;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        private readonly IJwtGenerator _jwt;
 
-        public AuthService(SignInManager<User> sim, UserManager<User> um, IJwtGenerator jwt)
+        public AuthService(
+            IJwtGenerator jwt,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
-            _signInManager = sim;
-            _userManager = um;
+            _userManager = userManager;
             _jwt = jwt;
+            _signInManager = signInManager;
         }
 
         public async Task<object> Login(string email, string password)
@@ -33,16 +37,24 @@ namespace HseAr.BusinessLayer.Auth
             var appUser = await _userManager.FindByEmailAsync(email);
 
             return await _jwt.GenerateJwt(appUser);
-
         }
 
-        public async Task<object> Register(UserDto item)
+        public async Task<object> Register(string email, string password, string name)
         {
-            var user = new User(item);
-            if (user == null)
-                throw new ArgumentNullException();
-
-            var result = await _userManager.CreateAsync(user, item.Password);
+ 
+            if (email == null || password == null)
+            {
+                throw new Exception();
+            }
+            
+            var user = new User()
+            {
+                Email = email,
+                UserName = email,
+                Name = name
+            };
+            
+            var result = await _userManager.CreateAsync(user, password);
 
             if (!result.Succeeded)
                 throw new Exception();
@@ -51,7 +63,6 @@ namespace HseAr.BusinessLayer.Auth
             await _signInManager.SignInAsync(user, false);
             var a = await _jwt.GenerateJwt(user);
             return a;
-
         }
     }
 }

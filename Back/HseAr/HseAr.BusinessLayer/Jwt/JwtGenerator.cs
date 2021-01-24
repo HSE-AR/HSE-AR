@@ -5,7 +5,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
+using HseAr.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,18 +18,23 @@ namespace HseAr.BusinessLayer.Jwt
     {
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
-        public JwtGenerator(UserManager<User> um,
-            IConfiguration conf)
+        public JwtGenerator(
+            UserManager<User> um,
+            IConfiguration conf,
+            IMapper mapper)
         {
             _userManager = um;
             _configuration = conf;
+            _mapper = mapper;
         }
 
         public async Task<object> GenerateJwt(User user)
         {
             try
             {
+                
                 var roles = await _userManager.GetRolesAsync(user);
 
                 var claims = new List<Claim>

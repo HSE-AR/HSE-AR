@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

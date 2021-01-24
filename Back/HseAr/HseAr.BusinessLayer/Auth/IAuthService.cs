@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using HseAr.Data.DTO;
+using HseAr.Data.DataProjections;
 
 namespace HseAr.BusinessLayer.Auth
 {
@@ -7,6 +7,6 @@ namespace HseAr.BusinessLayer.Auth
     {
         Task<object> Login(string email, string password);
 
-        Task<object> Register(UserDto item);
+        Task<object> Register(string email, string password, string name);
     }
 }

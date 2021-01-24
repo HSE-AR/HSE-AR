@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using HseAr.Data.Entities;
+using HseAr.Data.DataProjections;
 
 namespace HseAr.BusinessLayer.Jwt
 {

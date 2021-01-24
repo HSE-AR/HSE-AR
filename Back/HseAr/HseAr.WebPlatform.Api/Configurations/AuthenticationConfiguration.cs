@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.DataAccess.EFCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

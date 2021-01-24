@@ -14,9 +14,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HseAr.DataAccess.EFCore\HseAr.DataAccess.EFCore.csproj" />
-      <ProjectReference Include="..\HseAr.DataAccess.Mongodb\HseAr.DataAccess.Mongodb.csproj" />
-      <ProjectReference Include="..\HseAr.Data\HseAr.Data.csproj" />
+      <ProjectReference Include="..\HseAr.Infrastructure\HseAr.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Helpers" />
     </ItemGroup>
 
 </Project>

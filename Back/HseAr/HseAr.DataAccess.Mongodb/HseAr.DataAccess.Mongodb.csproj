@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HseAr.DataAccess.EFCore\HseAr.DataAccess.EFCore.csproj" />
+      <ProjectReference Include="..\HseAr.Core\HseAr.Core.csproj" />
       <ProjectReference Include="..\HseAr.Data\HseAr.Data.csproj" />
     </ItemGroup>
 

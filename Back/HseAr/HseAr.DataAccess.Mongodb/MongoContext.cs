@@ -12,19 +12,26 @@ namespace HseAr.DataAccess.Mongodb
         private readonly IMongoDatabase _database;
         private readonly IModelsDatabaseSettings _settings;
 
-        public IMongoCollection<Model> Models
+        public IMongoCollection<SceneEntity> Scenes
         {
-            get { return _database.GetCollection<Model>(_settings.ModelsCollectionName); }
+            get { return _database.GetCollection<SceneEntity>(_settings.ScenesCollectionName); }
         }
+        
+        public IMongoCollection<BsonDocument> ScenesAsBsonDocument
+        {
+            get { return _database.GetCollection<BsonDocument>(_settings.ScenesCollectionName); }
+        }
+        
 
+        //убрать
         public IMongoCollection<BsonDocument> ModelsAsBsonDocument
         {
             get { return _database.GetCollection<BsonDocument>(_settings.ModelsCollectionName); }
         }
-
-        public IMongoCollection<SceneModification> Modifications
+        
+        public IMongoCollection<SceneModificationEntity> Modifications
         {
-            get { return _database.GetCollection<SceneModification>(_settings.ModificationsCollectionName); }
+            get { return _database.GetCollection<SceneModificationEntity>(_settings.ModificationsCollectionName); }
         }
 
         public IMongoCollection<BsonDocument> ModificationsAsBsonDocument
@@ -44,17 +51,14 @@ namespace HseAr.DataAccess.Mongodb
 
         }
 
-
-        #region PrivateMethods
-
         private bool IsDatabaseInitialised()
         {
-            return _database.GetCollection<Model>(_settings.ModelsCollectionName).CountDocuments(x => true) != 0;
+            return _database.GetCollection<SceneEntity>(_settings.ScenesCollectionName).CountDocuments(x => true) != 0;
         }
 
         private void InitialiseDatabase()
         {
-            using (var streamReader = new StreamReader("../data/json/initial_scene.json"))
+            /*using (var streamReader = new StreamReader("../data/json/initial_scene.json"))
             {
                 string line;
                 while ((line = streamReader.ReadLine()) != null)
@@ -62,12 +66,12 @@ namespace HseAr.DataAccess.Mongodb
                     using (var jsonReader = new JsonReader(line))
                     {
                         var context = BsonDeserializationContext.CreateRoot(jsonReader);
-                        var document = Models.DocumentSerializer.Deserialize(context);
-                        Models.InsertOne(document);
+                        var document = Scenes.DocumentSerializer.Deserialize(context);
+                        Scenes.InsertOne(document);
                     }
                 }
-            }
+            }*/
         }
-        #endregion
+
     }
 }

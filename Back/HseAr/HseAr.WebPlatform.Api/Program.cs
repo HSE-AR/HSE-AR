@@ -1,9 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using HseAr.Core.Configure;
-using HseAr.Core.Helpers;
-using HseAr.Data.Entities;
-
+using HseAr.BusinessLayer;
+using HseAr.Dependencies.Configure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

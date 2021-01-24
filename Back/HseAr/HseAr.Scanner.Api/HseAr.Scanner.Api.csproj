@@ -9,7 +9,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HseAr.Core\HseAr.Core.csproj" />
+      <ProjectReference Include="..\HseAr.BusinessLayer\HseAr.BusinessLayer.csproj" />
+      <ProjectReference Include="..\HseAr.Dependencies\HseAr.Dependencies.csproj" />
     </ItemGroup>
 
 
