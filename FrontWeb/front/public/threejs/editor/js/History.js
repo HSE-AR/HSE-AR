@@ -321,12 +321,14 @@ History.prototype = {
 	GetArrayOfModification: function() {
 		let arrayOfModifications = []
 		this.undos.forEach((mod) => {
-			const objectModificationData = this.GetCustomModificationObject(mod)
+			let objectModificationData = this.GetCustomModificationObject(mod)
 			if (objectModificationData.ModelId !== null) {
+				this.HasModificationInResult(objectModificationData, arrayOfModifications)
+				console.log(arrayOfModifications)
 				arrayOfModifications.push(objectModificationData)
-				this.clear()
 			}
 		})
+		this.clear()
 		return arrayOfModifications
 	},
 
@@ -380,14 +382,6 @@ History.prototype = {
 		}
 		objectModificationData.Geometry = modificationType.object.geometry
 		objectModificationData.Material = modificationType.object.material
-
-		// if(modificationType.object.type.includes('Light')) { // добавление света на сцену
-		// 	objectModificationData.Type = "Add"
-		// 	objectModificationData.ObjectType = 'ObjectChild'
-		// 	objectModificationData.PropertyModificationType = 'Add'
-		// 	objectModificationData.ModelId = editor.idFromBack
-		// 	objectModificationData.ObjectChild = modificationType.object
-		// }
 	},
 
 	RemoveObjectModification: function(objectModificationData, modificationType) {
@@ -403,6 +397,20 @@ History.prototype = {
 			geometry: modificationType.object.geometry.uuid,
 			material: modificationType.object.material.uuid,
 		}
+	},
+
+	HasModificationInResult: function(objectModificationData, arrayOfModifications) {
+		for(let i=0; i<=arrayOfModifications.length-1; i++) {
+			if(objectModificationData.PropertyModificationType !== 'Delete'
+				&& arrayOfModifications[i].PropertyModificationType !== 'Delete'
+				&& arrayOfModifications[i].ObjectChild.uuid === objectModificationData.ObjectChild.uuid
+				&& arrayOfModifications[i].PropertyModificationType === objectModificationData.PropertyModificationType
+			)
+			{
+				arrayOfModifications.splice(i,1)
+			}
+		}
+		return arrayOfModifications
 	}
 };
 
