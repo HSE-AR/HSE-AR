@@ -320,14 +320,34 @@ History.prototype = {
 
 	GetArrayOfModification: function() {
 		let arrayOfModifications = []
-		this.undos.forEach((mod) => {
-			const objectModificationData = this.GetCustomModificationObject(mod)
-			if (objectModificationData.ModelId !== null) {
+		for(let i = this.undos.length-1; i >= 0; i--){
+			let objectModificationData = this.GetCustomModificationObject(this.undos[i])
+			if (objectModificationData.ModelId !== null
+				 && !this.HasModificationInResult(objectModificationData, arrayOfModifications)) 
+			{
 				arrayOfModifications.push(objectModificationData)
-				this.clear()
 			}
-		})
+		}
+
+		this.clear()
 		return arrayOfModifications
+	},
+
+	HasModificationInResult: function(objectMod, arrayOfMods) {
+		var result = false;
+		for(let i = 0; i < arrayOfMods.length; i++){
+			if(arrayOfMods[i].ObjectChild.uuid === objectMod.ObjectChild.uuid ){
+				if(arrayOfMods[i].Type === 'Delete'){
+					result = true;
+					break;
+				}
+				if(arrayOfMods[i].Type === 'Update' && objectMod.Type === 'Update'){
+					result = true;
+					break;
+				}	
+			}	
+		}	
+		return result
 	},
 
 	GetCustomModificationObject: function(modificationType) {
