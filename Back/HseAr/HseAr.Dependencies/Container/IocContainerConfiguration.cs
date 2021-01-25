@@ -3,8 +3,8 @@ using HseAr.BusinessLayer.Auth;
 using HseAr.BusinessLayer.Building;
 using HseAr.BusinessLayer.Floor;
 using HseAr.BusinessLayer.Jwt;
-using HseAr.BusinessLayer.Modification;
 using HseAr.BusinessLayer.Scene;
+using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Mappers;
@@ -24,11 +24,13 @@ namespace HseAr.Dependencies.Container
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
             => services
-                .AddSingleton<SceneModificationRepository>()
+                .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IFloorRepository, FloorRepository>()
                 .AddTransient<IBuildingRepository, BuildingRepository>()
+                .AddTransient<ISceneModificationRepository, SceneModificationRepository>()
+                .AddTransient<ISceneElementRepository, SceneElementRepository>()
                 .AddTransient<ISceneRepository, SceneRepository>();
-                
+        
         
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
@@ -36,7 +38,6 @@ namespace HseAr.Dependencies.Container
                 .AddSingleton<IModelsDatabaseSettings>(sp
                     => sp.GetRequiredService<IOptions<ModelsDatabaseSettings>>().Value)
                 
-                .AddTransient<IModificationService, ModificationService>()
                 .AddTransient<IJwtGenerator, JwtGenerator>()
                 .AddTransient<IBuildingService, BuildingService>()
                 .AddTransient<IFloorService, FloorService>()
@@ -48,7 +49,6 @@ namespace HseAr.Dependencies.Container
         {
             return services
                 .AddTransient<IMapper, ContainerMapper>()
-                .AddTransient<IMapper<TestSource, TestResult>, TestMapper>()
                 .AddTransient<IMapper<SceneModificationEntity, SceneModification>, SceneModificationMapper>()
                 .AddTransient<IMapper<SceneModification, SceneModificationEntity>, SceneModificationMapper>()
                 .AddTransient<IMapper<Scene, SceneEntity>, SceneMapper>()

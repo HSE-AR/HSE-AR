@@ -25,8 +25,7 @@ namespace HseAr.BusinessLayer.Scene.Constructors
                     depthSegments: 1
                 }
             ]";
-            
-            
+
             var materials = @"[
                 {
 			        uuid: '4EFFA909-B302-40B9-B45F-3D2AA7E9D147',

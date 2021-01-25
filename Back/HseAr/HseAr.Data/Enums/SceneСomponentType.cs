@@ -1,6 +1,6 @@
 ﻿namespace HseAr.Data.Enums
 {
-    public enum SceneComponentType
+    public enum SceneElementType
     {
         Object,
     

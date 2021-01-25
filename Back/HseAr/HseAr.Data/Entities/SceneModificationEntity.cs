@@ -16,7 +16,7 @@ namespace HseAr.Data.Entities
 
         public SceneModificationType Type { get; set; }
 
-        public SceneComponentType SceneComponentType { get; set; }
+        public SceneElementType SceneElementType { get; set; }
 
         public SceneModificationType PropertyModificationType { get; set; }
 

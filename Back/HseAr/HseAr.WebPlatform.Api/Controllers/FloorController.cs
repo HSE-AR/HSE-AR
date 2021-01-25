@@ -18,10 +18,12 @@ namespace HseAr.WebPlatform.Api.Controllers
     public class FloorController : Controller
     {
         private readonly IFloorService _floorService;
+        private readonly ISceneService _sceneService;
         
-        public FloorController(IFloorService floorService)
+        public FloorController(IFloorService floorService, ISceneService sceneService)
         {
             _floorService = floorService;
+            _sceneService = sceneService;
 
         }
         
@@ -46,7 +48,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         [Authorize]
         public async Task<ActionResult<Scene>> GetSceneByFloorId(Guid id)
         {
-            return await _floorService.GetSceneByFloorId(id);
+            return await _sceneService.GetSceneByFloorId(id);
         }
     }
 }

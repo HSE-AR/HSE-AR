@@ -1,11 +1,12 @@
 ﻿using System.IO;
+using HseAr.Core.Settings;
 using HseAr.Data.Entities;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
-namespace HseAr.DataAccess.Mongodb
+namespace HseAr.DataAccess.Mongodb 
 {
      public class MongoContext
     {
@@ -21,14 +22,7 @@ namespace HseAr.DataAccess.Mongodb
         {
             get { return _database.GetCollection<BsonDocument>(_settings.ScenesCollectionName); }
         }
-        
 
-        //убрать
-        public IMongoCollection<BsonDocument> ModelsAsBsonDocument
-        {
-            get { return _database.GetCollection<BsonDocument>(_settings.ModelsCollectionName); }
-        }
-        
         public IMongoCollection<SceneModificationEntity> Modifications
         {
             get { return _database.GetCollection<SceneModificationEntity>(_settings.ModificationsCollectionName); }

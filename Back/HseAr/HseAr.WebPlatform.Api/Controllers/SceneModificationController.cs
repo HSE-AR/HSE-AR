@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HseAr.BusinessLayer.Modification;
+using HseAr.BusinessLayer.Scene;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Mappers;
@@ -14,37 +14,26 @@ namespace HseAr.WebPlatform.Api.Controllers
     [Route("wapi/test")]
     public class SceneModificationController : BaseAuthorizeController
     {
-        private readonly IModificationService _modificationService;
+        private readonly ISceneService _sceneService;
         private readonly IMapper _mapper;
 
-        public SceneModificationController(IModificationService modificationService, IMapper mapper)
+        public SceneModificationController(ISceneService sceneService, IMapper mapper)
         {
             _mapper = mapper;
-            _modificationService = modificationService;
+            _sceneService = sceneService;
         }
-        
-        [HttpGet]
-        public ActionResult<string> Test()
-        {
-            var result = _mapper.Map<TestSource, TestResult>(new TestSource()
-            {
-                FieldSource = "qwerty"
-            });
-            return result.FieldResult ;
-        }
-        
         
         /// <summary>
         /// Применение модификаций к сцене
         /// </summary>
-        /// <param name="modificationDtos">список модификаций разных типов</param>
+        /// <param name="sceneModifications">список модификаций разных типов</param>
         /// <returns></returns>
         [HttpPost("list")]
         [Authorize]
-        public async Task<ActionResult<bool>> SetModifications([FromBody] IEnumerable<SceneModification> modificationDtos)
+        public async Task<ActionResult<bool>> SetModifications([FromBody] IEnumerable<SceneModification> sceneModifications)
         {
             var userId = GetUserIdFromToken();
-            return await _modificationService.ModifyModels(modificationDtos, userId);
+            return await _sceneService.ApplyAndSaveSceneModifications(sceneModifications, userId);
         }
     }
 }

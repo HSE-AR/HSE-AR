@@ -30,11 +30,6 @@ namespace HseAr.BusinessLayer.Floor
             
             return await _floorRepo.Add(floorDto);
         }
-
-        public async Task<Data.DataProjections.Scene> GetSceneByFloorId(Guid id)
-        {
-            var floor = await _floorRepo.GetById(id);
-            return await _sceneRepo.GetById(floor.SceneId);
-        }
+        
     }
 }

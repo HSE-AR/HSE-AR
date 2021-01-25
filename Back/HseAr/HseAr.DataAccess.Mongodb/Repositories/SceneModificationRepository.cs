@@ -3,39 +3,37 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
+using HseAr.Data.Interfaces;
+using HseAr.Infrastructure;
 using MongoDB.Driver;
 
 namespace HseAr.DataAccess.Mongodb.Repositories
 {
-    public class SceneModificationRepository
+    public class SceneModificationRepository : ISceneModificationRepository
     {
         private readonly IMongoCollection<SceneModificationEntity> _modifications;
+        private readonly IMapper<SceneModification, SceneModificationEntity> _sceneModMapper;
+        private readonly IMapper<SceneModificationEntity, SceneModification> _sceneModEntityMapper;
 
-        public SceneModificationRepository(MongoContext mongoContext)
+        public SceneModificationRepository(
+            MongoContext mongoContext,
+            IMapper<SceneModification, SceneModificationEntity> sceneModMapper,
+            IMapper<SceneModificationEntity, SceneModification> sceneModEntityMapper)
         {
+            _sceneModMapper = sceneModMapper;
             _modifications = mongoContext.Modifications;
+            _sceneModEntityMapper = sceneModEntityMapper;
         }
 
-        public async Task<ICollection<SceneModificationEntity>> GetAsync() 
-            => await _modifications.Find(m => true).ToListAsync();
-
-        public async Task<SceneModificationEntity> GetAsync(string id) 
-            => await _modifications.Find(m => m.Id == id).FirstOrDefaultAsync();
-
-
-        public async Task<SceneModificationEntity> CreateAsync(SceneModificationEntity sceneModificationEntity)
+        public async Task<SceneModification> CreateAsync(SceneModification sceneModification)
         {
-            sceneModificationEntity.EditedAtUtc = DateTime.Now;
+            sceneModification.EditedAtUtc = DateTime.Now;
+            var sceneModificationEntity = _sceneModMapper.Map(sceneModification);
+            
             await _modifications.InsertOneAsync(sceneModificationEntity);
-            return sceneModificationEntity;
+            return _sceneModEntityMapper.Map(sceneModificationEntity);
         }
-
-        public async Task<ReplaceOneResult> UpdateAsync(string id, SceneModificationEntity modelIn) 
-            => await _modifications.ReplaceOneAsync(m => m.Id == id, modelIn);
-
-        public async Task<DeleteResult> RemoveAsync(Scene modelIn) 
-            => await _modifications.DeleteOneAsync(model => model.Id == modelIn.Id);
-
+        
         public async Task<DeleteResult> RemoveAsync(string id) 
             => await _modifications.DeleteOneAsync(model => model.Id == id);
     }

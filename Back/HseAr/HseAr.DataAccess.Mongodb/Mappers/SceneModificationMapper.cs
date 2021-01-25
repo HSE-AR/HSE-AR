@@ -19,7 +19,7 @@ namespace HseAr.DataAccess.Mongodb.Mappers
                 ObjectChild  = GetJsonOrNull(source.ObjectChild .ToJson()),
                 Material = GetJsonOrNull(source.Material .ToJson()),
                 ModelId = source.ModelId,
-                SceneComponentType = source.SceneComponentType,
+                SceneElementType = source.SceneElementType,
                 Type = source.Type,
                 PropertyModificationType = source.PropertyModificationType
             };
@@ -34,7 +34,7 @@ namespace HseAr.DataAccess.Mongodb.Mappers
                 ObjectChild  = GetBsonOrNull(source.ObjectChild .ToJson()),
                 Material = GetBsonOrNull(source.Material .ToJson()),
                 ModelId = source.ModelId,
-                SceneComponentType = source.SceneComponentType,
+                SceneElementType = source.SceneElementType,
                 Type = source.Type,
                 PropertyModificationType = source.PropertyModificationType
             };
