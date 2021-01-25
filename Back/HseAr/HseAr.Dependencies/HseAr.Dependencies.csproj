@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HseAr.BusinessLayer\HseAr.BusinessLayer.csproj" />
+      <ProjectReference Include="..\HseAr.DataAccess.EFCore\HseAr.DataAccess.EFCore.csproj" />
+      <ProjectReference Include="..\HseAr.DataAccess.Mongodb\HseAr.DataAccess.Mongodb.csproj" />
+      <ProjectReference Include="..\HseAr.Infrastructure\HseAr.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>
