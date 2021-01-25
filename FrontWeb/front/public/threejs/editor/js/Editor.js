@@ -5,6 +5,7 @@ import { Loader } from './Loader.js';
 import { History as _History } from './History.js';
 import { Strings } from './Strings.js';
 import { Storage as _Storage } from './Storage.js';
+import axios from "axios";
 
 var _DEFAULT_CAMERA = new THREE.PerspectiveCamera( 50, 1, 0.01, 1000 );
 _DEFAULT_CAMERA.name = 'Camera';
@@ -179,6 +180,8 @@ Editor.prototype = {
 		this.signals.objectAdded.dispatch( object );
 		this.signals.sceneGraphChanged.dispatch();
 
+		return object
+
 	},
 
 	moveObject: function ( object, parent, before ) {
@@ -202,6 +205,7 @@ Editor.prototype = {
 		}
 
 		this.signals.sceneGraphChanged.dispatch();
+		console.log('object moved')
 
 	},
 
@@ -231,6 +235,8 @@ Editor.prototype = {
 
 		this.signals.objectRemoved.dispatch( object );
 		this.signals.sceneGraphChanged.dispatch();
+
+		return object
 
 	},
 
@@ -722,8 +728,19 @@ Editor.prototype = {
 
 		this.history.redo();
 
-	}
+	},
 
+	ModificationsLoadToBack: function() {
+		let arrayOfModifications = editor.history.GetArrayOfModification()
+		axios.post('https://localhost:5555/wapi/modification/list', arrayOfModifications, {
+			headers: {
+				"Content-Type": "application/json",
+			}
+		})
+			.then(response => console.log(response))
+			.catch(err => console.log(err))
+
+	}
 };
 
 export { Editor };
