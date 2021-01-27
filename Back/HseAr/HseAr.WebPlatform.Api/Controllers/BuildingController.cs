@@ -30,6 +30,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         public async Task<ActionResult<List<Building>>> GetList()
         {
             var userId = GetUserIdFromToken();
+            
             return await _buildingService.GetBuildingsByUserId(userId);
         }
 

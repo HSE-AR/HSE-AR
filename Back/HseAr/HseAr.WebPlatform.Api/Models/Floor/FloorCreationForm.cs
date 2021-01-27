@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HseAr.WebPlatform.Api.Models.Floor
 {

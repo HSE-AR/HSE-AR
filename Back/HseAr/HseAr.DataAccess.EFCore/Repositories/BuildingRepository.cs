@@ -23,7 +23,7 @@ namespace HseAr.DataAccess.EFCore.Repositories
 
         public async Task<List<Building>> GetList() 
             => (await _context.Buildings.AsNoTracking().ToListAsync())
-                .Select(x=>_mapper.Map<BuildingEntity,Building>(x))
+                .Select(x=> _mapper.Map<BuildingEntity,Building>(x))
                 .ToList();
 
         public async Task<Building> GetById(Guid id)
@@ -40,6 +40,7 @@ namespace HseAr.DataAccess.EFCore.Repositories
             {
                 return new List<Building>();
             }
+            
 
             return await _context.Buildings.Where(x => buildingIds.Contains(x.Id))
                 .Select(x => _mapper.Map<BuildingEntity,Building>(x))

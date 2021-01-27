@@ -27,12 +27,16 @@ namespace HseAr.BusinessLayer.Auth
         public async Task<object> Login(string email, string password)
         {
             if (email == null || password == null)
+            {
                 throw new Exception("Invalid login or password");
+            }
 
             var result = await _signInManager.PasswordSignInAsync(email, password, false, false);
 
             if (!result.Succeeded)
+            {
                 throw new Exception("Something went wrong during registration");
+            }
 
             var appUser = await _userManager.FindByEmailAsync(email);
 

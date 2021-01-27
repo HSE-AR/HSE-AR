@@ -11,6 +11,7 @@ using HseAr.WebPlatform.Api.Models.Floor;
 using HseAr.WebPlatform.Api.Models.Scene;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver.Core.Operations;
 
 namespace HseAr.WebPlatform.Api.Controllers
 {
@@ -34,7 +35,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Floor>> Create([FromBody] Floor floorCreationForm )
+        public async Task<ActionResult<Floor>> Create([FromBody] Floor floorCreationForm)
         {
             return await _floorService.CreateFloor(floorCreationForm);
         }

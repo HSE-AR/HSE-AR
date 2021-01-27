@@ -20,7 +20,5 @@ namespace HseAr.Data.Interfaces
         Task Update(Building entity);
 
         Task Delete(Guid id);
-        
-        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
@@ -11,28 +12,28 @@ namespace HseAr.BusinessLayer.Building
     public class BuildingService : IBuildingService
     {
         private readonly IMapper _mapper;
-        private readonly IBuildingRepository _buildingRepo;
+  
+        private readonly IUnitOfWork _data;
 
-        public BuildingService(IMapper mapper, IBuildingRepository buildingRepo)
+        public BuildingService(IMapper mapper, IUnitOfWork data)
         {
             _mapper = mapper;
-            _buildingRepo = buildingRepo;
-   
+            _data = data;
         }
         
         public async Task<Data.DataProjections.Building> CreateBuilding(Data.DataProjections.Building building, Guid userId)
         {
-            return await _buildingRepo.AddFromUser(building, userId);
+            return await _data.Buildings.AddFromUser(building, userId);
         }
 
         public async Task<List<Data.DataProjections.Building>> GetBuildingsByUserId(Guid userId)
         {
-            return await _buildingRepo.GetListByUserId(userId);
+            return await _data.Buildings.GetListByUserId(userId);
         }
 
         public async Task<Data.DataProjections.Building> GetBuildingById(Guid id)
         {
-            return await _buildingRepo.GetById(id);
+            return await _data.Buildings.GetById(id);
         }
     }
 }
