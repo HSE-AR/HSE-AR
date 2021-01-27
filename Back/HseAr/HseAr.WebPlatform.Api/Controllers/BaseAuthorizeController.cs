@@ -10,7 +10,12 @@ namespace HseAr.WebPlatform.Api.Controllers
         protected Guid GetUserIdFromToken()
         {
             var nameIdentifier = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-            if (nameIdentifier == null) throw new Exception("User not found");
+
+            if (nameIdentifier == null)
+            {
+                throw new Exception("User not found");
+            }
+            
             return Guid.Parse(nameIdentifier.Value);
         }
     }

@@ -15,7 +15,8 @@ namespace HseAr.WebPlatform.Api.Configurations
     {
         public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAuthentication(x =>
+            services
+                .AddAuthentication(x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -40,7 +41,8 @@ namespace HseAr.WebPlatform.Api.Configurations
         
         public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole<Guid>>(o =>
+            services
+                .AddIdentity<User, IdentityRole<Guid>>(o =>
                 {
                     o.Password.RequireNonAlphanumeric = false;
                     o.Password.RequireUppercase = false;

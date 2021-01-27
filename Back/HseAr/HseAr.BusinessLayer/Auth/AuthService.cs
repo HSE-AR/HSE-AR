@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.Jwt;
+using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
@@ -11,17 +12,14 @@ namespace HseAr.BusinessLayer.Auth
     public class AuthService : IAuthService
     {
         private readonly IJwtGenerator _jwt;
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly IUnitOfWork _data;
 
         public AuthService(
             IJwtGenerator jwt,
-            UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            IUnitOfWork data)
         {
-            _userManager = userManager;
+            _data = data;
             _jwt = jwt;
-            _signInManager = signInManager;
         }
 
         public async Task<object> Login(string email, string password)
@@ -31,14 +29,14 @@ namespace HseAr.BusinessLayer.Auth
                 throw new Exception("Invalid login or password");
             }
 
-            var result = await _signInManager.PasswordSignInAsync(email, password, false, false);
+            var result = await _data.Auth.PasswordSignInAsync(email, password, false, false);
 
             if (!result.Succeeded)
             {
                 throw new Exception("Something went wrong during registration");
             }
 
-            var appUser = await _userManager.FindByEmailAsync(email);
+            var appUser = await _data.Users.FindByEmailAsync(email);
 
             return await _jwt.GenerateJwt(appUser);
         }
@@ -58,13 +56,13 @@ namespace HseAr.BusinessLayer.Auth
                 Name = name
             };
             
-            var result = await _userManager.CreateAsync(user, password);
+            var result = await _data.Users.CreateAsync(user, password);
 
             if (!result.Succeeded)
                 throw new Exception();
 
-            await _userManager.AddToRoleAsync(user, "admin");
-            await _signInManager.SignInAsync(user, false);
+            await _data.Users.AddToRoleAsync(user, "admin");
+            await _data.Auth.SignInAsync(user, false);
             var a = await _jwt.GenerateJwt(user);
             return a;
         }

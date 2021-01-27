@@ -16,7 +16,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         {
             _authService = authService;
         }
-
+        
         [HttpPost]
         [Produces(typeof(object))]
         public async Task<ActionResult<object>> Login([FromBody] LoginForm form)

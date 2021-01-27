@@ -13,59 +13,25 @@ namespace HseAr.DataAccess.Mongodb
         private readonly IMongoDatabase _database;
         private readonly IModelsDatabaseSettings _settings;
 
-        public IMongoCollection<SceneEntity> Scenes
-        {
-            get { return _database.GetCollection<SceneEntity>(_settings.ScenesCollectionName); }
-        }
-        
-        public IMongoCollection<BsonDocument> ScenesAsBsonDocument
-        {
-            get { return _database.GetCollection<BsonDocument>(_settings.ScenesCollectionName); }
-        }
-
-        public IMongoCollection<SceneModificationEntity> Modifications
-        {
-            get { return _database.GetCollection<SceneModificationEntity>(_settings.ModificationsCollectionName); }
-        }
-
-        public IMongoCollection<BsonDocument> ModificationsAsBsonDocument
-        {
-            get { return _database.GetCollection<BsonDocument>(_settings.ModificationsCollectionName); }
-        }
-
         public MongoContext(IModelsDatabaseSettings settings)
         {
             _settings = settings;
 
             var client = new MongoClient(_settings.ConnectionString);
-
             _database = client.GetDatabase(_settings.DatabaseName);
-
-            if (!IsDatabaseInitialised())  InitialiseDatabase();
-
         }
+        
+        public IMongoCollection<SceneEntity> Scenes 
+            => _database.GetCollection<SceneEntity>(_settings.ScenesCollectionName);
 
-        private bool IsDatabaseInitialised()
-        {
-            return _database.GetCollection<SceneEntity>(_settings.ScenesCollectionName).CountDocuments(x => true) != 0;
-        }
+        public IMongoCollection<BsonDocument> ScenesAsBsonDocument 
+            => _database.GetCollection<BsonDocument>(_settings.ScenesCollectionName);
 
-        private void InitialiseDatabase()
-        {
-            /*using (var streamReader = new StreamReader("../data/json/initial_scene.json"))
-            {
-                string line;
-                while ((line = streamReader.ReadLine()) != null)
-                {
-                    using (var jsonReader = new JsonReader(line))
-                    {
-                        var context = BsonDeserializationContext.CreateRoot(jsonReader);
-                        var document = Scenes.DocumentSerializer.Deserialize(context);
-                        Scenes.InsertOne(document);
-                    }
-                }
-            }*/
-        }
+        public IMongoCollection<SceneModificationEntity> Modifications
+            => _database.GetCollection<SceneModificationEntity>(_settings.ModificationsCollectionName);
 
+        public IMongoCollection<BsonDocument> ModificationsAsBsonDocument 
+            => _database.GetCollection<BsonDocument>(_settings.ModificationsCollectionName);
+        
     }
 }

@@ -8,7 +8,6 @@ using HseAr.BusinessLayer.Scene;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
-using HseAr.Data.Mappers;
 using HseAr.Data.Interfaces;
 using HseAr.DataAccess.EFCore.Mappers;
 using HseAr.DataAccess.EFCore.Repositories;

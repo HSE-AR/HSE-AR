@@ -1,4 +1,5 @@
-﻿using HseAr.Data.DataProjections;
+﻿using System;
+using HseAr.Data.DataProjections;
 using HseAr.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
@@ -17,5 +18,9 @@ namespace HseAr.Data
         ISceneModificationRepository SceneModifications { get; }
         
         UserManager<User> Users { get; }
+        
+        SignInManager<User> Auth { get; }
+        
+        RoleManager<IdentityRole<Guid>> Roles { get; }
     }
 }

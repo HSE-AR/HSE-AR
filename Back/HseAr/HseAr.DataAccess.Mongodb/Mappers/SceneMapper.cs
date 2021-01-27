@@ -5,7 +5,7 @@ using HseAr.Infrastructure;
 using MongoDB.Bson;
 using Newtonsoft.Json.Linq;
 
-namespace HseAr.Data.Mappers
+namespace HseAr.DataAccess.Mongodb.Mappers
 {
     public class SceneMapper : IMapper<SceneEntity, Scene>, IMapper<Scene, SceneEntity>
     {
@@ -18,7 +18,6 @@ namespace HseAr.Data.Mappers
                     Metadata = JObject.Parse(source.Metadata.ToJson()),
                     Geometries = JArray.Parse(source.Geometries.ToJson()),
                     Object = JObject.Parse(source.Object.ToJson())
-                    //Scene = JObject.Parse(source.Scene.ToJson()),
                 };
 
         SceneEntity IMapper<Scene,SceneEntity>.Map(Scene source)
@@ -29,7 +28,6 @@ namespace HseAr.Data.Mappers
                     Metadata = BsonDocument.Parse(source.Metadata.ToString()),
                     Geometries = Serializer.GetBsonArrayFromString(source.Geometries.ToString()),
                     Object = BsonDocument.Parse(source.Object.ToString())
-                    //Scene = BsonDocument.Parse(modelDto.Scene.ToString()),
                 };
     }
 }

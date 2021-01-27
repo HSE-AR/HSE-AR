@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.Scene;
+using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
@@ -10,16 +11,13 @@ namespace HseAr.BusinessLayer.Floor
     public class FloorService : IFloorService
     {
         private readonly ISceneService _sceneService;
-        private readonly IFloorRepository _floorRepo;
-        private readonly ISceneRepository _sceneRepo;
+        private readonly IUnitOfWork _data;
 
         public FloorService(
-            IFloorRepository floorRepo,
-            ISceneRepository sceneRepo,
+            IUnitOfWork data,
             ISceneService sceneService)
-        { 
-            _floorRepo = floorRepo;
-            _sceneRepo = sceneRepo;
+        {
+            _data = data;
             _sceneService = sceneService;
         }
 
@@ -28,7 +26,7 @@ namespace HseAr.BusinessLayer.Floor
             var sceneResult = await _sceneService.AddEmptyScene();
             floorDto.SceneId = sceneResult.Id;
             
-            return await _floorRepo.Add(floorDto);
+            return await _data.Floors.Add(floorDto);
         }
         
     }

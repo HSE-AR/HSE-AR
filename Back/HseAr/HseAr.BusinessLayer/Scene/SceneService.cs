@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.Scene.Constructors;
+using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Enums;
 using HseAr.Data.Interfaces;
@@ -13,34 +14,25 @@ namespace HseAr.BusinessLayer.Scene
 {
     public class SceneService : ISceneService
     {
-        private readonly ISceneRepository _sceneRepo;
-        private readonly IFloorRepository _floorRepo; 
-        private readonly ISceneModificationRepository _sceneModRepo;
-        private readonly ISceneElementRepository _sceneElementRepo;
+        private readonly IUnitOfWork _data;
 
         public SceneService(
-            ISceneRepository sceneRepo, 
-            IFloorRepository floorRepo, 
-            ISceneModificationRepository sceneModRepo,
-            ISceneElementRepository sceneElementRepo)
+            IUnitOfWork data)
         {
-            _sceneRepo = sceneRepo;
-            _floorRepo = floorRepo;
-            _sceneModRepo = sceneModRepo;
-            _sceneElementRepo = sceneElementRepo;
+            _data = data;
         }
 
         public async Task<Data.DataProjections.Scene> GetSceneByFloorId(Guid id)
         {
-            var floor = await _floorRepo.GetById(id);
-            return await _sceneRepo.GetById(floor.SceneId);
+            var floor = await _data.Floors.GetById(id);
+            return await _data.Scenes.GetById(floor.SceneId);
         }
         
         public async Task<Data.DataProjections.Scene> AddEmptyScene()
         {
             var emptyScene = EmptySceneConstructor.CreateEmptyScene();
 
-            var sceneResult = await _sceneRepo.Create(emptyScene);
+            var sceneResult = await _data.Scenes.Create(emptyScene);
             return sceneResult;
         }
         
@@ -68,15 +60,15 @@ namespace HseAr.BusinessLayer.Scene
             switch (sceneMod.Type)
             {
                 case SceneModificationType.Add:
-                    result = await _sceneElementRepo.InsertElementToModel(sceneMod);
+                    result = await _data.SceneElements.InsertElementToModel(sceneMod);
                     break;
 
                 case SceneModificationType.Delete:
-                    result = await _sceneElementRepo.DeleteElementFromScene(sceneMod);
+                    result = await _data.SceneElements.DeleteElementFromScene(sceneMod);
                     break;
 
                 case SceneModificationType.Update:
-                    result = await _sceneElementRepo.UpdateElement(sceneMod);
+                    result = await _data.SceneElements.UpdateElement(sceneMod);
                     break;
 
                 default: 
@@ -96,7 +88,7 @@ namespace HseAr.BusinessLayer.Scene
         {
             foreach (var sceneMod in sceneMods)
             {
-                await _sceneModRepo.CreateAsync(sceneMod);
+                await _data.SceneModifications.CreateAsync(sceneMod);
             }
         }
     }

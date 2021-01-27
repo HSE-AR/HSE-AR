@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Infrastructure;
@@ -16,26 +17,22 @@ namespace HseAr.BusinessLayer.Jwt
 {
     public class JwtGenerator : IJwtGenerator
     {
-        private readonly UserManager<User> _userManager;
+        private readonly IUnitOfWork _data;
         private readonly IConfiguration _configuration;
-        private readonly IMapper _mapper;
 
         public JwtGenerator(
-            UserManager<User> um,
-            IConfiguration conf,
-            IMapper mapper)
+            IUnitOfWork data,
+            IConfiguration conf)
         {
-            _userManager = um;
+            _data = data;
             _configuration = conf;
-            _mapper = mapper;
         }
 
         public async Task<object> GenerateJwt(User user)
         {
             try
             {
-                
-                var roles = await _userManager.GetRolesAsync(user);
+                var roles = await _data.Users.GetRolesAsync(user);
 
                 var claims = new List<Claim>
                 {
@@ -44,14 +41,13 @@ namespace HseAr.BusinessLayer.Jwt
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token");
-
-
+                var claimsIdentity = new ClaimsIdentity(claims, "Token");
+                
                 claimsIdentity.AddClaims(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Key"]));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var expires = DateTime.Now.AddMinutes(Convert.ToDouble(60));
+                var expires = DateTime.Now.AddMinutes(Convert.ToDouble(600));
                 var dateTimeOffset = new DateTimeOffset(expires);
 
                 var token = new JwtSecurityToken(

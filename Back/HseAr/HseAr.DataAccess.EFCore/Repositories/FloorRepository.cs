@@ -30,28 +30,28 @@ namespace HseAr.DataAccess.EFCore.Repositories
             => _mapper.Map<FloorEntity, Floor>(
                 await _context.Floors.FirstOrDefaultAsync(x => x.Id == id));
 
-        public async Task<Floor> Add(Floor floorDto)
+        public async Task<Floor> Add(Floor floor)
         {
-            var floor = _mapper.Map<Floor, FloorEntity>(floorDto);
+            var floorEntity = _mapper.Map<Floor, FloorEntity>(floor);
             
-            var result =await _context.Floors.AddAsync(floor);
+            var result =await _context.Floors.AddAsync(floorEntity);
             await _context.SaveChangesAsync();
 
             return _mapper.Map<FloorEntity, Floor>(result.Entity);
         }
         
-        public async Task Update(Floor floorDto)
+        public async Task Update(Floor floor)
         {
-            var floor = _mapper.Map<Floor, FloorEntity>(floorDto);
+            var floorEntity = _mapper.Map<Floor, FloorEntity>(floor);
             
-            _context.Floors.Update(floor);
+            _context.Floors.Update(floorEntity);
             await _context.SaveChangesAsync();
         }
         
         public async Task Delete(Guid id)
         {
-            var floor = await _context.Floors.FirstOrDefaultAsync(x => x.Id == id);
-            _context.Floors.Remove(floor);
+            var floorEntity = await _context.Floors.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Floors.Remove(floorEntity);
             await _context.SaveChangesAsync();
         }
     }

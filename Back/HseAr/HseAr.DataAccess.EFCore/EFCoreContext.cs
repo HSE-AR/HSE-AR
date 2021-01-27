@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HseAr.DataAccess.EFCore
 {
-    public class EFCoreContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+    public sealed class EFCoreContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {
         public DbSet<BuildingEntity> Buildings { get; set; }
         
@@ -47,9 +47,7 @@ namespace HseAr.DataAccess.EFCore
                         NormalizedName = "SUPERADMIN"
                     }
                 });
-
-
-
+            
             base.OnModelCreating(modelBuilder);
         }
     }

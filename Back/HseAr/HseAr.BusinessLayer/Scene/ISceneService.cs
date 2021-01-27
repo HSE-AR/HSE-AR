@@ -11,6 +11,6 @@ namespace HseAr.BusinessLayer.Scene
         
         Task<Data.DataProjections.Scene> AddEmptyScene();
         
-        Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> modifications, Guid userId);
+        Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> sceneModifications, Guid userId);
     }
 }

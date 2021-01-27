@@ -11,13 +11,10 @@ namespace HseAr.BusinessLayer.Building
 {
     public class BuildingService : IBuildingService
     {
-        private readonly IMapper _mapper;
-  
         private readonly IUnitOfWork _data;
 
-        public BuildingService(IMapper mapper, IUnitOfWork data)
+        public BuildingService( IUnitOfWork data)
         {
-            _mapper = mapper;
             _data = data;
         }
         

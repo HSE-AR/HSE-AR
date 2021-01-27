@@ -47,10 +47,10 @@ namespace HseAr.DataAccess.EFCore.Repositories
                 .ToListAsync();
         }
         
-        public async Task<Building> AddFromUser(Building buildingDto, Guid userId)
+        public async Task<Building> AddFromUser(Building building, Guid userId)
         {
-            var building = _mapper.Map<Building, BuildingEntity>(buildingDto);
-            var result = await _context.Buildings.AddAsync(building);
+            var buildingEntity = _mapper.Map<Building, BuildingEntity>(building);
+            var result = await _context.Buildings.AddAsync(buildingEntity);
 
             await _context.UserBuildings.AddAsync(
                 new UserBuildingEntity() 
@@ -64,18 +64,18 @@ namespace HseAr.DataAccess.EFCore.Repositories
             return _mapper.Map<BuildingEntity,Building>(result.Entity);
         }
         
-        public async Task Update(Building buildingDto)
+        public async Task Update(Building building)
         {
-            var building = _mapper.Map<Building, BuildingEntity>(buildingDto);
+            var buildingEntity = _mapper.Map<Building, BuildingEntity>(building);
             
-            _context.Buildings.Update(building);
+            _context.Buildings.Update(buildingEntity);
             await _context.SaveChangesAsync();
         }
         
         public async Task Delete(Guid id)
         {
-            var building = await _context.Buildings.FirstOrDefaultAsync(x => x.Id == id);
-            _context.Buildings.Remove(building);
+            var buildingEntity = await _context.Buildings.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Buildings.Remove(buildingEntity);
             await _context.SaveChangesAsync();
         }
     }

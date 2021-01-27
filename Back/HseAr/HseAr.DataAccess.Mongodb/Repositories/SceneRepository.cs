@@ -39,6 +39,5 @@ namespace HseAr.DataAccess.Mongodb.Repositories
 
         public async Task<DeleteResult> Remove(string id) 
             => await _scenes.DeleteOneAsync(scene => scene.Id == id);
-        
     }
 }

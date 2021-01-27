@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.Scene;
 using HseAr.Data.DataProjections;
-using HseAr.Data.Entities;
-using HseAr.Data.Mappers;
 using HseAr.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

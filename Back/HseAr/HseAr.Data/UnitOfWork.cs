@@ -1,4 +1,5 @@
-﻿using HseAr.Data.DataProjections;
+﻿using System;
+using HseAr.Data.DataProjections;
 using HseAr.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
@@ -12,6 +13,8 @@ namespace HseAr.Data
         private readonly ISceneElementRepository _sceneElementRepo;
         private readonly ISceneModificationRepository _sceneModificationRepo;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
         public UnitOfWork(
             IBuildingRepository buildingRepo,
@@ -19,7 +22,9 @@ namespace HseAr.Data
             ISceneRepository sceneRepo,
             ISceneElementRepository sceneElementRepo,
             ISceneModificationRepository sceneModificationRepo,
-            UserManager<User> userManager)
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            RoleManager<IdentityRole<Guid>> roleManager)
         {
             _buildingRepo = buildingRepo;
             _floorRepo = floorRepo;
@@ -27,6 +32,8 @@ namespace HseAr.Data
             _sceneElementRepo = sceneElementRepo;
             _sceneModificationRepo = sceneModificationRepo;
             _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public IBuildingRepository Buildings => _buildingRepo;
@@ -41,5 +48,8 @@ namespace HseAr.Data
 
         public UserManager<User> Users => _userManager;
 
+        public SignInManager<User> Auth => _signInManager;
+
+        public RoleManager<IdentityRole<Guid>> Roles => _roleManager;
     }
 }
