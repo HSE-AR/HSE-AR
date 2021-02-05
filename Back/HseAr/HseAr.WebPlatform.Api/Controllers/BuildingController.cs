@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using HseAr.BusinessLayer.Building;
+using HseAr.BusinessLayer.BuildingService;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.WebPlatform.Api.Models.Building;

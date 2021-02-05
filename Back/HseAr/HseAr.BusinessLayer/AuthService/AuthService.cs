@@ -7,7 +7,7 @@ using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
-namespace HseAr.BusinessLayer.Auth
+namespace HseAr.BusinessLayer.AuthService
 {
     public class AuthService : IAuthService
     {

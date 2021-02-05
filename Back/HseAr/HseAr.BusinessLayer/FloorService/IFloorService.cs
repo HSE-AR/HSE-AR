@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using HseAr.Data.DataProjections;
 
-namespace HseAr.BusinessLayer.Floor
+namespace HseAr.BusinessLayer.FloorService
 {
     public interface IFloorService
     {
-        Task<Data.DataProjections.Floor> CreateFloor(Data.DataProjections.Floor floorDto);
+        Task<Floor> CreateFloor(Floor floorDto);
     }
 }

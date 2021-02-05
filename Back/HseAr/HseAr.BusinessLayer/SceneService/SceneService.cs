@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HseAr.BusinessLayer.Scene.Constructors;
+using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Enums;
@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Operations;
 
-namespace HseAr.BusinessLayer.Scene
+namespace HseAr.BusinessLayer.SceneService
 {
     public class SceneService : ISceneService
     {
@@ -22,13 +22,13 @@ namespace HseAr.BusinessLayer.Scene
             _data = data;
         }
 
-        public async Task<Data.DataProjections.Scene> GetSceneByFloorId(Guid id)
+        public async Task<Scene> GetSceneByFloorId(Guid id)
         {
             var floor = await _data.Floors.GetById(id);
             return await _data.Scenes.GetById(floor.SceneId);
         }
         
-        public async Task<Data.DataProjections.Scene> AddEmptyScene()
+        public async Task<Scene> AddEmptyScene()
         {
             var emptyScene = EmptySceneConstructor.CreateEmptyScene();
 

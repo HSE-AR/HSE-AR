@@ -7,7 +7,7 @@ using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 
-namespace HseAr.BusinessLayer.Building
+namespace HseAr.BusinessLayer.BuildingService
 {
     public class BuildingService : IBuildingService
     {
@@ -18,17 +18,17 @@ namespace HseAr.BusinessLayer.Building
             _data = data;
         }
         
-        public async Task<Data.DataProjections.Building> CreateBuilding(Data.DataProjections.Building building, Guid userId)
+        public async Task<Building> CreateBuilding(Building building, Guid userId)
         {
             return await _data.Buildings.AddFromUser(building, userId);
         }
 
-        public async Task<List<Data.DataProjections.Building>> GetBuildingsByUserId(Guid userId)
+        public async Task<List<Building>> GetBuildingsByUserId(Guid userId)
         {
             return await _data.Buildings.GetListByUserId(userId);
         }
 
-        public async Task<Data.DataProjections.Building> GetBuildingById(Guid id)
+        public async Task<Building> GetBuildingById(Guid id)
         {
             return await _data.Buildings.GetById(id);
         }

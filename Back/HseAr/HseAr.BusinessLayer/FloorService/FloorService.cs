@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using HseAr.BusinessLayer.Scene;
+using HseAr.BusinessLayer.SceneService;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 
-namespace HseAr.BusinessLayer.Floor
+namespace HseAr.BusinessLayer.FloorService
 {
     public class FloorService : IFloorService
     {
@@ -21,7 +21,7 @@ namespace HseAr.BusinessLayer.Floor
             _sceneService = sceneService;
         }
 
-        public async Task<Data.DataProjections.Floor> CreateFloor(Data.DataProjections.Floor floorDto)
+        public async Task<Floor> CreateFloor(Floor floorDto)
         {
             var sceneResult = await _sceneService.AddEmptyScene();
             floorDto.SceneId = sceneResult.Id;

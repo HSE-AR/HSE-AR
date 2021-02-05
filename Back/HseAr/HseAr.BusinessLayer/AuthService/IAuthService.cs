@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using HseAr.Data.DataProjections;
 
-namespace HseAr.BusinessLayer.Auth
+namespace HseAr.BusinessLayer.AuthService
 {
     public interface IAuthService
     {

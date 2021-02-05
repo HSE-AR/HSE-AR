@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using HseAr.BusinessLayer.Auth;
-using HseAr.BusinessLayer.Building;
-using HseAr.BusinessLayer.Floor;
+using HseAr.BusinessLayer.AuthService;
+using HseAr.BusinessLayer.BuildingService;
+using HseAr.BusinessLayer.FloorService;
 using HseAr.BusinessLayer.Jwt;
-using HseAr.BusinessLayer.Scene;
+using HseAr.BusinessLayer.SceneService;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
