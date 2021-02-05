@@ -7,8 +7,8 @@
 
 <script>
 
-import { THREE,Editor,Viewport,Toolbar,Player,Sidebar,Menubar,Resizer} from '../main.js'
-import { Loader } from '../../public/threejs/build/three.module.js';
+import { THREE,Editor,Viewport,Toolbar,Player,Sidebar,Menubar,Resizer} from '../../main.js'
+import { Loader } from '../../../public/threejs/build/three.module.js';
 
 import axios from 'axios'
 
@@ -170,3 +170,7 @@ export default {
 
 }
 </script>
+
+<style lang="css" scoped>
+  @import 'editor.css';
+</style>
