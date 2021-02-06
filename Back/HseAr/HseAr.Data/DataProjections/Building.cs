@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using HseAr.Data.Entities;
 
 namespace HseAr.Data.DataProjections
 {

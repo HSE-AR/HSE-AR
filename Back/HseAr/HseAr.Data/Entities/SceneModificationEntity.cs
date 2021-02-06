@@ -1,5 +1,4 @@
 using System;
-using HseAr.Data.DataProjections;
 using HseAr.Data.Enums;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;

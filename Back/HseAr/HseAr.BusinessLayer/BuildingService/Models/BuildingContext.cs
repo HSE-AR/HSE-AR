@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using HseAr.WebPlatform.Api.Models.Floor;
 
-namespace HseAr.WebPlatform.Api.Models.Building
+namespace HseAr.BusinessLayer.BuildingService.Models
 {
-    public class BuildingModel
+    public class BuildingContext
     {
         public Guid Id { get; set; }
         
@@ -14,5 +13,6 @@ namespace HseAr.WebPlatform.Api.Models.Building
         
         public string Coordinate { get; set; }
         
+        public List<Guid> FloorIds { get; set; } =new List<Guid>();
     }
 }

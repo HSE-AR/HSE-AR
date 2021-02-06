@@ -1,5 +1,4 @@
-﻿using HseAr.Data.DataProjections;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 namespace HseAr.BusinessLayer.SceneService.Constructors
 {

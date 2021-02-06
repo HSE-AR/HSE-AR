@@ -15,6 +15,5 @@ namespace HseAr.Data.DataProjections
         public string SceneId { get; set; }
         
         public Guid BuildingId { get; set; }
-        
     }
 }

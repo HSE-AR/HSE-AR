@@ -1,36 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
-using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
-using Microsoft.AspNetCore.Identity;
 
 namespace HseAr.BusinessLayer.BuildingService
 {
     public class BuildingService : IBuildingService
     {
         private readonly IUnitOfWork _data;
-
-        public BuildingService( IUnitOfWork data)
+        private readonly IMapper _mapper;
+        
+        public BuildingService(IUnitOfWork data, IMapper mapper)
         {
             _data = data;
+            _mapper = mapper;
         }
         
-        public async Task<Building> CreateBuilding(Building building, Guid userId)
+        public async Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, Guid userId)
         {
-            return await _data.Buildings.AddFromUser(building, userId);
+            var building = _mapper.Map<BuildingContext, Building>(buildingContext);
+            var buildingResult = await _data.Buildings.AddFromUser(building, userId);
+            return _mapper.Map<Building, BuildingContext>(buildingResult);
         }
 
-        public async Task<List<Building>> GetBuildingsByUserId(Guid userId)
+        public async Task<List<BuildingContext>> GetBuildingsByUserId(Guid userId)
         {
-            return await _data.Buildings.GetListByUserId(userId);
+            var buildings =await _data.Buildings.GetListByUserId(userId);
+            return buildings.Select(building => _mapper.Map<Building, BuildingContext>(building)).ToList();
         }
 
-        public async Task<Building> GetBuildingById(Guid id)
+        public async Task<BuildingContext> GetBuildingById(Guid id)
         {
-            return await _data.Buildings.GetById(id);
+            var buildingResult = await _data.Buildings.GetById(id);
+            return _mapper.Map<Building, BuildingContext>(buildingResult);
         }
     }
 }

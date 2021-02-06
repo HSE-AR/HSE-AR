@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.AuthService;
-using HseAr.Data.DataProjections;
 using HseAr.WebPlatform.Api.Models.Auth;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +16,11 @@ namespace HseAr.WebPlatform.Api.Controllers
             _authService = authService;
         }
         
+        /// <summary>
+        /// Авторизация пользователя (админа)
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [HttpPost]
         [Produces(typeof(object))]
         public async Task<ActionResult<object>> Login([FromBody] LoginForm form)
@@ -31,6 +35,11 @@ namespace HseAr.WebPlatform.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Реистрация пользователя (админа)
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [HttpPost]
         [Produces(typeof(object))]
         public async Task<ActionResult<object>> Register([FromBody]RegisterForm form)

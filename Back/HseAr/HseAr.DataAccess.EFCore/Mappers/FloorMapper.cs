@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using HseAr.Data.DataProjections;
+﻿using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 

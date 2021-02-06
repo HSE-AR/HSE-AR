@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using HseAr.Data.DataProjections;
 
 namespace HseAr.BusinessLayer.AuthService
 {

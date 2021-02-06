@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HseAr.Data.DataProjections;
+using HseAr.BusinessLayer.BuildingService.Models;
 
 namespace HseAr.BusinessLayer.BuildingService
 {
     public interface IBuildingService
     {
-        Task<Building> CreateBuilding(Building modelDto, Guid userId);
+        Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, Guid userId);
         
-        Task<List<Building>> GetBuildingsByUserId(Guid userId);
+        Task<List<BuildingContext>> GetBuildingsByUserId(Guid userId);
         
-        Task<Building> GetBuildingById(Guid id);
-        
+        Task<BuildingContext> GetBuildingById(Guid id);
     }
 }

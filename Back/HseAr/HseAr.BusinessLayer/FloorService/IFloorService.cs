@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using HseAr.Data.DataProjections;
+using HseAr.BusinessLayer.FloorService.Models;
 
 namespace HseAr.BusinessLayer.FloorService
 {
     public interface IFloorService
     {
-        Task<Floor> CreateFloor(Floor floorDto);
+        Task<FloorContext> CreateFloor(FloorContext floorDto);
+
+        Task<FloorContext> GetFloorById(Guid id);
     }
 }
