@@ -16,16 +16,13 @@ namespace HseAr.DataAccess.Mongodb.Repositories
     {
         private readonly IMongoCollection<BsonDocument> _scenes;
         private readonly IMapper<SceneModification, SceneModificationEntity> _sceneModMapper;
-        private readonly IMapper<SceneModificationEntity, SceneModification> _sceneModEntityMapper;
 
         public SceneElementRepository(
             IMapper<SceneModification, SceneModificationEntity> sceneModMapper,
-            IMapper<SceneModificationEntity, SceneModification> sceneModEntityMapper,
             MongoContext mongoContext)
         {
             _scenes = mongoContext.ScenesAsBsonDocument;
             _sceneModMapper = sceneModMapper;
-            _sceneModEntityMapper = sceneModEntityMapper;
         }
         
         public async Task<UpdateResult> InsertElementToModel(SceneModification sceneMod)

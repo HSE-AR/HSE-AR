@@ -2,7 +2,6 @@
 using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 using MongoDB.Bson;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace HseAr.DataAccess.Mongodb.Mappers

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.BusinessLayer.FloorService;
-using HseAr.Data.DataProjections;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.Models.Floor;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using HseAr.WebPlatform.Api.Exceptions;
-using Microsoft.OpenApi.Models;
 
 namespace HseAr.WebPlatform.Api.Helpers
 {

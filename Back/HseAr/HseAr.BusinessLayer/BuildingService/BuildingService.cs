@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
-using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
-using Microsoft.AspNetCore.Identity;
 
 namespace HseAr.BusinessLayer.BuildingService
 {

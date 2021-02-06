@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService.Models;
-using HseAr.Data.DataProjections;
 
 namespace HseAr.BusinessLayer.BuildingService
 {

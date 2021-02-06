@@ -1,5 +1,4 @@
 ﻿using HseAr.BusinessLayer.FloorService.Models;
-using HseAr.Data.DataProjections;
 using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Models.Floor;
 

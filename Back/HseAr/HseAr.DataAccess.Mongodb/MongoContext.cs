@@ -1,9 +1,5 @@
-﻿using System.IO;
-using HseAr.Core.Settings;
-using HseAr.Data.Entities;
+﻿using HseAr.Data.Entities;
 using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace HseAr.DataAccess.Mongodb 

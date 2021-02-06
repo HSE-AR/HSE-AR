@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.BuildingService.Models;
-using HseAr.Data.DataProjections;
-using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.ViewModelConstructors;

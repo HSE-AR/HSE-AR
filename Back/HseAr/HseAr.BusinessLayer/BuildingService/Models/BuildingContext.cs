@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using HseAr.Data.DataProjections;
 
 namespace HseAr.BusinessLayer.BuildingService.Models
 {

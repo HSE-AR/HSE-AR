@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using HseAr.BusinessLayer.AccountService.Models;
 using HseAr.Data.DataProjections;
 using HseAr.Infrastructure;

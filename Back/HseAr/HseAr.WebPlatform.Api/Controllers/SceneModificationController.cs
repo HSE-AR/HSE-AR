@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Data.DataProjections;
-using HseAr.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +11,9 @@ namespace HseAr.WebPlatform.Api.Controllers
     public class SceneModificationController : BaseAuthorizeController
     {
         private readonly ISceneService _sceneService;
-        private readonly IMapper _mapper;
 
-        public SceneModificationController(ISceneService sceneService, IMapper mapper)
+        public SceneModificationController(ISceneService sceneService)
         {
-            _mapper = mapper;
             _sceneService = sceneService;
         }
         

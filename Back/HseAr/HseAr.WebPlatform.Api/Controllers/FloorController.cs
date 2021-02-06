@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.FloorService;
 using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Data.DataProjections;
-using HseAr.Data.Entities;
-using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.Models.Floor;
 using HseAr.WebPlatform.Api.ViewModelConstructors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage;
-using MongoDB.Driver.Core.Operations;
 
 namespace HseAr.WebPlatform.Api.Controllers
 {

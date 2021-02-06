@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using HseAr.BusinessLayer.AccountService;
-using HseAr.BusinessLayer.AuthService;
 using HseAr.WebPlatform.Api.Models.Account;
-using HseAr.WebPlatform.Api.Models.Auth;
 using HseAr.WebPlatform.Api.ViewModelConstructors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

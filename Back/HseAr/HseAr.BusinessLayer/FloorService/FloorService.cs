@@ -4,8 +4,6 @@ using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
-using HseAr.Data.Entities;
-using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
 
 namespace HseAr.BusinessLayer.FloorService

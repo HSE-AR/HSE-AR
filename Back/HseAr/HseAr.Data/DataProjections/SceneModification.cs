@@ -1,7 +1,5 @@
 using System;
-using HseAr.Data.Entities;
 using HseAr.Data.Enums;
-using MongoDB.Bson;
 using Newtonsoft.Json.Linq;
 
 namespace HseAr.Data.DataProjections

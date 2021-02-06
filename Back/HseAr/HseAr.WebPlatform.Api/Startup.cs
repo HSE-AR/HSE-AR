@@ -1,11 +1,6 @@
-using System.Linq;
-using System.Reflection;
-using HseAr.Dependencies;
-using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Configurations;
 using HseAr.WebPlatform.Api.Helpers;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +10,7 @@ namespace HseAr.WebPlatform.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }

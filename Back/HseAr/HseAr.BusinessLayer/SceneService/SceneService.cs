@@ -5,10 +5,7 @@ using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Enums;
-using HseAr.Data.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
-using MongoDB.Driver.Core.Operations;
 
 namespace HseAr.BusinessLayer.SceneService
 {

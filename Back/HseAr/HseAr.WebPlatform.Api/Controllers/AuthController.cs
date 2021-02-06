@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.AuthService;
-using HseAr.Data.DataProjections;
 using HseAr.WebPlatform.Api.Models.Auth;
 using Microsoft.AspNetCore.Mvc;
 

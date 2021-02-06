@@ -3,9 +3,6 @@ using System.Threading.Tasks;
 using HseAr.BusinessLayer.Jwt;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
-using HseAr.Data.Entities;
-using HseAr.Data.Interfaces;
-using Microsoft.AspNetCore.Identity;
 
 namespace HseAr.BusinessLayer.AuthService
 {

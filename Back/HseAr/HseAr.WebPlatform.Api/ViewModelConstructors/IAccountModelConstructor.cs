@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using HseAr.BusinessLayer.AccountService.Models;
+﻿using HseAr.BusinessLayer.AccountService.Models;
 using HseAr.WebPlatform.Api.Models.Account;
 
 namespace HseAr.WebPlatform.Api.ViewModelConstructors
