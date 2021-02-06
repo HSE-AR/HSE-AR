@@ -18,10 +18,12 @@ namespace HseAr.BusinessLayer.FloorService
 
         public FloorService(
             IUnitOfWork data,
-            ISceneService sceneService)
+            ISceneService sceneService ,
+            IMapper mapper)
         {
             _data = data;
             _sceneService = sceneService;
+            _mapper = mapper;
         }
 
         public async Task<FloorContext> CreateFloor(FloorContext floorContext)

@@ -15,6 +15,7 @@ namespace HseAr.BusinessLayer.BuildingService
     {
         private readonly IUnitOfWork _data;
         private readonly IMapper _mapper;
+        
         public BuildingService(IUnitOfWork data, IMapper mapper)
         {
             _data = data;

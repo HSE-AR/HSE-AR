@@ -13,6 +13,5 @@ namespace HseAr.BusinessLayer.BuildingService
         Task<List<BuildingContext>> GetBuildingsByUserId(Guid userId);
         
         Task<BuildingContext> GetBuildingById(Guid id);
-        
     }
 }

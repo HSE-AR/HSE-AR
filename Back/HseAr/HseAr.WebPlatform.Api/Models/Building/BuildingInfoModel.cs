@@ -4,16 +4,7 @@ using HseAr.WebPlatform.Api.Models.Floor;
 
 namespace HseAr.WebPlatform.Api.Models.Building
 {
-    public class BuildingsViewModel
-    {
-        /// <summary>
-        /// Список зданий, доступных пользователю
-        /// </summary>
-        public List<BuildingItemModel> Buildings { get; set; }
-
-    }
-    
-    public class BuildingItemModel
+    public class BuildingInfoModel
     {
         /// <summary>
         /// Индификатор
@@ -34,5 +25,10 @@ namespace HseAr.WebPlatform.Api.Models.Building
         /// Координаты
         /// </summary>
         public string Coordinate { get; set; }
+        
+        /// <summary>
+        /// Список этажей
+        /// </summary>
+        public List<FloorItemModel> Floors { get; set; }
     }
 }

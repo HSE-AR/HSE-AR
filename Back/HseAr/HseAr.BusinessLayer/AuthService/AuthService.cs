@@ -63,8 +63,7 @@ namespace HseAr.BusinessLayer.AuthService
 
             await _data.Users.AddToRoleAsync(user, "admin");
             await _data.Auth.SignInAsync(user, false);
-            var a = await _jwt.GenerateJwt(user);
-            return a;
+            return await _jwt.GenerateJwt(user);
         }
     }
 }
