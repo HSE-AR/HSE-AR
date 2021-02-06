@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace HseAr.Data.DataProjections
+namespace HseAr.BusinessLayer.FloorService.Models
 {
-    public class Floor
+    public class FloorContext
     {
         public Guid Id { get; set; }
         

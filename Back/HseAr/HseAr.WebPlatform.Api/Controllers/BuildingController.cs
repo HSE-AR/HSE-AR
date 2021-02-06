@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService;
+using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
+using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Models.Building;
+using HseAr.WebPlatform.Api.ViewModelConstructors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,10 +18,17 @@ namespace HseAr.WebPlatform.Api.Controllers
     public class BuildingController : BaseAuthorizeController
     {
         private readonly IBuildingService _buildingService;
+        private readonly IBuildingModelConstructor _buildingConstructor;
+        private readonly IMapper _mapper;
         
-        public BuildingController(IBuildingService buildingService)
+        public BuildingController(
+            IBuildingService buildingService, 
+            IBuildingModelConstructor buildingConstructor,
+            IMapper mapper)
         {
             _buildingService = buildingService;
+            _buildingConstructor = buildingConstructor;
+            _mapper = mapper;
         }
         
         /// <summary>
@@ -27,24 +37,29 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<Building>>> GetList()
+        public async Task<ActionResult<BuildingsViewModel>> GetList()
         {
             var userId = GetUserIdFromToken();
             
-            return await _buildingService.GetBuildingsByUserId(userId);
+            var buildingContext = await _buildingService.GetBuildingsByUserId(userId);
+            
+            return _buildingConstructor.ConstructModels(buildingContext);
         }
 
         /// <summary>
         /// Создание здания 
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="form"></param>
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Building>> Create([FromBody] Building item)
+        public async Task<ActionResult<BuildingsViewModel>> Create([FromBody] BuildingCreationForm form)
         {
             var userId = GetUserIdFromToken();
-            return await _buildingService.CreateBuilding(item, userId);
+            var buildingContext = _mapper.Map<BuildingCreationForm, BuildingContext>(form);
+            await _buildingService.CreateBuilding(buildingContext, userId);
+
+            return _buildingConstructor.ConstructModels(await _buildingService.GetBuildingsByUserId(userId));
         }
         
         /// <summary>
@@ -54,9 +69,10 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// <returns></returns>
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<Building>> GetByBuildingId(Guid id)
+        public async Task<ActionResult<BuildingCurrentViewModel>> GetByBuildingId(Guid id)
         {
-            return await _buildingService.GetBuildingById(id);
+            var buildingContext = await _buildingService.GetBuildingById(id);
+            return _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
         
     }

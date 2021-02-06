@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.FloorService;
+using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
+using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.Models.Floor;
-using HseAr.WebPlatform.Api.Models.Scene;
+using HseAr.WebPlatform.Api.ViewModelConstructors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage;
 using MongoDB.Driver.Core.Operations;
 
 namespace HseAr.WebPlatform.Api.Controllers
@@ -20,12 +24,22 @@ namespace HseAr.WebPlatform.Api.Controllers
     {
         private readonly IFloorService _floorService;
         private readonly ISceneService _sceneService;
+        private readonly IMapper _mapper;
+        private readonly IBuildingModelConstructor _buildingConstructor;
+        private readonly IBuildingService _buildingService;
         
-        public FloorController(IFloorService floorService, ISceneService sceneService)
+        public FloorController(
+            IFloorService floorService, 
+            ISceneService sceneService,
+            IMapper mapper,
+            IBuildingModelConstructor buildingConstructor,
+            IBuildingService buildingService)
         {
             _floorService = floorService;
             _sceneService = sceneService;
-
+            _mapper = mapper;
+            _buildingConstructor = buildingConstructor;
+            _buildingService = buildingService;
         }
         
         /// <summary>
@@ -35,9 +49,13 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Floor>> Create([FromBody] Floor floorCreationForm)
+        public async Task<ActionResult<BuildingCurrentViewModel>> Create([FromBody] FloorCreationForm floorCreationForm)
         {
-            return await _floorService.CreateFloor(floorCreationForm);
+            var floorContext = _mapper.Map<FloorCreationForm, FloorContext>(floorCreationForm);
+            var floorResult = await _floorService.CreateFloor(floorContext);
+
+            var buildingContext = await _buildingService.GetBuildingById(floorResult.BuildingId);
+            return _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
 
         /// <summary>

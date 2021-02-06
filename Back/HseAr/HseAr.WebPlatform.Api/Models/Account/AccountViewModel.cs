@@ -1,0 +1,13 @@
+﻿using System;
+
+namespace HseAr.WebPlatform.Api.Models.Account
+{
+    public class AccountViewModel
+    {
+        public Guid Id { get; set; }
+        
+        public string Name { get; set; }
+        
+        public string Email { get; set; }
+    }
+}

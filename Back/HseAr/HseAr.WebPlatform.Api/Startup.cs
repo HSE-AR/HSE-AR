@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Reflection;
-using HseAr.Dependencies.Container;
+using HseAr.Dependencies;
 using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Configurations;
 using HseAr.WebPlatform.Api.Helpers;
@@ -34,10 +34,9 @@ namespace HseAr.WebPlatform.Api
                 .AddSettings(Configuration)
                 .ConfigureIdentity()
                 .ConfigureAuthentication(Configuration)
-                .AddRepositories()
-                .AddServices()
-                .AddMappers()
-                .AddDbConnections(Configuration);
+                .AddDbConnections(Configuration)
+
+                .RegisterDependencies();
 
             services.AddSwagger();
         }

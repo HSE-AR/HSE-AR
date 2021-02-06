@@ -4,7 +4,14 @@ using HseAr.WebPlatform.Api.Models.Floor;
 
 namespace HseAr.WebPlatform.Api.Models.Building
 {
-    public class BuildingModel
+    public class BuildingCurrentViewModel
+    {
+        public BuildingInfoModel BuildingInfo { get; set; }
+        
+    }
+    
+    
+    public class BuildingInfoModel
     {
         public Guid Id { get; set; }
         
@@ -14,5 +21,6 @@ namespace HseAr.WebPlatform.Api.Models.Building
         
         public string Coordinate { get; set; }
         
+        public List<FloorItemModel> Floors { get; set; }
     }
 }
