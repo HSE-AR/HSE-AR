@@ -30,6 +30,7 @@
 
 <script>
   import axios from 'axios'
+  import router from '../../router/router'
 
 
   export default {
@@ -42,17 +43,16 @@
       }
     },
     methods:{
-
-
-      async handleSubmit() {
-        const data={
+      handleSubmit() {
+        const data = {
           'email': this.email,
           'password': this.password,
           'name': this.name,
         }
-        await axios.post('auth/register', data)
-
-        await this.$router.push('signin/admin')
+        axios.post('auth/register', data)
+          .then(response => console.log(response))
+          .catch(err => console.log(err))
+        router.push('/adminka')
       }
     }
   }

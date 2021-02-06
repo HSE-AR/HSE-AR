@@ -27,6 +27,7 @@
 
 <script>
   import axios from 'axios'
+  import router from '../../router/router'
   export default {
     name: 'SignInAdmin',
     data() {
@@ -36,15 +37,20 @@
       }
     },
     methods: {
-      async handleSubmit() {
-        const response = await axios.post('Auth/Login', {
-          "email": this.email,
-          "password": this.password,
-        })
+      handleSubmit() {
+        const data = {
+          'email': this.email,
+          'password': this.password,
+        }
+        axios.post('auth/login', data)
+          .then(response => {
+            console.log(response)
+            console.log()
+          })
 
-        localStorage.setItem('token', response.data.token)
-        await this.$store.dispatch('user', response.data.user)
-        await this.$router.push('adminka')
+        // localStorage.setItem('token', response.data.token)
+        // this.$store.dispatch('user', response.data.user)
+        router.push('/adminka')
       },
 
       signUpAdmin() {
