@@ -1,12 +1,19 @@
-using HseAr.WebPlatform.Api.Configurations;
-using HseAr.WebPlatform.Api.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using HseAr.Partner.Api.Configurations;
+using HseAr.Partner.Api.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace HseAr.WebPlatform.Api
+namespace HseAr.Partner.Api
 {
     public class Startup
     {
@@ -27,9 +34,7 @@ namespace HseAr.WebPlatform.Api
 
             services
                 .AddSettings(Configuration)
-                .ConfigureAuthentication(Configuration)
                 .AddDbConnections(Configuration)
-
                 .RegisterDependencies();
 
             services.AddSwagger();
@@ -42,10 +47,10 @@ namespace HseAr.WebPlatform.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseExceptionHandler(err => err.UseCustomErrors(env));
             
-            app.UseAuthentication(); 
+           // app.UseAuthentication(); 
 
             app.UseRouting();
             
@@ -54,10 +59,10 @@ namespace HseAr.WebPlatform.Api
                 .AllowAnyHeader()
                 .AllowAnyMethod());
 
-            app.UseAuthorization();
+            // app.UseAuthorization();
             
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wapi"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Papi"));
 
             app.UseEndpoints(endpoints =>
             {
