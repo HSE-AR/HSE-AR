@@ -13,11 +13,12 @@ namespace HseAr.WebPlatform.Api
     public static class WebPlatformIoCContainer
     {
         public static IServiceCollection RegisterDependencies(this IServiceCollection services)
-        { 
+        {
             services
                 .RegisterMappers()
                 .RegisterRepositories()
-                .RegisterServices();
+                .RegisterServices()
+                .RegisterIdentity();
 
             services
                 .AddViewModelConstructors()

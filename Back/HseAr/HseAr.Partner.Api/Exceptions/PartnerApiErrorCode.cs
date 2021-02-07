@@ -1,6 +1,6 @@
-﻿namespace HseAr.WebPlatform.Api.Exceptions
+﻿namespace HseAr.Partner.Api.Exceptions
 {
-    public enum WebApiErrorCode
+    public enum PartnerApiErrorCode
     {
         UnspecifiedError = 2,
         
