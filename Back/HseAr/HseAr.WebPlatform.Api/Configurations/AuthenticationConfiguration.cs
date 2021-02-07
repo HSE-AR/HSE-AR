@@ -37,19 +37,5 @@ namespace HseAr.WebPlatform.Api.Configurations
             
             return services;
         }
-        
-        public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
-        {
-            services
-                .AddIdentity<User, IdentityRole<Guid>>(o =>
-                {
-                    o.Password.RequireNonAlphanumeric = false;
-                    o.Password.RequireUppercase = false;
-                    o.Password.RequireLowercase = false;
-                })
-                .AddEntityFrameworkStores<EFCoreContext>();
-
-            return services;
-        }
     }
 }

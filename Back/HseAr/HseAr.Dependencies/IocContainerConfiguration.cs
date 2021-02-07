@@ -1,4 +1,5 @@
-﻿using HseAr.BusinessLayer.AccountService;
+﻿using System;
+using HseAr.BusinessLayer.AccountService;
 using HseAr.BusinessLayer.AccountService.Models;
 using HseAr.BusinessLayer.AuthService;
 using HseAr.BusinessLayer.BuildingService;
@@ -12,12 +13,14 @@ using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
+using HseAr.DataAccess.EFCore;
 using HseAr.DataAccess.EFCore.Mappers;
 using HseAr.DataAccess.EFCore.Repositories;
 using HseAr.DataAccess.Mongodb;
 using HseAr.DataAccess.Mongodb.Mappers;
 using HseAr.DataAccess.Mongodb.Repositories;
 using HseAr.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -25,6 +28,20 @@ namespace HseAr.Dependencies
 {
     public static class IocContainerConfiguration
     {
+        public static IServiceCollection RegisterIdentity(this IServiceCollection services)
+        {
+            services
+                .AddIdentity<User, IdentityRole<Guid>>(o =>
+                {
+                    o.Password.RequireNonAlphanumeric = false;
+                    o.Password.RequireUppercase = false;
+                    o.Password.RequireLowercase = false;
+                })
+                .AddEntityFrameworkStores<EFCoreContext>();
+
+            return services;
+        }
+        
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
             => services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
