@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.6.1",
-    "commander": "^7.0.0",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "three": "^0.125.2",

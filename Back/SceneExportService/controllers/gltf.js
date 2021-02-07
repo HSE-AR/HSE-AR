@@ -4,9 +4,7 @@
 */
 function create(req, res){
     const fs = require('fs');
-    const path = require('path');
     const THREE = require('three');
-    const program = require('commander');
     const Canvas = require('canvas');
     const { Blob, FileReader } = require('vblob');
 
