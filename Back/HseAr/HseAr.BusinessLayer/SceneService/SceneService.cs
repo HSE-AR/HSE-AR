@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Enums;
+using HseAr.Data.Interfaces;
 using MongoDB.Driver;
 
 namespace HseAr.BusinessLayer.SceneService
@@ -53,7 +55,8 @@ namespace HseAr.BusinessLayer.SceneService
         private async Task<bool> ApplySceneModification(SceneModification sceneMod)
         {
             UpdateResult result;
-            
+          //  Type T = Type.GetType(sceneMod.Type.ToString());
+           // ISceneModificationHandler<T> handler = Activator.CreateInstance(T);
             switch (sceneMod.Type)
             {
                 case SceneModificationType.Add:
