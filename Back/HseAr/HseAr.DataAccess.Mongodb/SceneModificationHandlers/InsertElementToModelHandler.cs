@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 {
-    public class InsertElementToModelHandler : ISceneModificationHandler<InsertElementToModelHandler>
+    public class InsertElementToModelHandler : ISceneModificationHandler
     {
         private readonly IMongoCollection<BsonDocument> _scenes;
         private readonly IMapper<SceneModification, SceneModificationEntity> _sceneModMapper;
@@ -24,6 +24,10 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
         {
             _scenes = mongoContext.ScenesAsBsonDocument;
             _sceneModMapper = sceneModMapper;
+        }
+
+        public InsertElementToModelHandler()
+        {
         }
 
         public async Task<UpdateResult> Modify(SceneModification sceneMod)
@@ -51,6 +55,14 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             var filter = SceneFilter.GetFilterById(sceneModEntity.ModelId);
 
             return await _scenes.UpdateOneAsync(filter, update);
+        }
+
+        public bool CatchTypeMatch(string modificationName)
+        {
+            if (modificationName == "InsertElementToModelHandler")
+                return true;
+
+            return false;
         }
     }
 }

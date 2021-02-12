@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace HseAr.Data.Interfaces
 {
-    public interface ISceneModificationHandler<T>
+    public interface ISceneModificationHandler
     {
         Task<UpdateResult> Modify(SceneModification sceneMod);
+
+        bool CatchTypeMatch(string modficationName);
     }
 }

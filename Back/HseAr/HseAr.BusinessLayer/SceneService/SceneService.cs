@@ -8,12 +8,14 @@ using HseAr.Data.DataProjections;
 using HseAr.Data.Enums;
 using HseAr.Data.Interfaces;
 using MongoDB.Driver;
+using HseAr.DataAccess.Mongodb.SceneModificationHandlers;
 
 namespace HseAr.BusinessLayer.SceneService
 {
     public class SceneService : ISceneService
     {
         private readonly IUnitOfWork _data;
+        private readonly ISceneModificationHandler[] handlers = { new InsertElementToModelHandler() };
 
         public SceneService(
             IUnitOfWork data)
@@ -54,27 +56,37 @@ namespace HseAr.BusinessLayer.SceneService
         
         private async Task<bool> ApplySceneModification(SceneModification sceneMod)
         {
-            UpdateResult result;
-          //  Type T = Type.GetType(sceneMod.Type.ToString());
-           // ISceneModificationHandler<T> handler = Activator.CreateInstance(T);
-            switch (sceneMod.Type)
+            UpdateResult result = null;
+
+
+            foreach (ISceneModificationHandler handler in handlers)
             {
-                case SceneModificationType.Add:
-                    result = await _data.SceneElements.InsertElementToModel(sceneMod);
+                if (handler.CatchTypeMatch(sceneMod.Type.ToString()))
+                {
+                    result = await handler.Modify(sceneMod);
                     break;
-
-                case SceneModificationType.Delete:
-                    result = await _data.SceneElements.DeleteElementFromScene(sceneMod);
-                    break;
-
-                case SceneModificationType.Update:
-                    result = await _data.SceneElements.UpdateElement(sceneMod);
-                    break;
-
-                default: 
-                    result = null;
-                    break;
+                }
             }
+
+
+            //switch (sceneMod.Type)
+            //{
+            //    case SceneModificationType.Add:
+            //        result = await _data.SceneElements.InsertElementToModel(sceneMod);
+            //        break;
+
+            //    case SceneModificationType.Delete:
+            //        result = await _data.SceneElements.DeleteElementFromScene(sceneMod);
+            //        break;
+
+            //    case SceneModificationType.Update:
+            //        result = await _data.SceneElements.UpdateElement(sceneMod);
+            //        break;
+
+            //    default: 
+            //        result = null;
+            //        break;
+            //}
 
             if (result == null || !result.IsAcknowledged)
             {
