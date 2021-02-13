@@ -9,18 +9,20 @@ using HseAr.Data.Enums;
 using HseAr.Data.Interfaces;
 using MongoDB.Driver;
 using HseAr.DataAccess.Mongodb.SceneModificationHandlers;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace HseAr.BusinessLayer.SceneService
 {
     public class SceneService : ISceneService
     {
         private readonly IUnitOfWork _data;
-        private readonly ISceneModificationHandler[] handlers = { new InsertElementToModelHandler() };
+        private readonly List<ISceneModificationHandler> _modificationHandlers;
 
-        public SceneService(
-            IUnitOfWork data)
+        public SceneService(IUnitOfWork data, IServiceProvider serviceProvider)
         {
             _data = data;
+            _modificationHandlers = serviceProvider.GetServices<ISceneModificationHandler>().ToList();
         }
 
         public async Task<Scene> GetSceneByFloorId(Guid id)
@@ -59,7 +61,7 @@ namespace HseAr.BusinessLayer.SceneService
             UpdateResult result = null;
 
 
-            foreach (ISceneModificationHandler handler in handlers)
+            foreach (ISceneModificationHandler handler in _modificationHandlers)
             {
                 if (handler.CatchTypeMatch(sceneMod.Type.ToString()))
                 {
