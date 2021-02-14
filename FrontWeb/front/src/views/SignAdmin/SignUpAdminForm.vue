@@ -50,7 +50,10 @@
           'name': this.name,
         }
         axios.post('auth/register', data)
-          .then(response => console.log(response))
+          .then(response => {
+            console.log(response)
+            localStorage.setItem('token', response.data)
+          })
           .catch(err => console.log(err))
         router.push('/adminka')
       }

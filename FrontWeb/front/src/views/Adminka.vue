@@ -14,9 +14,10 @@
 
 import router from '../router/router'
 import {mapGetters} from 'vuex'
+import axios from 'axios'
 
 export default {
-  name: 'Home',
+  name: 'Adminka',
   methods: {
 
     handleClick() {
@@ -32,6 +33,6 @@ export default {
   },
   computed: {
     ...mapGetters(['user'])
-  }
+  },
 }
 </script>

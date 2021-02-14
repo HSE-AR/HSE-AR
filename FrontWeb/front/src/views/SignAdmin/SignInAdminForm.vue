@@ -45,12 +45,14 @@
         axios.post('auth/login', data)
           .then(response => {
             console.log(response)
-            console.log()
+            localStorage.setItem('token', response.data)
+            router.push('/adminka')
           })
+          .catch(err => console.log(err))
 
         // localStorage.setItem('token', response.data.token)
         // this.$store.dispatch('user', response.data.user)
-        router.push('/adminka')
+
       },
 
       signUpAdmin() {

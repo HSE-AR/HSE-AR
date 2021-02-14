@@ -23,10 +23,7 @@
     }
 
 
-    // async created() {
-    //   const response = await axios.get('user')
-    //   await this.$store.dispatch('user', response.data)
-    // },
+
   }
 </script>
 
