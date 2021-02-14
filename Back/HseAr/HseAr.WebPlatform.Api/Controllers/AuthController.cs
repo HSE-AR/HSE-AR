@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HseAr.WebPlatform.Api.Controllers
 {
     [Route("wapi/[controller]/[action]")]
-    public class AuthController : Controller
+    public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
 

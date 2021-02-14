@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HseAr.Partner.Api.Configurations;
-using HseAr.Partner.Api.Helpers;
+using HseAr.ArClient.Api.Configurations;
+using HseAr.ArClient.Api.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace HseAr.Partner.Api
+namespace HseAr.ArClient.Api
 {
     public class Startup
     {
@@ -28,7 +28,7 @@ namespace HseAr.Partner.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddControllers()
+                .AddMvc()
                 .AddNewtonsoftJson(
                     x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -60,9 +60,9 @@ namespace HseAr.Partner.Api
                 .AllowAnyMethod());
 
             // app.UseAuthorization();
-            
+
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Papi"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ARapi"));
 
             app.UseEndpoints(endpoints =>
             {

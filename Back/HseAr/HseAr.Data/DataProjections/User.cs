@@ -10,5 +10,6 @@ namespace HseAr.Data.DataProjections
         public string Name { get; set; }
         
         public List<UserBuildingEntity> UserBuildings { get; set; } = new List<UserBuildingEntity>();
+        
     }
 }

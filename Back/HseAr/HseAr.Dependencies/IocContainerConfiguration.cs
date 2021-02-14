@@ -9,6 +9,7 @@ using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.Jwt;
 using HseAr.BusinessLayer.Mappers;
 using HseAr.BusinessLayer.SceneService;
+using HseAr.Core.Settings;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
@@ -16,10 +17,10 @@ using HseAr.Data.Interfaces;
 using HseAr.DataAccess.EFCore;
 using HseAr.DataAccess.EFCore.Mappers;
 using HseAr.DataAccess.EFCore.Repositories;
-using HseAr.DataAccess.Mongodb;
 using HseAr.DataAccess.Mongodb.Mappers;
 using HseAr.DataAccess.Mongodb.Repositories;
 using HseAr.Infrastructure;
+using HseAr.Integration.SceneExport;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -55,8 +56,7 @@ namespace HseAr.Dependencies
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             return services
-                .AddSingleton<IModelsDatabaseSettings>(sp
-                    => sp.GetRequiredService<IOptions<ModelsDatabaseSettings>>().Value)
+                .AddSingleton(sp => sp.GetRequiredService<IOptions<Configuration>>().Value)
                 
                 .AddTransient<IJwtGenerator, JwtGenerator>()
                 .AddTransient<IBuildingService, BuildingService>()
@@ -84,6 +84,13 @@ namespace HseAr.Dependencies
                 .AddTransient<IMapper<Floor, FloorContext>, FloorContextMapper>()
                 .AddTransient<IMapper<FloorContext, Floor>, FloorContextMapper>()
                 .AddTransient<IMapper<User, AccountContext>, AccountContextMapper>();
+        }
+        
+        public static IServiceCollection RegisterHttpClients(this IServiceCollection services)
+        {
+            return services
+                .AddHttpClient()
+                .AddTransient<ISceneExportApiClient, SceneExportApiClient>();
         }
     }
 }

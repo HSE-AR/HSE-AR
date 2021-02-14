@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using HseAr.Partner.Api.Exceptions;
-using HseAr.Partner.Api.Models;
+using HseAr.ArClient.Api.Exceptions;
+using HseAr.ArClient.Api.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 
-namespace HseAr.Partner.Api.Helpers
+namespace HseAr.ArClient.Api.Helpers
 {
     public static class CustomErrorHandlerHelper
     {
@@ -35,7 +35,7 @@ namespace HseAr.Partner.Api.Helpers
             var exceptionDetails = httpContext.Features.Get<IExceptionHandlerFeature>();
             var exception = exceptionDetails?.Error;
 
-            var webApiException = PartnerApiExceptionCreator.GetWebApiException(exception);
+            var webApiException = ArClientApiExceptionCreator.GetWebApiException(exception);
             
             if (exception != null && webApiException != null)
             {
@@ -44,7 +44,7 @@ namespace HseAr.Partner.Api.Helpers
                 var errorModel = new ErrorModel
                 {
                     Code = webApiException.Code,
-                    Description = webApiException.Code == PartnerApiErrorCode.UnspecifiedError
+                    Description = webApiException.Code == ArClientApiErrorCode.UnspecifiedError
                         ? exception.ToString()
                         : webApiException.Message
                 };

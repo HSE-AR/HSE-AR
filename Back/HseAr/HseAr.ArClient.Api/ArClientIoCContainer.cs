@@ -1,9 +1,9 @@
 ﻿using HseAr.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HseAr.Partner.Api
+namespace HseAr.ArClient.Api
 {
-    public static  class PartnerIoCContainer
+    public static  class ArClientIoCContainer
     {
         public static IServiceCollection RegisterDependencies(this IServiceCollection services)
         { 
@@ -11,7 +11,8 @@ namespace HseAr.Partner.Api
                 .RegisterMappers()
                 .RegisterRepositories()
                 .RegisterServices()
-                .RegisterIdentity();
+                .RegisterIdentity()
+                .RegisterHttpClients();
             
             return services;
         }

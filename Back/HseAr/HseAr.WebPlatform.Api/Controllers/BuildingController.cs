@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.Infrastructure;
+using HseAr.WebPlatform.Api.Helpers;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.ViewModelConstructors;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HseAr.WebPlatform.Api.Controllers
 {
     [Route("wapi/[controller]")]
-    public class BuildingController : BaseAuthorizeController
+    public class BuildingController : ControllerBase
     {
         private readonly IBuildingService _buildingService;
         private readonly IBuildingModelConstructor _buildingConstructor;
@@ -35,7 +36,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         [Authorize]
         public async Task<ActionResult<BuildingsViewModel>> GetList()
         {
-            var userId = GetUserIdFromToken();
+            var userId = this.GetUserIdFromToken();
             
             var buildingContext = await _buildingService.GetBuildingsByUserId(userId);
             
@@ -51,7 +52,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         [Authorize]
         public async Task<ActionResult<BuildingsViewModel>> Create([FromBody] BuildingCreationForm form)
         {
-            var userId = GetUserIdFromToken();
+            var userId = this.GetUserIdFromToken();
             var buildingContext = _mapper.Map<BuildingCreationForm, BuildingContext>(form);
             await _buildingService.CreateBuilding(buildingContext, userId);
 

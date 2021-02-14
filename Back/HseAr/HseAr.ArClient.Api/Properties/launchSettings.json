@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "HseAr.Partner.Api": {
+    "HseAr.ArClient.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
