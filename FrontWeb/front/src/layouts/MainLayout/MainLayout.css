@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Roboto:wght@300&display=swap");
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+.app-main-layout {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  height: 100vh;
+  font-style: normal;
+  color: white;
+}
+
+.wrapper {
+  margin-top: 60px;
+  display: flex;
+  height: 100vh;
+  justify-content: space-between;
+}
+.wrapper .app-content {
+  width: 100%;
+  margin-left: 15%;
+  background: linear-gradient(0deg, #C17EFF 0%, #6631FF 56.83%), #000000;
+}
+
+/*# sourceMappingURL=MainLayout.css.map */

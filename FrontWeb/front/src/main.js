@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
+import router from './router/router'
+import store from './store/store'
 
 
 // import * as THREE from './js/three/build/three.module.js';
@@ -15,7 +15,7 @@ import { Player } from '../public/threejs/editor/js/Player.js';
 import { Sidebar } from '../public/threejs/editor/js/Sidebar.js';
 import { Menubar } from '../public/threejs/editor/js/Menubar.js';
 import { Resizer } from '../public/threejs/editor/js/Resizer.js';
-
+import './axios/axios'
 
 
 Vue.config.productionTip = false
