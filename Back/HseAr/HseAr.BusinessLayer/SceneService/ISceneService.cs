@@ -12,5 +12,7 @@ namespace HseAr.BusinessLayer.SceneService
         Task<Scene> AddEmptyScene();
         
         Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> sceneModifications, Guid userId);
+
+        Task<string> UploadScene(Scene scene);
     }
 }

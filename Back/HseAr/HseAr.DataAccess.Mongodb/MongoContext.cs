@@ -1,4 +1,5 @@
-﻿using HseAr.Data.Entities;
+﻿using HseAr.Core.Settings;
+using HseAr.Data.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -7,11 +8,11 @@ namespace HseAr.DataAccess.Mongodb
      public class MongoContext
     {
         private readonly IMongoDatabase _database;
-        private readonly IModelsDatabaseSettings _settings;
+        private readonly ModelsDatabaseSettings _settings;
 
-        public MongoContext(IModelsDatabaseSettings settings)
+        public MongoContext(Configuration configuration)
         {
-            _settings = settings;
+            _settings = configuration.ModelsDatabaseSettings;
 
             var client = new MongoClient(_settings.ConnectionString);
             _database = client.GetDatabase(_settings.DatabaseName);

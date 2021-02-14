@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HseAr.WebPlatform.Api.Controllers
 {
     [Route("wapi/[controller]")]
-    public class FloorController : Controller
+    public class FloorController : ControllerBase
     {
         private readonly IFloorService _floorService;
         private readonly ISceneService _sceneService;
@@ -60,9 +60,9 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// <returns></returns>
         [HttpGet("scene/{id}")]
         [Authorize]
-        public async Task<ActionResult<Scene>> GetSceneByFloorId(Guid id)
+        public async Task<ActionResult<Scene>> GetSceneByFloorId(Guid floorId)
         {
-            return await _sceneService.GetSceneByFloorId(id);
+            return await _sceneService.GetSceneByFloorId(floorId);
         }
     }
 }

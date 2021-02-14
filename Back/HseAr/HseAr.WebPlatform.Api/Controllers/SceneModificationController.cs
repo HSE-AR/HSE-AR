@@ -2,13 +2,14 @@
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Data.DataProjections;
+using HseAr.WebPlatform.Api.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HseAr.WebPlatform.Api.Controllers
 {
     [Route("wapi/test")]
-    public class SceneModificationController : BaseAuthorizeController
+    public class SceneModificationController : ControllerBase
     {
         private readonly ISceneService _sceneService;
 
@@ -26,7 +27,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         [Authorize]
         public async Task<ActionResult<bool>> SetModifications([FromBody] IEnumerable<SceneModification> sceneModifications)
         {
-            var userId = GetUserIdFromToken();
+            var userId = this.GetUserIdFromToken();
             return await _sceneService.ApplyAndSaveSceneModifications(sceneModifications, userId);
         }
     }

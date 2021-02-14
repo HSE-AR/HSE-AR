@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HseAr.Core.Settings;
 using HseAr.Data.DataProjections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +14,7 @@ namespace HseAr.DataAccess.EFCore.DbInitializers
         {
             var userManager = services.GetRequiredService<UserManager<User>>();
             var rolesManager = services.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-            var configuration = services.GetRequiredService<IConfiguration>();
+            var configuration = services.GetRequiredService<Configuration>();
 
             await InitializeSuperAdmin(userManager, rolesManager,configuration);
         }
@@ -21,10 +22,10 @@ namespace HseAr.DataAccess.EFCore.DbInitializers
         private static async Task InitializeSuperAdmin(
             UserManager<User> userManager,
             RoleManager<IdentityRole<Guid>> roleManager,
-            IConfiguration configuration)
+            Configuration configuration)
         {
-            var superAdminEmail = configuration["SuperAdminEmail"];
-            var password = configuration["SuperAdminPassword"];
+            var superAdminEmail = configuration.SuperAdminEmail;
+            var password = configuration.SuperAdminPassword;
             
             if (await roleManager.FindByNameAsync("admin") == null)
             {

@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\HseAr.Core\HseAr.Core.csproj" />
       <ProjectReference Include="..\HseAr.Data\HseAr.Data.csproj" />
     </ItemGroup>
 

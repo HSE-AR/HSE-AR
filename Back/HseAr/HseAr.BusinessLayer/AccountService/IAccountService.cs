@@ -7,5 +7,7 @@ namespace HseAr.BusinessLayer.AccountService
     public interface IAccountService
     {
         Task<AccountContext> GetAccountById(Guid id);
+        
+        Task<AccountContext> GetAccountByArClientKey(Guid arClientKey);
     }
 }

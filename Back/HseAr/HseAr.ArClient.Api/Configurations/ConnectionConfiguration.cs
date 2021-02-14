@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 
-namespace HseAr.Partner.Api.Configurations
+namespace HseAr.ArClient.Api.Configurations
 {
     public static class ConnectionConfiguration
     {
@@ -13,7 +13,7 @@ namespace HseAr.Partner.Api.Configurations
             var connection = configuration["DB_CONNECTION"];
             
             services.AddDbContext<EFCoreContext>(options => options.UseSqlite(connection,
-                b => b.MigrationsAssembly("HseAr.Partner.Api")));
+                b => b.MigrationsAssembly("HseAr.ArClient.Api")));
             
             services.AddSingleton<MongoContext>();
 

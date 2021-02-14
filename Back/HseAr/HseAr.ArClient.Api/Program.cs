@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace HseAr.Partner.Api
+namespace HseAr.ArClient.Api
 {
     public class Program
     {

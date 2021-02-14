@@ -5,6 +5,7 @@ using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Enums;
+using HseAr.Integration.SceneExport;
 using MongoDB.Driver;
 
 namespace HseAr.BusinessLayer.SceneService
@@ -12,11 +13,19 @@ namespace HseAr.BusinessLayer.SceneService
     public class SceneService : ISceneService
     {
         private readonly IUnitOfWork _data;
+        private readonly ISceneExportApiClient _sceneExport;
 
         public SceneService(
-            IUnitOfWork data)
+            IUnitOfWork data,
+            ISceneExportApiClient sceneExport)
         {
             _data = data;
+            _sceneExport = sceneExport;
+        }
+
+        public async Task<string> UploadScene(Scene scene)
+        {
+            return await _sceneExport.ExportScene(scene);
         }
 
         public async Task<Scene> GetSceneByFloorId(Guid id)
