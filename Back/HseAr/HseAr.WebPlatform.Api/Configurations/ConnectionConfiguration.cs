@@ -10,9 +10,9 @@ namespace HseAr.WebPlatform.Api.Configurations
     {
         public static IServiceCollection AddDbConnections(this IServiceCollection services, IConfiguration configuration)
         { 
-            var connection = configuration["DB_CONNECTION"];
+            var connection = configuration.GetConnectionString("DataAccessPostgreSqlProvider");
             
-            services.AddDbContext<EFCoreContext>(options => options.UseSqlite(connection,
+            services.AddDbContext<EFCoreContext>(options => options.UseNpgsql(connection,
                 b => b.MigrationsAssembly("HseAr.WebPlatform.Api")));
             
             services.AddSingleton<MongoContext>();

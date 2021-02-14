@@ -6,9 +6,10 @@ namespace HseAr.Core.Settings
 {
     public class Configuration
     {
-        public string DB_CONNECTION { get; set; }
-
+        public ConnectionStrings ConnectionStrings { get; set; }
+        
         public string STORAGE_PATH { get; set; }
+        
         public ModelsDatabaseSettings ModelsDatabaseSettings { get; set; }
 
         public string Issuer { get; set; }
@@ -26,6 +27,10 @@ namespace HseAr.Core.Settings
         public string SceneExportAccessToken { get; set; }
     }
 
+    public class ConnectionStrings
+    {
+        public string DataAccessPostgreSqlProvider { get; set; }
+    }
     public class ArClientsConfig
     {
         public Guid Key { get; set; }
