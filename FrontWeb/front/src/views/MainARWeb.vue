@@ -36,7 +36,7 @@ import { GLTFExporter } from '../../public/threejs/examples/jsm/exporters/GLTFEx
 import WebXRPolyfill from '../../lib/third-party/webxr-polyfill/build/webxr-polyfill.module.js';
 
 import axios from 'axios'
-import router from '../router'
+import router from '../router/router'
 import { GLTFLoader } from '../../public/threejs/examples/jsm/loaders/GLTFLoader.js';
 
 

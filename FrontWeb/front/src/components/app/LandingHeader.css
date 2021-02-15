@@ -1,0 +1,25 @@
+.wrapper {
+  width: 1217px;
+  margin: 0 auto;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 31px;
+  justify-content: space-between;
+}
+
+.header__logo svg {
+  width: 200px;
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=LandingHeader.css.map */

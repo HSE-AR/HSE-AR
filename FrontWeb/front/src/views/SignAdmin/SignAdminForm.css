@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+.heading__container {
+  text-align: center;
+  padding-top: 36px;
+}
+
+.heading__item {
+  font-weight: 500;
+  font-size: 53px;
+  line-height: 65px;
+  color: white;
+  text-transform: uppercase;
+}
+.heading__item:last-child {
+  text-transform: none;
+}
+
+.heading__link {
+  font-size: 24px;
+  font-weight: 500;
+}
+.heading__link a {
+  outline: none;
+  text-decoration: none;
+  color: #84B0FF;
+}
+
+.main {
+  text-align: center;
+}
+.main .form {
+  margin-top: 21px;
+}
+.main .form__input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 19px;
+}
+.main input {
+  width: 408px;
+  height: 53px;
+  border: none;
+  color: black !important;
+  background: white !important;
+  font-size: 20px;
+  font-weight: 400;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 18px;
+}
+.main .sign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+.main .sign__button {
+  outline: none;
+  border: 1px solid #4B9CFF;
+  border-radius: 25px;
+  background: radial-gradient(314.57% 7618.49% at 10.63% 49.74%, rgba(0, 0, 0, 0.38) 0%, rgba(31, 28, 28, 0.1102) 100%);
+  width: 260px;
+  height: 60px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.main .sign__button span {
+  color: white;
+  font-weight: 500;
+  line-height: 35px;
+  font-size: 28px;
+}
+
+/*# sourceMappingURL=SignAdminForm.css.map */

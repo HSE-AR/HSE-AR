@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+.container {
+  height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background-blend-mode: multiply;
+  background: #444444 url("./img/iphone-bg.jpg") no-repeat center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+.form__container {
+  width: 576px;
+  height: 496px;
+  margin: auto;
+  border-radius: 30px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background: radial-gradient(314.57% 7618.49% at 10.63% 49.74%, rgba(0, 0, 0, 0.38) 0%, rgba(31, 28, 28, 0.1102) 100%);
+}
+
+/*# sourceMappingURL=SignLayout.css.map */
