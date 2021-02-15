@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HseAr.WebPlatform.Api.Controllers
 {
+    
     [Route("wapi/[controller]")]
     public class BuildingController : ControllerBase
     {
@@ -68,8 +69,10 @@ namespace HseAr.WebPlatform.Api.Controllers
         [Authorize]
         public async Task<ActionResult<BuildingCurrentViewModel>> GetByBuildingId(Guid id)
         {
-            var buildingContext = await _buildingService.GetBuildingById(id);
-            return _buildingConstructor.ConstructCurrentModel(buildingContext);
+            var userId = this.GetUserIdFromToken();
+            var buildingContext = await _buildingService.GetUserBuildingById(id, userId);
+            
+            return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
         
     }
