@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HseAr.Data.Entities;
 
 namespace HseAr.Data.DataProjections
 {
@@ -13,6 +14,8 @@ namespace HseAr.Data.DataProjections
         
         public string Coordinate { get; set; }
         
-        public List<Floor> Floors { get; set; } =new List<Floor>();
+        public List<Floor> Floors { get; set; } = new List<Floor>();
+        
+        public List<UserBuildingEntity> UserBuildingEntities { get; set; } = new List<UserBuildingEntity>();
     }
 }

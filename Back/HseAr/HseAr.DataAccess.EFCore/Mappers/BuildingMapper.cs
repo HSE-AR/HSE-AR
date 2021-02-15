@@ -20,7 +20,8 @@ namespace HseAr.DataAccess.EFCore.Mappers
                 Title = source.Title,
                 Address = source.Address,
                 Coordinate = source.Coordinate,
-                Floors = source.Floors.Select(floor => _mapper.Map<FloorEntity,Floor>(floor)).ToList()
+                Floors = source.FloorEntities.Select(floor => _mapper.Map<FloorEntity,Floor>(floor)).ToList(),
+                UserBuildingEntities  = source.UserBuildingEntities
             };
 
         public BuildingEntity Map(Building source)
@@ -30,7 +31,7 @@ namespace HseAr.DataAccess.EFCore.Mappers
                 Title = source.Title,
                 Address = source.Address,
                 Coordinate = source.Coordinate,
-                Floors = source.Floors.Select(floor=> _mapper.Map<Floor,FloorEntity>(floor)).ToList()
+                FloorEntities = source.Floors.Select(floor=> _mapper.Map<Floor,FloorEntity>(floor)).ToList()
             };
     }
 }

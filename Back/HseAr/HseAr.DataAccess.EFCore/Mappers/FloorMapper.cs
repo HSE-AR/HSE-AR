@@ -15,7 +15,7 @@ namespace HseAr.DataAccess.EFCore.Mappers
                 Number = source.Number,
                 CreatedAtUtc = source.CreatedAtUtc,
                 SceneId = source.SceneId,
-                BuildingId = source.BuildingId
+                BuildingId = source.BuildingEntityId
             };
 
         public FloorEntity Map(Floor source)
@@ -26,7 +26,7 @@ namespace HseAr.DataAccess.EFCore.Mappers
                 Number = source.Number,
                 CreatedAtUtc = source.CreatedAtUtc,
                 SceneId = source.SceneId,
-                BuildingId = source.BuildingId
+                BuildingEntityId = source.BuildingId
             };
     }
 }

@@ -17,9 +17,16 @@ namespace HseAr.WebPlatform.Api.ViewModelConstructors
         {
             _floorService = floorService;
         }
+
+        public async Task<BuildingCurrentViewModel> ConstructCurrentModel(BuildingContext source)
+        {
+            var floors = new List<FloorItemModel>();
+            foreach (var floorId in source.FloorIds)
+            {
+                floors.Add(await ConstructFloorItemModel(floorId));
+            }
         
-        public BuildingCurrentViewModel ConstructCurrentModel(BuildingContext source)
-            => new BuildingCurrentViewModel() 
+            return new BuildingCurrentViewModel() 
             {
                 BuildingInfo = new BuildingInfoModel()
                 {
@@ -27,12 +34,11 @@ namespace HseAr.WebPlatform.Api.ViewModelConstructors
                     Title = source.Title,
                     Address  = source.Address,
                     Coordinate = source.Coordinate,
-                    Floors = source.FloorIds.Select( async id => 
-                        await ConstructFloorItemModel(id))
-                        .Select(t => t.Result)
-                        .ToList()
+                    Floors = floors
                 }
             };
+        }
+        
         
         public BuildingsViewModel ConstructModels(List<BuildingContext> source)
             => new BuildingsViewModel() 

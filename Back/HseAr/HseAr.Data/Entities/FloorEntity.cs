@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using HseAr.Data.DataProjections;
 
 namespace HseAr.Data.Entities
 {
@@ -14,6 +16,6 @@ namespace HseAr.Data.Entities
 
         public string SceneId { get; set; }
         
-        public Guid BuildingId { get; set; }
+        public Guid BuildingEntityId { get; set; }
     }
 }

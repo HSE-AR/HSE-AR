@@ -5,6 +5,7 @@ using HseAr.ArClient.Api.Attributes;
 using HseAr.Data.DataProjections;
 using HseAr.ArClient.Api.Helpers;
 using HseAr.ArClient.Api.Models;
+using HseAr.BusinessLayer.ArClientService;
 using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.BusinessLayer.SceneService;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,12 @@ namespace HseAr.ArClient.Api.Controllers
     [Route("arapi/[controller]")]
     public class SceneController : ControllerBase
     {
-        private readonly ISceneService _sceneService;
+        private readonly IArClientService _arClientService;
         
         
-        public SceneController(ISceneService sceneService)
+        public SceneController(IArClientService arClientService)
         {
-            _sceneService = sceneService;
+            _arClientService = arClientService;
         }
         
         /// <summary>
@@ -31,11 +32,9 @@ namespace HseAr.ArClient.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<SceneModel>> Get(Guid floorId)
         {
-            var scene = await _sceneService.GetSceneByFloorId(floorId);
-            
             return new SceneModel()
             {
-                SceneUrl = await _sceneService.UploadScene(scene)
+                SceneUrl = await _arClientService.GetStartScene(floorId, this.GetArClientKey())
             };
             
         }

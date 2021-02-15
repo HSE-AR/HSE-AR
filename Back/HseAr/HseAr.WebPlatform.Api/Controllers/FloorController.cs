@@ -6,6 +6,7 @@ using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Data.DataProjections;
 using HseAr.Infrastructure;
+using HseAr.WebPlatform.Api.Helpers;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.Models.Floor;
 using HseAr.WebPlatform.Api.ViewModelConstructors;
@@ -48,21 +49,22 @@ namespace HseAr.WebPlatform.Api.Controllers
         {
             var floorContext = _mapper.Map<FloorCreationForm, FloorContext>(floorCreationForm);
             var floorResult = await _floorService.CreateFloor(floorContext);
+            
 
-            var buildingContext = await _buildingService.GetBuildingById(floorResult.BuildingId);
-            return _buildingConstructor.ConstructCurrentModel(buildingContext);
+            var buildingContext = await _buildingService.GetUserBuildingById(floorResult.BuildingId, this.GetUserIdFromToken());
+            return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
 
         /// <summary>
         /// Получение сцены по id этажа
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="floorId"></param>
         /// <returns></returns>
-        [HttpGet("scene/{id}")]
+        [HttpGet("scene/{floorId}")]
         [Authorize]
         public async Task<ActionResult<Scene>> GetSceneByFloorId(Guid floorId)
         {
-            return await _sceneService.GetSceneByFloorId(floorId);
+            return await _sceneService.GetUserSceneByFloorId(floorId, this.GetUserIdFromToken());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
@@ -25,12 +26,20 @@ namespace HseAr.BusinessLayer.SceneService
 
         public async Task<string> UploadScene(Scene scene)
         {
+            
             return await _sceneExport.ExportScene(scene);
         }
 
-        public async Task<Scene> GetSceneByFloorId(Guid id)
+        public async Task<Scene> GetUserSceneByFloorId(Guid id, Guid userId)
         {
             var floor = await _data.Floors.GetById(id);
+
+            var building = await _data.Buildings.GetById(floor.BuildingId);
+            if (!building.UserBuildingEntities.Any(ub => ub.UserId == userId))
+            {
+                throw new Exception();
+            }
+            
             return await _data.Scenes.GetById(floor.SceneId);
         }
         
