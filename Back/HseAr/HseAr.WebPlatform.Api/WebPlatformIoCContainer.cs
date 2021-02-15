@@ -19,7 +19,8 @@ namespace HseAr.WebPlatform.Api
                 .RegisterHandlers()
                 .RegisterRepositories()
                 .RegisterServices()
-                .RegisterIdentity();
+                .RegisterIdentity()
+                .RegisterHttpClients();
 
             services
                 .AddViewModelConstructors()

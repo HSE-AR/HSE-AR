@@ -1,7 +1,33 @@
 <template>
   <div id="app">
-    <div ref="myEditor"></div>
-    <router-view/>
+    <component :is="layout">
+      <router-view />
+    </component>
+
   </div>
 </template>
+
+<script>
+  import LandingLayout from "./layouts/LandingLayout/LandingLayout"
+  import SignLayout from "./layouts/SignLayout/SignLayout";
+  import MainLayout from "./layouts/MainLayout/MainLayout";
+  export default {
+    name: 'App',
+    computed: {
+      layout() {
+        return (this.$route.meta.layout || 'sign') + '-layout'
+      }
+    },
+    components: {
+      SignLayout, MainLayout, LandingLayout
+    }
+
+
+
+  }
+</script>
+
+<style lang="css">
+  @import 'assets/css/reset.css';
+</style>
 

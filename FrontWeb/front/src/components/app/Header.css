@@ -1,0 +1,30 @@
+a:focus {
+  outline: none;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: black;
+  width: 100%;
+}
+
+.wrapper {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+.header__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo svg {
+  width: 100px;
+  height: 60px;
+}
+
+/*# sourceMappingURL=Header.css.map */

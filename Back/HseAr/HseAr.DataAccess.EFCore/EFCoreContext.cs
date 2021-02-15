@@ -24,8 +24,8 @@ namespace HseAr.DataAccess.EFCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserBuildingEntity>()
-                .HasKey(ub => new { ub.UserId, ub.BuildingId });
-            
+                .HasKey(ub => new { ub.UserId, ub.BuildingEntityId });
+
             modelBuilder.Entity<IdentityRole<Guid>>().HasData(
                 new IdentityRole<Guid>[]
                 {

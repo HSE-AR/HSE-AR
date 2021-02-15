@@ -1,3 +1,4 @@
+using System;
 using HseAr.WebPlatform.Api.Configurations;
 using HseAr.WebPlatform.Api.Helpers;
 using Microsoft.AspNetCore.Builder;
@@ -45,15 +46,17 @@ namespace HseAr.WebPlatform.Api
             
             app.UseExceptionHandler(err => err.UseCustomErrors(env));
             
-            app.UseAuthentication(); 
+            
 
             app.UseRouting();
+            
             
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod());
 
+            app.UseAuthentication(); 
             app.UseAuthorization();
             
             app.UseSwagger();

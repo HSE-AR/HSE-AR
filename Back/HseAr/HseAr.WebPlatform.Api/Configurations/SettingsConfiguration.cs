@@ -8,9 +8,6 @@ namespace HseAr.WebPlatform.Api.Configurations
     public static class SettingsConfiguration
     {
         public static IServiceCollection AddSettings(this IServiceCollection  services, IConfiguration configuration )
-            => services
-                .Configure<EnvironmentConfig>(configuration)
-                .Configure<ModelsDatabaseSettings>(
-                    configuration.GetSection(nameof(ModelsDatabaseSettings)));
+            => services.Configure<Configuration>(configuration);
     }
 }

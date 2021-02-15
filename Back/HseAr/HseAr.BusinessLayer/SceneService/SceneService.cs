@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Enums;
-using HseAr.Data.Interfaces;
+using HseAr.Integration.SceneExport;
 using MongoDB.Driver;
 using HseAr.DataAccess.Mongodb.SceneModificationHandlers;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,17 +18,32 @@ namespace HseAr.BusinessLayer.SceneService
     public class SceneService : ISceneService
     {
         private readonly IUnitOfWork _data;
-        private readonly List<ISceneModificationHandler> _modificationHandlers;
+        private readonly ISceneExportApiClient _sceneExport;
 
-        public SceneService(IUnitOfWork data, IServiceProvider serviceProvider)
+        public SceneService(
+            IUnitOfWork data,
+            ISceneExportApiClient sceneExport)
         {
             _data = data;
-            _modificationHandlers = serviceProvider.GetServices<ISceneModificationHandler>().ToList();
+            _sceneExport = sceneExport;
         }
 
-        public async Task<Scene> GetSceneByFloorId(Guid id)
+        public async Task<string> UploadScene(Scene scene)
+        {
+            
+            return await _sceneExport.ExportScene(scene);
+        }
+
+        public async Task<Scene> GetUserSceneByFloorId(Guid id, Guid userId)
         {
             var floor = await _data.Floors.GetById(id);
+
+            var building = await _data.Buildings.GetById(floor.BuildingId);
+            if (!building.UserBuildingEntities.Any(ub => ub.UserId == userId))
+            {
+                throw new Exception();
+            }
+            
             return await _data.Scenes.GetById(floor.SceneId);
         }
         
@@ -58,37 +74,28 @@ namespace HseAr.BusinessLayer.SceneService
         
         private async Task<bool> ApplySceneModification(SceneModification sceneMod)
         {
-            UpdateResult result = null;
-
-
-            foreach (ISceneModificationHandler handler in _modificationHandlers)
+            UpdateResult result;
+            
+            switch (sceneMod.Type)
             {
-                if (handler.CatchTypeMatch(sceneMod.Type.ToString()))
-                {
-                    result = await handler.Modify(sceneMod);
+                case SceneModificationType.Add:
+                    result = await _data.SceneElements.InsertElementToModel(sceneMod);
                     break;
                 }
             }
 
+                case SceneModificationType.Delete:
+                    result = await _data.SceneElements.DeleteElementFromScene(sceneMod);
+                    break;
 
-            //switch (sceneMod.Type)
-            //{
-            //    case SceneModificationType.Add:
-            //        result = await _data.SceneElements.InsertElementToModel(sceneMod);
-            //        break;
+                case SceneModificationType.Update:
+                    result = await _data.SceneElements.UpdateElement(sceneMod);
+                    break;
 
-            //    case SceneModificationType.Delete:
-            //        result = await _data.SceneElements.DeleteElementFromScene(sceneMod);
-            //        break;
-
-            //    case SceneModificationType.Update:
-            //        result = await _data.SceneElements.UpdateElement(sceneMod);
-            //        break;
-
-            //    default: 
-            //        result = null;
-            //        break;
-            //}
+                default: 
+                    result = null;
+                    break;
+            }
 
             if (result == null || !result.IsAcknowledged)
             {

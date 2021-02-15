@@ -14,7 +14,8 @@ namespace HseAr.BusinessLayer.Mappers
                 Title = source.Title,
                 Address = source.Address,
                 Coordinate = source.Coordinate,
-                FloorIds = source.Floors.Select(x => x.Id).ToList()
+                FloorIds = source.Floors.Select(x => x.Id).ToList(),
+                UserBuildingIds = source.UserBuildingEntities.Select(ub => (ub.UserId, ub.BuildingEntityId)).ToList()
             };
         
         public Building Map(BuildingContext source)
