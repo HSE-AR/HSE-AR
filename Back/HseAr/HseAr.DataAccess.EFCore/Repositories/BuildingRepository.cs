@@ -28,23 +28,25 @@ namespace HseAr.DataAccess.EFCore.Repositories
 
         public async Task<Building> GetById(Guid id)
             => _mapper.Map<BuildingEntity, Building>(
-                await _context.Buildings.FirstOrDefaultAsync(x => x.Id == id));
+                await _context.Buildings.Include(b=> b.UserBuildingEntities).
+                    FirstOrDefaultAsync(x => x.Id == id));
 
         public async Task<List<Building>> GetListByUserId(Guid userId)
         {
             var buildingIds = _context.UserBuildings
                 .Where(ub => ub.UserId == userId)
-                .Select(x => x.BuildingId);
+                .Select(x => x.BuildingEntityId);
 
             if (buildingIds.Count() == 0)
             {
                 return new List<Building>();
             }
-            
 
-            return await _context.Buildings.Where(x => buildingIds.Contains(x.Id))
-                .Select(x => _mapper.Map<BuildingEntity,Building>(x))
-                .ToListAsync();
+            var buildings = _context.Buildings
+                .Include(x => x.FloorEntities)
+                .Where(x => buildingIds.Contains(x.Id));
+
+            return await buildings.Select(x => _mapper.Map<BuildingEntity,Building>(x)).ToListAsync();
         }
         
         public async Task<Building> AddFromUser(Building building, Guid userId)
@@ -55,7 +57,7 @@ namespace HseAr.DataAccess.EFCore.Repositories
             await _context.UserBuildings.AddAsync(
                 new UserBuildingEntity() 
                 {
-                    BuildingId = result.Entity.Id,
+                    BuildingEntityId = result.Entity.Id,
                     UserId = userId
                 });
             

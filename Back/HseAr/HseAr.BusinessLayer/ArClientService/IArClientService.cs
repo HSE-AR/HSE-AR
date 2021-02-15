@@ -1,4 +1,10 @@
-$HEADER$namespace $NAMESPACE$
+using System;
+using System.Threading.Tasks;
+
+namespace HseAr.BusinessLayer.ArClientService
 {
-  public class $CLASS$ {$END$}
+    public interface IArClientService
+    {
+        Task<string> GetStartScene(Guid floorId, Guid clientKey);
+    }
 }

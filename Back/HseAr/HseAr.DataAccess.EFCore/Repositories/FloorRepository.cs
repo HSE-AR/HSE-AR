@@ -27,8 +27,10 @@ namespace HseAr.DataAccess.EFCore.Repositories
                 .ToList();
 
         public async Task<Floor> GetById(Guid id)
-            => _mapper.Map<FloorEntity, Floor>(
-                await _context.Floors.FirstOrDefaultAsync(x => x.Id == id));
+        {
+            var floorEntity = await _context.Floors.FirstOrDefaultAsync(x => x.Id == id);
+            return _mapper.Map<FloorEntity, Floor>(floorEntity);
+        }
 
         public async Task<Floor> Add(Floor floor)
         {

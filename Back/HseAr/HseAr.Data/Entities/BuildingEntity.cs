@@ -13,8 +13,8 @@ namespace HseAr.Data.Entities
         
         public string Coordinate { get; set; }
         
-        public List<FloorEntity> Floors { get; set; } = new List<FloorEntity>();
+        public List<FloorEntity> FloorEntities { get; set; } = new List<FloorEntity>();
         
-        public List<UserBuildingEntity> UserBuildings { get; set; } = new List<UserBuildingEntity>();
+        public List<UserBuildingEntity> UserBuildingEntities { get; set; } = new List<UserBuildingEntity>();
     }
 }

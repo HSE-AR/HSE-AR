@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService.Models;
+using HseAr.Core.Guard;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Infrastructure;
@@ -33,10 +34,14 @@ namespace HseAr.BusinessLayer.BuildingService
             return buildings.Select(building => _mapper.Map<Building, BuildingContext>(building)).ToList();
         }
 
-        public async Task<BuildingContext> GetBuildingById(Guid id)
+        public async Task<BuildingContext> GetUserBuildingById(Guid buildingId, Guid userId)
         {
-            var buildingResult = await _data.Buildings.GetById(id);
-            return _mapper.Map<Building, BuildingContext>(buildingResult);
+            var building = (await _data.Buildings.GetListByUserId(userId))
+                .FirstOrDefault(b => b.Id == buildingId);
+            
+            Ensure.IsNotNull(building, nameof(building));
+            
+            return _mapper.Map<Building, BuildingContext>(building);
         }
     }
 }

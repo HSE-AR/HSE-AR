@@ -1,6 +1,7 @@
 ﻿using System;
 using HseAr.BusinessLayer.AccountService;
 using HseAr.BusinessLayer.AccountService.Models;
+using HseAr.BusinessLayer.ArClientService;
 using HseAr.BusinessLayer.AuthService;
 using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.BuildingService.Models;
@@ -57,13 +58,14 @@ namespace HseAr.Dependencies
         {
             return services
                 .AddSingleton(sp => sp.GetRequiredService<IOptions<Configuration>>().Value)
-                
+
                 .AddTransient<IJwtGenerator, JwtGenerator>()
                 .AddTransient<IBuildingService, BuildingService>()
                 .AddTransient<IFloorService, FloorService>()
                 .AddTransient<ISceneService, SceneService>()
                 .AddTransient<IAuthService, AuthService>()
-                .AddTransient<IAccountService, AccountService>();
+                .AddTransient<IAccountService, AccountService>()
+                .AddTransient<IArClientService, ArClientService>();
         }
         
         public static IServiceCollection RegisterMappers(this IServiceCollection services)
