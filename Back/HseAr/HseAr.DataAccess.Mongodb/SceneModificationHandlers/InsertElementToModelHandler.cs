@@ -34,23 +34,19 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
         {
             var sceneModEntity = _sceneModMapper.Map(sceneMod);
 
-            if (sceneModEntity.SceneElementType == SceneElementType.Object)
-            {
-                throw new Exception("Недопустимая операция для данного элемента");
-            }
 
-            if (sceneModEntity.Material == null
-                || sceneModEntity.Geometry == null
-                || sceneModEntity.ObjectChild == null)
+            if (sceneModEntity.Object["material"] == null
+                || sceneModEntity.Object["geometry"] == null
+                || sceneModEntity.Object["object"] == null) //object или всё же objectChild?
             {
                 throw new Exception("Для добавления объекта должны быть не нулевыми " +
                                     "поля Material, Geometry, ObjectChildren");
             }
 
             var update = Builders<BsonDocument>.Update
-                .AddToSet("object.children", sceneModEntity.ObjectChild)
-                .AddToSet("materials", sceneModEntity.Material)
-                .AddToSet("geometries", sceneModEntity.Geometry);
+                .AddToSet("object.children", sceneModEntity.Object["object"])
+                .AddToSet("materials", sceneModEntity.Object["material"])
+                .AddToSet("geometries", sceneModEntity.Object["geometry"]);
 
             var filter = SceneFilter.GetFilterById(sceneModEntity.ModelId);
 

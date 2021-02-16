@@ -6,6 +6,8 @@
         
         Update,
         
-        Add
+        Add,
+
+        InsertElementToModel
     }
 }

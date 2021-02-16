@@ -13,7 +13,7 @@ namespace HseAr.Data
         
         ISceneRepository Scenes { get; }
         
-        ISceneElementRepository SceneElements { get; }
+        //ISceneElementRepository SceneElements { get; }
         
         ISceneModificationRepository SceneModifications { get; }
         

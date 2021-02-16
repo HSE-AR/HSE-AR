@@ -55,7 +55,7 @@ namespace HseAr.Dependencies
                 .AddTransient<IFloorRepository, FloorRepository>()
                 .AddTransient<IBuildingRepository, BuildingRepository>()
                 .AddTransient<ISceneModificationRepository, SceneModificationRepository>()
-                .AddTransient<ISceneElementRepository, SceneElementRepository>()
+               // .AddTransient<ISceneElementRepository, SceneElementRepository>()
                 .AddTransient<ISceneRepository, SceneRepository>();
         
         
