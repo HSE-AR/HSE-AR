@@ -1,5 +1,4 @@
-﻿using HseAr.Data.DataProjections;
-using HseAr.Data.Entities;
+﻿using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using HseAr.DataAccess.Mongodb.Filters;
 using HseAr.Infrastructure;
@@ -13,10 +12,10 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
     public class InsertElementToModelHandler : ISceneModificationHandler
     {
         private readonly IMongoCollection<BsonDocument> _scenes;
-        private readonly IMapper<SceneModification, SceneModificationEntity> _sceneModMapper;
+        private readonly IMapper<SceneModification, SceneModificationBson> _sceneModMapper;
 
         public InsertElementToModelHandler(
-            IMapper<SceneModification, SceneModificationEntity> sceneModMapper,
+            IMapper<SceneModification, SceneModificationBson> sceneModMapper,
             MongoContext mongoContext)
         {
             _scenes = mongoContext.ScenesAsBsonDocument;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.ArClient.Api.Attributes;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.ArClient.Api.Helpers;
 using HseAr.ArClient.Api.Models;
 using HseAr.BusinessLayer.ArClientService;

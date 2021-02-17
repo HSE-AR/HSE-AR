@@ -1,4 +1,4 @@
-﻿using HseAr.Data.DataProjections;
+﻿using HseAr.Data.Entities;
 using HseAr.Integration.SceneExport.Models;
 
 namespace HseAr.Integration.SceneExport.Requests

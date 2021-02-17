@@ -1,41 +1,30 @@
-﻿using HseAr.Data.DataProjections;
-using HseAr.Data.Entities;
+﻿using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 using MongoDB.Bson;
 using Newtonsoft.Json.Linq;
 
 namespace HseAr.DataAccess.Mongodb.Mappers
 {
-    public class SceneModificationMapper : IMapper<SceneModificationEntity, SceneModification>, IMapper<SceneModification, SceneModificationEntity>
+    public class SceneModificationMapper : IMapper<SceneModificationBson, SceneModification>, IMapper<SceneModification, SceneModificationBson>
     {
-        SceneModification IMapper<SceneModificationEntity,SceneModification>.Map(SceneModificationEntity source)
+        SceneModification IMapper<SceneModificationBson,SceneModification>.Map(SceneModificationBson source)
             => new SceneModification() 
             {
                 Id = source.Id,
                 EditedAtUtc = source.EditedAtUtc,
                 Object = GetJsonOrNull(source.Object.ToJson()),
-               // Geometry = GetJsonOrNull(source.Geometry.ToJson()),
-                //ObjectChild  = GetJsonOrNull(source.ObjectChild .ToJson()),
-                //Material = GetJsonOrNull(source.Material .ToJson()),
                 ModelId = source.ModelId,
-                //SceneElementType = source.SceneElementType,
                 Type = source.Type,
-                //PropertyModificationType = source.PropertyModificationType
             };
         
-        SceneModificationEntity IMapper<SceneModification,SceneModificationEntity>.Map(SceneModification source)
-            => new SceneModificationEntity() 
+        SceneModificationBson IMapper<SceneModification,SceneModificationBson>.Map(SceneModification source)
+            => new SceneModificationBson() 
             {
                 Id = source.Id,
                 EditedAtUtc = source.EditedAtUtc,
                 Object = GetBsonOrNull(source.Object.ToString()),
-                //Geometry = GetBsonOrNull(source.Geometry.ToJson()),
-                //ObjectChild  = GetBsonOrNull(source.ObjectChild .ToJson()),
-                //Material = GetBsonOrNull(source.Material .ToJson()),
                 ModelId = source.ModelId,
-                //SceneElementType = source.SceneElementType,
                 Type = source.Type,
-                //PropertyModificationType = source.PropertyModificationType
             };
         
         private JObject GetJsonOrNull(string source)

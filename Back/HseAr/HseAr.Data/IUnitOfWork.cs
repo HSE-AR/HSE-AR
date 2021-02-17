@@ -1,5 +1,5 @@
 ﻿using System;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
@@ -12,8 +12,6 @@ namespace HseAr.Data
         IFloorRepository Floors { get; }
         
         ISceneRepository Scenes { get; }
-
-        ISceneModificationRepository SceneModifications { get; }
         
         UserManager<User> Users { get; }
         

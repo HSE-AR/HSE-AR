@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace HseAr.Data.DataProjections
+namespace HseAr.Data.Entities
 {
     public class Scene
     {

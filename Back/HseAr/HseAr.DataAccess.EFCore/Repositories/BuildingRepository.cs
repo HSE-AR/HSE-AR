@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
@@ -22,62 +21,43 @@ namespace HseAr.DataAccess.EFCore.Repositories
         }
 
         public async Task<List<Building>> GetList() 
-            => (await _context.Buildings.AsNoTracking().ToListAsync())
-                .Select(x=> _mapper.Map<BuildingEntity,Building>(x))
-                .ToList();
+            => (await _context.Buildings.AsNoTracking().ToListAsync()).ToList();
 
         public async Task<Building> GetById(Guid id)
-            => _mapper.Map<BuildingEntity, Building>(
-                await _context.Buildings.Include(b=> b.UserBuildingEntities).
-                    FirstOrDefaultAsync(x => x.Id == id));
+            => await _context.Buildings.Include(b=> b.UserBuildings).
+                    FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<List<Building>> GetListByUserId(Guid userId)
         {
-            var buildingIds = _context.UserBuildings
-                .Where(ub => ub.UserId == userId)
-                .Select(x => x.BuildingEntityId);
-
-            if (buildingIds.Count() == 0)
-            {
-                return new List<Building>();
-            }
-
-            var buildings = _context.Buildings
-                .Include(x => x.FloorEntities)
-                .Where(x => buildingIds.Contains(x.Id));
-
-            return await buildings.Select(x => _mapper.Map<BuildingEntity,Building>(x)).ToListAsync();
+            throw new NotImplementedException();
         }
         
         public async Task<Building> AddFromUser(Building building, Guid userId)
         {
-            var buildingEntity = _mapper.Map<Building, BuildingEntity>(building);
-            var result = await _context.Buildings.AddAsync(buildingEntity);
+            var result = await _context.Buildings.AddAsync(building);
 
             await _context.UserBuildings.AddAsync(
-                new UserBuildingEntity() 
+                new UserBuilding() 
                 {
-                    BuildingEntityId = result.Entity.Id,
+                    BuildingId = result.Entity.Id,
                     UserId = userId
                 });
             
             await _context.SaveChangesAsync();
             
-            return _mapper.Map<BuildingEntity,Building>(result.Entity);
+            return result.Entity;
         }
         
         public async Task Update(Building building)
         {
-            var buildingEntity = _mapper.Map<Building, BuildingEntity>(building);
-            
-            _context.Buildings.Update(buildingEntity);
+            _context.Buildings.Update(building);
             await _context.SaveChangesAsync();
         }
         
         public async Task Delete(Guid id)
         {
-            var buildingEntity = await _context.Buildings.FirstOrDefaultAsync(x => x.Id == id);
-            _context.Buildings.Remove(buildingEntity);
+            var building = await _context.Buildings.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Buildings.Remove(building);
             await _context.SaveChangesAsync();
         }
     }

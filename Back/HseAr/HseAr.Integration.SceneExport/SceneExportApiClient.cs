@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using HseAr.Core.Settings;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.Integration.SceneExport.Requests;
 using HseAr.Integration.SceneExport.Responses;
 using Newtonsoft.Json;

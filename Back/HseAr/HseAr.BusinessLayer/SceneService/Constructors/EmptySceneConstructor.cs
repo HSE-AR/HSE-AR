@@ -4,7 +4,7 @@ namespace HseAr.BusinessLayer.SceneService.Constructors
 {
     public class EmptySceneConstructor
     {
-        public static Data.DataProjections.Scene CreateEmptyScene()
+        public static Data.Entities.Scene CreateEmptyScene()
         {
             var metadata = @"{
                 version: 4.5,
@@ -65,7 +65,7 @@ namespace HseAr.BusinessLayer.SceneService.Constructors
                 }]
             }";
 
-            return new Data.DataProjections.Scene()
+            return new Data.Entities.Scene()
             {
                 Metadata = JObject.Parse(metadata),
                 Geometries = JArray.Parse(geometries),

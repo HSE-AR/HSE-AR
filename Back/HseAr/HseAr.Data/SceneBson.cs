@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace HseAr.Data.Entities
+namespace HseAr.Data
 {
-    public class SceneEntity
+    public class SceneBson
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HseAr.Data.Entities
 {
-    public class BuildingEntity
+    public class Building
     {
         public Guid Id { get; set; }
         
@@ -13,8 +13,8 @@ namespace HseAr.Data.Entities
         
         public string Coordinate { get; set; }
         
-        public List<FloorEntity> FloorEntities { get; set; } = new List<FloorEntity>();
+        public List<Floor> Floors { get; set; } = new List<Floor>();
         
-        public List<UserBuildingEntity> UserBuildingEntities { get; set; } = new List<UserBuildingEntity>();
+        public List<UserBuilding> UserBuildings { get; set; } = new List<UserBuilding>();
     }
 }

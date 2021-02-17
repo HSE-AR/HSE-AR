@@ -4,7 +4,7 @@ using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.FloorService;
 using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.SceneService;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Helpers;
 using HseAr.WebPlatform.Api.Models.Building;

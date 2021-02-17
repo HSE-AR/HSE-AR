@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace HseAr.Data.Entities
 {
-    public class SceneModificationEntity
+    public class SceneModificationBson
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
