@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HseAr.Data.DataProjections
+namespace HseAr.Data.Entities
 {
     public class Floor
     {

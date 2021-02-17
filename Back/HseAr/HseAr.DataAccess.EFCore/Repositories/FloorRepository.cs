@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
@@ -22,38 +21,29 @@ namespace HseAr.DataAccess.EFCore.Repositories
         }
 
         public async Task<List<Floor>> Get() 
-            => (await _context.Floors.AsNoTracking().ToListAsync())
-                .Select(x=>_mapper.Map<FloorEntity,Floor>(x))
-                .ToList();
+            => (await _context.Floors.AsNoTracking().ToListAsync()).ToList();
 
         public async Task<Floor> GetById(Guid id)
-        {
-            var floorEntity = await _context.Floors.FirstOrDefaultAsync(x => x.Id == id);
-            return _mapper.Map<FloorEntity, Floor>(floorEntity);
-        }
+            => await _context.Floors.FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<Floor> Add(Floor floor)
         {
-            var floorEntity = _mapper.Map<Floor, FloorEntity>(floor);
-            
-            var result =await _context.Floors.AddAsync(floorEntity);
+            var result =await _context.Floors.AddAsync(floor);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<FloorEntity, Floor>(result.Entity);
+            return result.Entity;
         }
         
         public async Task Update(Floor floor)
         {
-            var floorEntity = _mapper.Map<Floor, FloorEntity>(floor);
-            
-            _context.Floors.Update(floorEntity);
+            _context.Floors.Update(floor);
             await _context.SaveChangesAsync();
         }
         
         public async Task Delete(Guid id)
         {
-            var floorEntity = await _context.Floors.FirstOrDefaultAsync(x => x.Id == id);
-            _context.Floors.Remove(floorEntity);
+            var floor = await _context.Floors.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Floors.Remove(floor);
             await _context.SaveChangesAsync();
         }
     }

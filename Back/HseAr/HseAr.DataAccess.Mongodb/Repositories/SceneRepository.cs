@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HseAr.Data.DataProjections;
+using HseAr.Data;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
@@ -13,7 +13,7 @@ namespace HseAr.DataAccess.Mongodb.Repositories
 {
     public class SceneRepository : ISceneRepository
     {
-        private readonly IMongoCollection<SceneEntity> _scenes;
+        private readonly IMongoCollection<SceneBson> _scenes;
         private readonly IMapper _mapper;
         private readonly List<ISceneModificationHandler> _modificationHandlers; 
 
@@ -42,18 +42,18 @@ namespace HseAr.DataAccess.Mongodb.Repositories
 
         public async Task<List<Scene>> GetList()
             => (await _scenes.Find(s => true).ToListAsync())
-                .Select(scene => _mapper.Map<SceneEntity, Scene>(scene))
+                .Select(scene => _mapper.Map<SceneBson, Scene>(scene))
                 .ToList();
 
         public async Task<Scene> GetById(string id) 
-            => _mapper.Map<SceneEntity, Scene>(await _scenes.Find(s => s.Id == id).FirstOrDefaultAsync());
+            => _mapper.Map<SceneBson, Scene>(await _scenes.Find(s => s.Id == id).FirstOrDefaultAsync());
 
         public async Task<Scene> Create(Scene scene)
         {
-            var sceneEntity = _mapper.Map<Scene, SceneEntity>(scene);
+            var sceneEntity = _mapper.Map<Scene, SceneBson>(scene);
             await _scenes.InsertOneAsync(sceneEntity);
             
-            return _mapper.Map<SceneEntity, Scene>(sceneEntity);
+            return _mapper.Map<SceneBson, Scene>(sceneEntity);
         }
 
         public async Task<DeleteResult> Remove(string id) 

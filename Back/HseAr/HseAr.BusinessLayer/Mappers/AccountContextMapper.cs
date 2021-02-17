@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using HseAr.BusinessLayer.AccountService.Models;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 
 namespace HseAr.BusinessLayer.Mappers
@@ -13,7 +13,7 @@ namespace HseAr.BusinessLayer.Mappers
                 Id = source.Id,
                 Name = source.Name,
                 Email = source.Email,
-                UserBuildingIds = source.UserBuildingEntities.Select(ub => (ub.UserId, ub.BuildingEntityId))
+                UserBuildingIds = source.UserBuildings.Select(ub => (ub.UserId, ub.BuildingId))
                     .ToList()
             };
     }

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.Jwt;
 using HseAr.Data;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 
 namespace HseAr.BusinessLayer.AuthService
 {

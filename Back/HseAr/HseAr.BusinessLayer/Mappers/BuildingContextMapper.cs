@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using HseAr.BusinessLayer.BuildingService.Models;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 
 namespace HseAr.BusinessLayer.Mappers
@@ -15,7 +15,7 @@ namespace HseAr.BusinessLayer.Mappers
                 Address = source.Address,
                 Coordinate = source.Coordinate,
                 FloorIds = source.Floors.Select(x => x.Id).ToList(),
-                UserBuildingIds = source.UserBuildingEntities.Select(ub => (ub.UserId, ub.BuildingEntityId)).ToList()
+                UserBuildingIds = source.UserBuildings.Select(ub => (ub.UserId, ub.BuildingId)).ToList()
             };
         
         public Building Map(BuildingContext source)

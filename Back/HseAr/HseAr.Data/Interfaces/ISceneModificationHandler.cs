@@ -1,4 +1,4 @@
-﻿using HseAr.Data.DataProjections;
+﻿using HseAr.Data.Entities;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 

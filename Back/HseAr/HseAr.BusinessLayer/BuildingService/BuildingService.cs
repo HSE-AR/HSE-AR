@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.Core.Guard;
 using HseAr.Data;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 
 namespace HseAr.BusinessLayer.BuildingService
@@ -30,7 +30,7 @@ namespace HseAr.BusinessLayer.BuildingService
 
         public async Task<List<BuildingContext>> GetBuildingsByUserId(Guid userId)
         {
-            var buildings =await _data.Buildings.GetListByUserId(userId);
+            var buildings = await _data.Buildings.GetListByUserId(userId);
             return buildings.Select(building => _mapper.Map<Building, BuildingContext>(building)).ToList();
         }
 

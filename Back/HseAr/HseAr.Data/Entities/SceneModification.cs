@@ -2,7 +2,7 @@ using System;
 using HseAr.Data.Enums;
 using Newtonsoft.Json.Linq;
 
-namespace HseAr.Data.DataProjections
+namespace HseAr.Data.Entities
 {
     public class SceneModification
     {
@@ -11,11 +11,9 @@ namespace HseAr.Data.DataProjections
         public DateTime EditedAtUtc { get; set; }
 
         public SceneModificationType Type { get; set; }
-
-
+        
         public JObject Object { get; set; }
 
         public string ModelId { get; set; }
-        
     }
 }

@@ -12,11 +12,9 @@ using HseAr.BusinessLayer.Mappers;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Core.Settings;
 using HseAr.Data;
-using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using HseAr.DataAccess.EFCore;
-using HseAr.DataAccess.EFCore.Mappers;
 using HseAr.DataAccess.EFCore.Repositories;
 using HseAr.DataAccess.Mongodb.Mappers;
 using HseAr.DataAccess.Mongodb.Repositories;
@@ -54,7 +52,6 @@ namespace HseAr.Dependencies
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IFloorRepository, FloorRepository>()
                 .AddTransient<IBuildingRepository, BuildingRepository>()
-                .AddTransient<ISceneModificationRepository, SceneModificationRepository>()
                 .AddTransient<ISceneRepository, SceneRepository>();
         
         
@@ -76,14 +73,10 @@ namespace HseAr.Dependencies
         {
             return services
                 .AddTransient<IMapper, ContainerMapper>()
-                .AddTransient<IMapper<SceneModificationEntity, SceneModification>, SceneModificationMapper>()
-                .AddTransient<IMapper<SceneModification, SceneModificationEntity>, SceneModificationMapper>()
-                .AddTransient<IMapper<Scene, SceneEntity>, SceneMapper>()
-                .AddTransient<IMapper<SceneEntity, Scene>, SceneMapper>()
-                .AddTransient<IMapper<Floor, FloorEntity>, FloorMapper>()
-                .AddTransient<IMapper<FloorEntity, Floor>, FloorMapper>()
-                .AddTransient<IMapper<Building, BuildingEntity>, BuildingMapper>()
-                .AddTransient<IMapper<BuildingEntity, Building>, BuildingMapper>()
+                .AddTransient<IMapper<SceneModificationBson, SceneModification>, SceneModificationMapper>()
+                .AddTransient<IMapper<SceneModification, SceneModificationBson>, SceneModificationMapper>()
+                .AddTransient<IMapper<Scene, SceneBson>, SceneMapper>()
+                .AddTransient<IMapper<SceneBson, Scene>, SceneMapper>()
 
                 .AddTransient<IMapper<Building, BuildingContext>, BuildingContextMapper>()
                 .AddTransient<IMapper<BuildingContext, Building>, BuildingContextMapper>()

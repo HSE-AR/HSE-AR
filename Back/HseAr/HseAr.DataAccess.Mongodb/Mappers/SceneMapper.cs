@@ -1,5 +1,5 @@
 ﻿using HseAr.Core.BsonJson;
-using HseAr.Data.DataProjections;
+using HseAr.Data;
 using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 using MongoDB.Bson;
@@ -7,10 +7,10 @@ using Newtonsoft.Json.Linq;
 
 namespace HseAr.DataAccess.Mongodb.Mappers
 {
-    public class SceneMapper : IMapper<SceneEntity, Scene>, IMapper<Scene, SceneEntity>
+    public class SceneMapper : IMapper<SceneBson, Scene>, IMapper<Scene, SceneBson>
     {
         
-        Scene IMapper<SceneEntity,Scene>.Map(SceneEntity source)
+        Scene IMapper<SceneBson,Scene>.Map(SceneBson source)
             => new Scene() 
                 {
                     Id = source.Id,
@@ -20,8 +20,8 @@ namespace HseAr.DataAccess.Mongodb.Mappers
                     Object = JObject.Parse(source.Object.ToJson())
                 };
 
-        SceneEntity IMapper<Scene,SceneEntity>.Map(Scene source)
-            => new SceneEntity()
+        SceneBson IMapper<Scene,SceneBson>.Map(Scene source)
+            => new SceneBson()
                 {
                     Id = source.Id,
                     Materials = Serializer.GetBsonArrayFromString(source.Materials.ToString()),

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using System.Linq;
 using HseAr.Integration.SceneExport;
 
@@ -32,7 +32,7 @@ namespace HseAr.BusinessLayer.SceneService
             var floor = await _data.Floors.GetById(id);
 
             var building = await _data.Buildings.GetById(floor.BuildingId);
-            if (!building.UserBuildingEntities.Any(ub => ub.UserId == userId))
+            if (!building.UserBuildings.Any(ub => ub.UserId == userId))
             {
                 throw new Exception();
             }
@@ -56,21 +56,9 @@ namespace HseAr.BusinessLayer.SceneService
             {
                 result &= await _data.Scenes.ApplyModification(sceneMod);
             }
-
-            if (result)
-            {
-                await SaveSceneModifications(sceneMods);
-            }
-
+            
             return result;
         }
         
-        private async Task SaveSceneModifications(IEnumerable<SceneModification> sceneMods)
-        {
-            foreach (var sceneMod in sceneMods)
-            {
-                await _data.SceneModifications.CreateAsync(sceneMod);
-            }
-        }
     }
 }

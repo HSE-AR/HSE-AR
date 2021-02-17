@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.WebPlatform.Api.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

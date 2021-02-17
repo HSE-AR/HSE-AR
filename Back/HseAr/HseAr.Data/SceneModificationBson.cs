@@ -3,9 +3,9 @@ using HseAr.Data.Enums;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace HseAr.Data.Entities
+namespace HseAr.Data
 {
-    public class SceneModificationEntity
+    public class SceneModificationBson
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

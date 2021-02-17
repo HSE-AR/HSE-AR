@@ -5,7 +5,7 @@ using HseAr.BusinessLayer.AccountService.Models;
 using HseAr.Core.Guard;
 using HseAr.Core.Settings;
 using HseAr.Data;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 
 namespace HseAr.BusinessLayer.AccountService

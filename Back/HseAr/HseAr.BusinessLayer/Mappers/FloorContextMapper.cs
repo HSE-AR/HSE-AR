@@ -1,5 +1,5 @@
 ﻿using HseAr.BusinessLayer.FloorService.Models;
-using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.Infrastructure;
 
 namespace HseAr.BusinessLayer.Mappers
