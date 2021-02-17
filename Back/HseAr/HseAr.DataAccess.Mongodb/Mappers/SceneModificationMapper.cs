@@ -14,13 +14,13 @@ namespace HseAr.DataAccess.Mongodb.Mappers
                 Id = source.Id,
                 EditedAtUtc = source.EditedAtUtc,
                 Object = GetJsonOrNull(source.Object.ToJson()),
-                Geometry = GetJsonOrNull(source.Geometry.ToJson()),
-                ObjectChild  = GetJsonOrNull(source.ObjectChild .ToJson()),
-                Material = GetJsonOrNull(source.Material .ToJson()),
+               // Geometry = GetJsonOrNull(source.Geometry.ToJson()),
+                //ObjectChild  = GetJsonOrNull(source.ObjectChild .ToJson()),
+                //Material = GetJsonOrNull(source.Material .ToJson()),
                 ModelId = source.ModelId,
-                SceneElementType = source.SceneElementType,
+                //SceneElementType = source.SceneElementType,
                 Type = source.Type,
-                PropertyModificationType = source.PropertyModificationType
+                //PropertyModificationType = source.PropertyModificationType
             };
         
         SceneModificationEntity IMapper<SceneModification,SceneModificationEntity>.Map(SceneModification source)
@@ -28,21 +28,21 @@ namespace HseAr.DataAccess.Mongodb.Mappers
             {
                 Id = source.Id,
                 EditedAtUtc = source.EditedAtUtc,
-                Object = GetBsonOrNull(source.Object.ToJson()),
-                Geometry = GetBsonOrNull(source.Geometry.ToJson()),
-                ObjectChild  = GetBsonOrNull(source.ObjectChild .ToJson()),
-                Material = GetBsonOrNull(source.Material .ToJson()),
+                Object = GetBsonOrNull(source.Object.ToString()),
+                //Geometry = GetBsonOrNull(source.Geometry.ToJson()),
+                //ObjectChild  = GetBsonOrNull(source.ObjectChild .ToJson()),
+                //Material = GetBsonOrNull(source.Material .ToJson()),
                 ModelId = source.ModelId,
-                SceneElementType = source.SceneElementType,
+                //SceneElementType = source.SceneElementType,
                 Type = source.Type,
-                PropertyModificationType = source.PropertyModificationType
+                //PropertyModificationType = source.PropertyModificationType
             };
         
         private JObject GetJsonOrNull(string source)
         {
             if (source != null)
             {
-                return JObject.Parse(source.ToJson());
+                return JObject.Parse(source);
             }
                 
             return null;
@@ -52,7 +52,7 @@ namespace HseAr.DataAccess.Mongodb.Mappers
         {
             if (source != null)
             {
-                return BsonDocument.Parse(source.ToJson());
+                return BsonDocument.Parse(source);
             }
                 
             return null;

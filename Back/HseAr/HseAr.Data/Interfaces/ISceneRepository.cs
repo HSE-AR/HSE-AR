@@ -14,5 +14,8 @@ namespace HseAr.Data.Interfaces
         Task<Scene> Create(Scene scene);
 
         Task<DeleteResult> Remove(string id);
+
+        Task<bool> ApplyModification(SceneModification sceneModification);
+
     }
 }

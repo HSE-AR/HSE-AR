@@ -10,7 +10,6 @@ namespace HseAr.Data
         private readonly IBuildingRepository _buildingRepo;
         private readonly IFloorRepository _floorRepo;
         private readonly ISceneRepository _sceneRepo;
-        private readonly ISceneElementRepository _sceneElementRepo;
         private readonly ISceneModificationRepository _sceneModificationRepo;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
@@ -20,7 +19,6 @@ namespace HseAr.Data
             IBuildingRepository buildingRepo,
             IFloorRepository floorRepo,
             ISceneRepository sceneRepo,
-            ISceneElementRepository sceneElementRepo,
             ISceneModificationRepository sceneModificationRepo,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
@@ -29,7 +27,6 @@ namespace HseAr.Data
             _buildingRepo = buildingRepo;
             _floorRepo = floorRepo;
             _sceneRepo = sceneRepo;
-            _sceneElementRepo = sceneElementRepo;
             _sceneModificationRepo = sceneModificationRepo;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -41,8 +38,6 @@ namespace HseAr.Data
         public IFloorRepository Floors => _floorRepo;
 
         public ISceneRepository Scenes => _sceneRepo;
-
-        public ISceneElementRepository SceneElements => _sceneElementRepo;
 
         public ISceneModificationRepository SceneModifications => _sceneModificationRepo;
 

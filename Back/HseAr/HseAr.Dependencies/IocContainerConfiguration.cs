@@ -20,6 +20,7 @@ using HseAr.DataAccess.EFCore.Mappers;
 using HseAr.DataAccess.EFCore.Repositories;
 using HseAr.DataAccess.Mongodb.Mappers;
 using HseAr.DataAccess.Mongodb.Repositories;
+using HseAr.DataAccess.Mongodb.SceneModificationHandlers;
 using HseAr.Infrastructure;
 using HseAr.Integration.SceneExport;
 using Microsoft.AspNetCore.Identity;
@@ -43,14 +44,17 @@ namespace HseAr.Dependencies
 
             return services;
         }
-        
+
+        public static IServiceCollection RegisterHandlers(this IServiceCollection services)
+           => services
+                .AddTransient<ISceneModificationHandler, InsertElementToModelHandler>();
+
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
             => services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IFloorRepository, FloorRepository>()
                 .AddTransient<IBuildingRepository, BuildingRepository>()
                 .AddTransient<ISceneModificationRepository, SceneModificationRepository>()
-                .AddTransient<ISceneElementRepository, SceneElementRepository>()
                 .AddTransient<ISceneRepository, SceneRepository>();
         
         

@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
-using HseAr.Data.Enums;
+using System.Linq;
 using HseAr.Integration.SceneExport;
-using MongoDB.Driver;
 
 namespace HseAr.BusinessLayer.SceneService
 {
@@ -16,9 +15,7 @@ namespace HseAr.BusinessLayer.SceneService
         private readonly IUnitOfWork _data;
         private readonly ISceneExportApiClient _sceneExport;
 
-        public SceneService(
-            IUnitOfWork data,
-            ISceneExportApiClient sceneExport)
+        public SceneService(IUnitOfWork data, ISceneExportApiClient sceneExport)
         {
             _data = data;
             _sceneExport = sceneExport;
@@ -26,7 +23,7 @@ namespace HseAr.BusinessLayer.SceneService
 
         public async Task<string> UploadScene(Scene scene)
         {
-            
+
             return await _sceneExport.ExportScene(scene);
         }
 
@@ -39,10 +36,10 @@ namespace HseAr.BusinessLayer.SceneService
             {
                 throw new Exception();
             }
-            
+
             return await _data.Scenes.GetById(floor.SceneId);
         }
-        
+
         public async Task<Scene> AddEmptyScene()
         {
             var emptyScene = EmptySceneConstructor.CreateEmptyScene();
@@ -50,55 +47,24 @@ namespace HseAr.BusinessLayer.SceneService
             var sceneResult = await _data.Scenes.Create(emptyScene);
             return sceneResult;
         }
-        
+
         public async Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> sceneMods, Guid userId)
         {
             //CheckModelOwnership(sceneModificationDto.ModelId, userId);
             var result = true;
             foreach (var sceneMod in sceneMods)
             {
-                result &= await ApplySceneModification(sceneMod);
+                result &= await _data.Scenes.ApplyModification(sceneMod);
             }
 
             if (result)
             {
                 await SaveSceneModifications(sceneMods);
             }
-            
+
             return result;
         }
         
-        private async Task<bool> ApplySceneModification(SceneModification sceneMod)
-        {
-            UpdateResult result;
-            
-            switch (sceneMod.Type)
-            {
-                case SceneModificationType.Add:
-                    result = await _data.SceneElements.InsertElementToModel(sceneMod);
-                    break;
-
-                case SceneModificationType.Delete:
-                    result = await _data.SceneElements.DeleteElementFromScene(sceneMod);
-                    break;
-
-                case SceneModificationType.Update:
-                    result = await _data.SceneElements.UpdateElement(sceneMod);
-                    break;
-
-                default: 
-                    result = null;
-                    break;
-            }
-
-            if (result == null || !result.IsAcknowledged)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         private async Task SaveSceneModifications(IEnumerable<SceneModification> sceneMods)
         {
             foreach (var sceneMod in sceneMods)
@@ -108,4 +74,3 @@ namespace HseAr.BusinessLayer.SceneService
         }
     }
 }
-

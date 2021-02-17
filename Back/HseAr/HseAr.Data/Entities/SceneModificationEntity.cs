@@ -14,16 +14,6 @@ namespace HseAr.Data.Entities
         public DateTime EditedAtUtc { get; set; }
 
         public SceneModificationType Type { get; set; }
-
-        public SceneElementType SceneElementType { get; set; }
-
-        public SceneModificationType PropertyModificationType { get; set; }
-
-        public BsonDocument Geometry { get; set; }
-
-        public BsonDocument Material { get; set; }
-
-        public BsonDocument ObjectChild { get; set; }
         
         public BsonDocument Object { get; set; }
 

@@ -16,6 +16,7 @@ namespace HseAr.WebPlatform.Api
         {
             services
                 .RegisterMappers()
+                .RegisterHandlers()
                 .RegisterRepositories()
                 .RegisterServices()
                 .RegisterIdentity()
