@@ -30,7 +30,7 @@ namespace HseAr.BusinessLayer.BuildingService
 
         public async Task<List<BuildingContext>> GetBuildingsByUserId(Guid userId)
         {
-            var buildings =await _data.Buildings.GetListByUserId(userId);
+            var buildings = await _data.Buildings.GetListByUserId(userId);
             return buildings.Select(building => _mapper.Map<Building, BuildingContext>(building)).ToList();
         }
 
