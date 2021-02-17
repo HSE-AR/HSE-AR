@@ -10,12 +10,12 @@ using HseAr.Data;
 
 namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 {
-    public class InsertElementToModelHandler : ISceneModificationHandler
+    public class InsertObjectIntoSceneHandler : ISceneModificationHandler
     {
         private readonly IMongoCollection<BsonDocument> _scenes;
         private readonly IMapper<SceneModification, SceneModificationBson> _sceneModMapper;
 
-        public InsertElementToModelHandler(
+        public InsertObjectIntoSceneHandler(
             IMapper<SceneModification, SceneModificationBson> sceneModMapper,
             MongoContext mongoContext)
         {
@@ -23,7 +23,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             _sceneModMapper = sceneModMapper;
         }
 
-        public InsertElementToModelHandler()
+        public InsertObjectIntoSceneHandler()
         {
         }
 
@@ -52,7 +52,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
         public bool CatchTypeMatch(string modificationName)
         {
-            if (modificationName == "InsertElementToModel")
+            if (modificationName == "InsertObjectIntoScene")
                 return true;
 
             return false;

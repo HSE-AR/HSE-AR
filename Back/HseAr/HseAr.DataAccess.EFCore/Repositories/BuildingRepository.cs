@@ -30,7 +30,9 @@ namespace HseAr.DataAccess.EFCore.Repositories
         public async Task<List<Building>> GetListByUserId(Guid userId)
         {
             var user = _context.Users.Include(x => x.UserBuildings).FirstOrDefault(u => u.Id == userId);
-            return user.UserBuildings.Select(ub => _context.Buildings.FirstOrDefault(b => b.Id == ub.BuildingId)).ToList();
+            return user.UserBuildings
+                .Select(ub => _context.Buildings.Include(x => x.Floors).FirstOrDefault(b => b.Id == ub.BuildingId))
+                .ToList();
         }
         
         public async Task<Building> AddFromUser(Building building, Guid userId)
