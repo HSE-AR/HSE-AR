@@ -12,9 +12,7 @@ namespace HseAr.Data
         IFloorRepository Floors { get; }
         
         ISceneRepository Scenes { get; }
-        
-        //ISceneElementRepository SceneElements { get; }
-        
+
         ISceneModificationRepository SceneModifications { get; }
         
         UserManager<User> Users { get; }

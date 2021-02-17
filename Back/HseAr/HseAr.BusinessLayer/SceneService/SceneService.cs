@@ -5,11 +5,6 @@ using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
 using HseAr.Data.DataProjections;
-using HseAr.Data.Enums;
-using HseAr.Data.Interfaces;
-using MongoDB.Driver;
-using HseAr.DataAccess.Mongodb.SceneModificationHandlers;
-using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using HseAr.Integration.SceneExport;
 
@@ -18,13 +13,11 @@ namespace HseAr.BusinessLayer.SceneService
     public class SceneService : ISceneService
     {
         private readonly IUnitOfWork _data;
-        private readonly List<ISceneModificationHandler> _modificationHandlers;
         private readonly ISceneExportApiClient _sceneExport;
 
-        public SceneService(IUnitOfWork data, IServiceProvider serviceProvider, ISceneExportApiClient sceneExport)
+        public SceneService(IUnitOfWork data, ISceneExportApiClient sceneExport)
         {
             _data = data;
-            _modificationHandlers = serviceProvider.GetServices<ISceneModificationHandler>().ToList();
             _sceneExport = sceneExport;
         }
 
@@ -61,7 +54,7 @@ namespace HseAr.BusinessLayer.SceneService
             var result = true;
             foreach (var sceneMod in sceneMods)
             {
-                result &= await ApplySceneModification(sceneMod);
+                result &= await _data.Scenes.ApplyModification(sceneMod);
             }
 
             if (result)
@@ -71,30 +64,7 @@ namespace HseAr.BusinessLayer.SceneService
 
             return result;
         }
-
-        private async Task<bool> ApplySceneModification(SceneModification sceneMod)
-        {
-            UpdateResult result = null;
-
-
-            foreach (ISceneModificationHandler handler in _modificationHandlers)
-            {
-                if (handler.CatchTypeMatch(sceneMod.Type.ToString()))
-                {
-                    result = await handler.Modify(sceneMod);
-                    break;
-                }
-            }
-
-
-            if (result == null || !result.IsAcknowledged)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
+        
         private async Task SaveSceneModifications(IEnumerable<SceneModification> sceneMods)
         {
             foreach (var sceneMod in sceneMods)

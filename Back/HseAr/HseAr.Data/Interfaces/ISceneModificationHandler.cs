@@ -1,8 +1,5 @@
 ﻿using HseAr.Data.DataProjections;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HseAr.Data.Interfaces
@@ -11,6 +8,6 @@ namespace HseAr.Data.Interfaces
     {
         Task<UpdateResult> Modify(SceneModification sceneMod);
 
-        bool CatchTypeMatch(string modficationName);
+        bool CatchTypeMatch(string modificationName);
     }
 }

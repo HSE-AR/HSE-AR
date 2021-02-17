@@ -6,7 +6,6 @@ namespace HseAr.Data.Interfaces
 {
     public interface ISceneModificationRepository
     {
-
         Task<SceneModification> CreateAsync(SceneModification sceneModificationEntity);
 
         Task<DeleteResult> RemoveAsync(string id);

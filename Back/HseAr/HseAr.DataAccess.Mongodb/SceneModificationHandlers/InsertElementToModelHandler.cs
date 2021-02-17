@@ -1,14 +1,11 @@
 ﻿using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
-using HseAr.Data.Enums;
 using HseAr.Data.Interfaces;
 using HseAr.DataAccess.Mongodb.Filters;
 using HseAr.Infrastructure;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
