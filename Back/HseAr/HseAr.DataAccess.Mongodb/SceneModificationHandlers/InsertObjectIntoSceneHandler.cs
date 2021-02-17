@@ -52,10 +52,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
         public bool CatchTypeMatch(string modificationName)
         {
-            if (modificationName == "InsertObjectIntoScene")
-                return true;
-
-            return false;
+            return modificationName == "InsertObjectIntoScene";
         }
     }
 }

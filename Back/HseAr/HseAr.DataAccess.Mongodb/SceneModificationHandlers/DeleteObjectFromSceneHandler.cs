@@ -79,10 +79,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
         public bool CatchTypeMatch(string modificationName)
         {
-            if (modificationName == "DeleteObjectFromScene")
-                return true;
-
-            return false;
+            return modificationName == "DeleteObjectFromScene";
         }
     }
 }
