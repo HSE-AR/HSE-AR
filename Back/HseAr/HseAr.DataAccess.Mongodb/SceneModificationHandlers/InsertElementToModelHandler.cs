@@ -6,6 +6,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
+using HseAr.Data;
 
 namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 {
