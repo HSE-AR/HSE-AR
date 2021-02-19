@@ -17,7 +17,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         }
         
         /// <summary>
-        /// Авторизация пользователя (админа)
+        /// Авторизация пользователя
         /// </summary>
         /// <param name="form"></param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         }
 
         /// <summary>
-        /// Реистрация пользователя (админа)
+        /// Регистрация пользователя, автоматически добавляется приватная команда использующая WebArClient 
         /// </summary>
         /// <param name="form"></param>
         /// <returns></returns>

@@ -11,7 +11,7 @@ namespace HseAr.BusinessLayer.AccountService.Models
         
         public string Email { get; set; }
         
-        public List<(Guid,Guid)> UserBuildingIds { get; set; } = new List<(Guid, Guid)>();
+        public List<(Guid,Guid)> UserCompanyIds { get; set; } = new List<(Guid, Guid)>();
         
         public Guid? ArClientKey { get; set; }
     }

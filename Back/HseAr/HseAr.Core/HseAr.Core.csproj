@@ -17,8 +17,4 @@
       <ProjectReference Include="..\HseAr.Infrastructure\HseAr.Infrastructure.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Helpers" />
-    </ItemGroup>
-
 </Project>

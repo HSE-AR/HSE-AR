@@ -13,7 +13,7 @@ namespace HseAr.BusinessLayer.Mappers
                 Id = source.Id,
                 Name = source.Name,
                 Email = source.Email,
-                UserBuildingIds = source.UserBuildings.Select(ub => (ub.UserId, ub.BuildingId))
+                UserCompanyIds = source.Positions.Select(ub => (ub.UserId, ub.CompanyId))
                     .ToList()
             };
     }

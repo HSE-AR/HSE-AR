@@ -12,8 +12,11 @@ namespace HseAr.WebPlatform.Api.Configurations
         { 
             var connection = configuration.GetConnectionString("DataAccessPostgreSqlProvider");
             
-            services.AddDbContext<EFCoreContext>(options => options.UseNpgsql(connection,
-                b => b.MigrationsAssembly("HseAr.WebPlatform.Api")));
+            services.AddDbContext<EFCoreContext>(options => 
+                options.UseNpgsql(connection,
+                b => b.MigrationsAssembly("HseAr.WebPlatform.Api")),
+            ServiceLifetime.Transient
+                );
             
             services.AddSingleton<MongoContext>();
 

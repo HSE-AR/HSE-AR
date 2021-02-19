@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HseAr.Data;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
@@ -12,12 +13,10 @@ namespace HseAr.DataAccess.EFCore.Repositories
     public class FloorRepository : IFloorRepository 
     {
         private readonly EFCoreContext _context;
-        private readonly IMapper _mapper;
 
-        public FloorRepository(EFCoreContext context,IMapper mapper)
+        public FloorRepository(EFCoreContext context)
         {    
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<List<Floor>> Get() 

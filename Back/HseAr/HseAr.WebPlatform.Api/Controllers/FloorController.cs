@@ -4,8 +4,9 @@ using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.FloorService;
 using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.SceneService;
-using HseAr.Data.Entities;
+using HseAr.Data.DataProjections;
 using HseAr.Infrastructure;
+using HseAr.WebPlatform.Api.Attributes;
 using HseAr.WebPlatform.Api.Helpers;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.Models.Floor;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HseAr.WebPlatform.Api.Controllers
 {
+    [AccessToCompany]
     [Route("wapi/[controller]")]
     public class FloorController : ControllerBase
     {
@@ -51,7 +53,7 @@ namespace HseAr.WebPlatform.Api.Controllers
             var floorResult = await _floorService.CreateFloor(floorContext);
             
 
-            var buildingContext = await _buildingService.GetUserBuildingById(floorResult.BuildingId, this.GetUserIdFromToken());
+            var buildingContext = await _buildingService.GetBuildingById(floorResult.BuildingId, this.GetCompanyId());
             return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
 
@@ -64,7 +66,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         [Authorize]
         public async Task<ActionResult<Scene>> GetSceneByFloorId(Guid floorId)
         {
-            return await _sceneService.GetUserSceneByFloorId(floorId, this.GetUserIdFromToken());
+            return await _sceneService.GetSceneByFloorId(floorId, this.GetCompanyId());
         }
     }
 }

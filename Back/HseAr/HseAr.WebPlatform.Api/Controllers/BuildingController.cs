@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.Infrastructure;
+using HseAr.WebPlatform.Api.Attributes;
 using HseAr.WebPlatform.Api.Helpers;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.ViewModelConstructors;
@@ -11,7 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HseAr.WebPlatform.Api.Controllers
 {
-    
+    [Authorize]
+    [AccessToCompany]
     [Route("wapi/[controller]")]
     public class BuildingController : ControllerBase
     {
@@ -30,16 +32,15 @@ namespace HseAr.WebPlatform.Api.Controllers
         }
         
         /// <summary>
-        /// Получение списка всех зданий доступных пользователю
+        /// Получение списка всех зданий доступных компании
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
-        public async Task<ActionResult<BuildingsViewModel>> GetList()
+        public async Task<ActionResult<BuildingsViewModel>> Get()
         {
-            var userId = this.GetUserIdFromToken();
-            
-            var buildingContext = await _buildingService.GetBuildingsByUserId(userId);
+            var companyId = this.GetCompanyId();
+
+            var buildingContext = await _buildingService.GetBuildingsByCompanyId(companyId);
             
             return _buildingConstructor.ConstructModels(buildingContext);
         }
@@ -50,14 +51,14 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// <param name="form"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<BuildingsViewModel>> Create([FromBody] BuildingCreationForm form)
         {
-            var userId = this.GetUserIdFromToken();
+            var companyId = this.GetCompanyId();
+            
             var buildingContext = _mapper.Map<BuildingCreationForm, BuildingContext>(form);
-            await _buildingService.CreateBuilding(buildingContext, userId);
+            await _buildingService.CreateBuilding(buildingContext, companyId);
 
-            return _buildingConstructor.ConstructModels(await _buildingService.GetBuildingsByUserId(userId));
+            return _buildingConstructor.ConstructModels(await _buildingService.GetBuildingsByCompanyId(companyId));
         }
         
         /// <summary>
@@ -66,11 +67,10 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [Authorize]
-        public async Task<ActionResult<BuildingCurrentViewModel>> GetByBuildingId(Guid id)
+        public async Task<ActionResult<BuildingCurrentViewModel>> Get(Guid id)
         {
-            var userId = this.GetUserIdFromToken();
-            var buildingContext = await _buildingService.GetUserBuildingById(id, userId);
+            var companyId = this.GetCompanyId();
+            var buildingContext = await _buildingService.GetBuildingById(id, companyId);
             
             return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
