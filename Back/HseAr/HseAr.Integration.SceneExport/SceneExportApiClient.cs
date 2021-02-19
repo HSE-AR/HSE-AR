@@ -40,7 +40,7 @@ namespace HseAr.Integration.SceneExport
             var result = await Execute(new ExportSceneRequest(scene));
             return result.Error
                 ? throw new InvalidOperationException("чо-то не так")
-                : $"/storage/scenes/gltfs/{scene.Id}.gltf";
+                : $"/data/scenes/gltfs/{scene.Id}.gltf";
         }
         
         private async Task<TResponse> Execute<TResponse>(BaseRequest<TResponse> request ) where TResponse : class
