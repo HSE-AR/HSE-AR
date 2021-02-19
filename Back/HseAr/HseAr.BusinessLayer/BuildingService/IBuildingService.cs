@@ -7,11 +7,11 @@ namespace HseAr.BusinessLayer.BuildingService
 {
     public interface IBuildingService
     {
-        Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, Guid userId);
+        Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, Guid companyId);
         
-        Task<List<BuildingContext>> GetBuildingsByUserId(Guid userId);
+        Task<List<BuildingContext>> GetBuildingsByCompanyId(Guid companyId);
         
-        Task<BuildingContext> GetUserBuildingById(Guid id, Guid userId);
+        Task<BuildingContext> GetBuildingById(Guid id, Guid companyId);
         
         
     }

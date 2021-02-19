@@ -12,7 +12,11 @@ namespace HseAr.DataAccess.EFCore
         
         public DbSet<Floor> Floors { get; set; }
         
-        public DbSet <UserBuilding> UserBuildings { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        
+        public DbSet<Company> Companies { get; set; }
+        
+        public DbSet<ArClient> ArClients { get; set; }
 
         public EFCoreContext(DbContextOptions<EFCoreContext> opt) 
             : base(opt)
@@ -22,8 +26,8 @@ namespace HseAr.DataAccess.EFCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserBuilding>()
-                .HasKey(ub => new { ub.UserId, ub.BuildingId });
+            modelBuilder.Entity<Position>()
+                .HasKey(uc => new { uc.UserId, uc.CompanyId });
 
             modelBuilder.Entity<IdentityRole<Guid>>().HasData(
                 new IdentityRole<Guid>[]

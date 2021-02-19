@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer;
@@ -39,6 +40,9 @@ namespace HseAr.ArClient.Api
             => Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) 
                     => ConfigurationManager.AddJsonSettingFiles(hostingContext, config))
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

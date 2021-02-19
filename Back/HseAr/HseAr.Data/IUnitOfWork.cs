@@ -13,7 +13,13 @@ namespace HseAr.Data
         
         ISceneRepository Scenes { get; }
         
-        UserManager<User> Users { get; }
+        ICompanyRepository Companies { get; }
+        
+        IPositionRepository Positions { get; }
+        
+        IArClientRepository ArClients { get; }
+        
+        HseArUserManager Users { get; }
         
         SignInManager<User> Auth { get; }
         

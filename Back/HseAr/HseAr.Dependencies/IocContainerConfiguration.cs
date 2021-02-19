@@ -5,6 +5,8 @@ using HseAr.BusinessLayer.ArClientService;
 using HseAr.BusinessLayer.AuthService;
 using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.BuildingService.Models;
+using HseAr.BusinessLayer.CompanyService;
+using HseAr.BusinessLayer.CompanyService.Models;
 using HseAr.BusinessLayer.FloorService;
 using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.Jwt;
@@ -12,6 +14,7 @@ using HseAr.BusinessLayer.Mappers;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Core.Settings;
 using HseAr.Data;
+using HseAr.Data.DataProjections;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using HseAr.DataAccess.EFCore;
@@ -38,7 +41,8 @@ namespace HseAr.Dependencies
                     o.Password.RequireUppercase = false;
                     o.Password.RequireLowercase = false;
                 })
-                .AddEntityFrameworkStores<EFCoreContext>();
+                .AddEntityFrameworkStores<EFCoreContext>()
+                .AddUserManager<HseArUserManager>();
 
             return services;
         }
@@ -52,6 +56,9 @@ namespace HseAr.Dependencies
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IFloorRepository, FloorRepository>()
                 .AddTransient<IBuildingRepository, BuildingRepository>()
+                .AddTransient<ICompanyRepository, CompanyRepository>()
+                .AddTransient<IArClientRepository,ArClientRepository>()
+                .AddTransient<IPositionRepository,PositionRepository>()
                 .AddTransient<ISceneRepository, SceneRepository>();
         
         
@@ -66,6 +73,7 @@ namespace HseAr.Dependencies
                 .AddTransient<ISceneService, SceneService>()
                 .AddTransient<IAuthService, AuthService>()
                 .AddTransient<IAccountService, AccountService>()
+                .AddTransient<ICompanyService,CompanyService>()
                 .AddTransient<IArClientService, ArClientService>();
         }
         
@@ -82,6 +90,8 @@ namespace HseAr.Dependencies
                 .AddTransient<IMapper<BuildingContext, Building>, BuildingContextMapper>()
                 .AddTransient<IMapper<Floor, FloorContext>, FloorContextMapper>()
                 .AddTransient<IMapper<FloorContext, Floor>, FloorContextMapper>()
+                .AddTransient<IMapper<Company, CompanyContext>, CompanyContextMapper>()
+                .AddTransient<IMapper<CompanyContext, Company>, CompanyContextMapper>()
                 .AddTransient<IMapper<User, AccountContext>, AccountContextMapper>();
         }
         

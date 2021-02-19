@@ -1,4 +1,4 @@
-﻿namespace Afisha.Tickets.Core.Objects
+﻿namespace HseAr.Core.Objects
 {
     public static class ValueTypeExtensions
     {

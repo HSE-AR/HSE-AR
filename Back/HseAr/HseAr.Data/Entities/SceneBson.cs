@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace HseAr.Data
+namespace HseAr.Data.Entities
 {
     public class SceneBson
     {

@@ -21,26 +21,28 @@ namespace HseAr.BusinessLayer.BuildingService
             _mapper = mapper;
         }
         
-        public async Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, Guid userId)
+        public async Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, Guid companyId)
         {
+            buildingContext.CompanyId = companyId;
+            
             var building = _mapper.Map<BuildingContext, Building>(buildingContext);
-            var buildingResult = await _data.Buildings.AddFromUser(building, userId);
+            var buildingResult = await _data.Buildings.Add(building);
             return _mapper.Map<Building, BuildingContext>(buildingResult);
         }
 
-        public async Task<List<BuildingContext>> GetBuildingsByUserId(Guid userId)
+        public async Task<List<BuildingContext>> GetBuildingsByCompanyId(Guid companyId)
         {
-            var buildings = await _data.Buildings.GetListByUserId(userId);
+            var buildings = await _data.Buildings.GetListByCompanyId(companyId);
             return buildings.Select(building => _mapper.Map<Building, BuildingContext>(building)).ToList();
         }
 
-        public async Task<BuildingContext> GetUserBuildingById(Guid buildingId, Guid userId)
+        public async Task<BuildingContext> GetBuildingById(Guid buildingId, Guid companyId)
         {
-            var building = (await _data.Buildings.GetListByUserId(userId))
-                .FirstOrDefault(b => b.Id == buildingId);
+            var building = await _data.Buildings.GetById(buildingId);
             
             Ensure.IsNotNull(building, nameof(building));
-            
+            Ensure.Equals(companyId,building.CompanyId, nameof(building));
+
             return _mapper.Map<Building, BuildingContext>(building);
         }
     }

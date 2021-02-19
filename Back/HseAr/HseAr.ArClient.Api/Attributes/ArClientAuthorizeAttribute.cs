@@ -30,13 +30,13 @@ namespace HseAr.ArClient.Api.Attributes
                     && !string.IsNullOrEmpty(authKey.First()))
                 {
                     if(Guid.TryParse(authKey, out var guidKey) && 
-                       _configuration.ArClients.Any(p => p.Key == guidKey))
+                       _configuration.ArClients.Any(p => p.Id == guidKey))
                     {
                         return;
                     }
                 }
                 
-                throw new ArClientApiException(ArClientApiErrorCode.AuthorizationError, "Ошибка доступа");
+                context.Result = new UnauthorizedObjectResult("не указан ключ ar клиента");
             }
             
             public void OnActionExecuted(ActionExecutedContext context)

@@ -31,11 +31,12 @@ namespace HseAr.Core.Settings
     {
         public string DataAccessPostgreSqlProvider { get; set; }
     }
+    
     public class ArClientsConfig
     {
-        public Guid Key { get; set; }
+        public Guid Id { get; set; }
         
-        public ArClientEnum Name { get; set; }
+        public ArClientEnum Type { get; set; }
         
         public string Url { get; set; }
         

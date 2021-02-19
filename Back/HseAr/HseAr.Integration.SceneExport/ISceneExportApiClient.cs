@@ -1,6 +1,5 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using HseAr.Data.Entities;
+﻿using System.Threading.Tasks;
+using HseAr.Data.DataProjections;
 
 namespace HseAr.Integration.SceneExport
 {
