@@ -4,6 +4,10 @@
     {
         InsertObjectIntoScene,
 
-        DeleteObjectFromScene
+        DeleteObjectFromScene,
+
+        AddLightToScene,
+
+        DeleteLightFromScene
     }
 }
