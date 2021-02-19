@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using HseAr.Data.DataProjections;
+using Newtonsoft.Json.Linq;
 
 namespace HseAr.BusinessLayer.SceneService.Constructors
 {
     public class EmptySceneConstructor
     {
-        public static Data.Entities.Scene CreateEmptyScene()
+        public static Scene CreateEmptyScene()
         {
             var metadata = @"{
                 version: 4.5,
@@ -65,7 +66,7 @@ namespace HseAr.BusinessLayer.SceneService.Constructors
                 }]
             }";
 
-            return new Data.Entities.Scene()
+            return new Scene()
             {
                 Metadata = JObject.Parse(metadata),
                 Geometries = JArray.Parse(geometries),

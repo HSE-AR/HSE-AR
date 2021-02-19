@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HseAr.BusinessLayer.CompanyService;
 using HseAr.BusinessLayer.Jwt;
 using HseAr.Data;
 using HseAr.Data.Entities;
+using HseAr.Data.Interfaces;
 
 namespace HseAr.BusinessLayer.AuthService
 {
@@ -10,13 +12,16 @@ namespace HseAr.BusinessLayer.AuthService
     {
         private readonly IJwtGenerator _jwt;
         private readonly IUnitOfWork _data;
+        private readonly ICompanyService _companyService;
 
         public AuthService(
             IJwtGenerator jwt,
-            IUnitOfWork data)
+            IUnitOfWork data,
+            ICompanyService companyService)
         {
             _data = data;
             _jwt = jwt;
+            _companyService = companyService;
         }
 
         public async Task<object> Login(string email, string password)
@@ -57,9 +62,12 @@ namespace HseAr.BusinessLayer.AuthService
 
             if (!result.Succeeded)
                 throw new Exception();
-
+            
             await _data.Users.AddToRoleAsync(user, "admin");
             await _data.Auth.SignInAsync(user, false);
+
+            await _companyService.CreateOwnCompany(user.Id, arClientId: null);
+            
             return await _jwt.GenerateJwt(user);
         }
     }

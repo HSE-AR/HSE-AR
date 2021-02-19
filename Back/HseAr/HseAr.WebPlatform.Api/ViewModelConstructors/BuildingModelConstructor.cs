@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.BusinessLayer.FloorService;
+using HseAr.Data.Entities;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.Models.Floor;
 
@@ -38,21 +39,25 @@ namespace HseAr.WebPlatform.Api.ViewModelConstructors
                 }
             };
         }
-        
-        
+
+
         public BuildingsViewModel ConstructModels(List<BuildingContext> source)
-            => new BuildingsViewModel() 
+        {
+            var buildings =  source.Select(building =>
+                new BuildingItemModel()
+                {
+                    Id = building.Id,
+                    Title = building.Title,
+                    Address = building.Address,
+                    Coordinate = building.Coordinate
+                }).ToList();
+
+            return new BuildingsViewModel()
             {
-                Buildings = source.Select(building => 
-                    new BuildingItemModel()
-                    {
-                        Id = building.Id,
-                        Title = building.Title,
-                        Address = building.Address,
-                        Coordinate = building.Coordinate
-                    }).ToList()
+                Buildings = buildings
             };
-        
+        }
+
         private async Task<FloorItemModel> ConstructFloorItemModel(Guid id)
         {
             var floorContext = await _floorService.GetFloorById(id);

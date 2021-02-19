@@ -13,7 +13,7 @@ namespace HseAr.BusinessLayer.BuildingService.Models
         
         public string Coordinate { get; set; }
         
-        public List<(Guid,Guid)> UserBuildingIds { get; set; } = new List<(Guid, Guid)>();
+        public Guid CompanyId { get; set; }
         public List<Guid> FloorIds { get; set; } =new List<Guid>();
     }
 }

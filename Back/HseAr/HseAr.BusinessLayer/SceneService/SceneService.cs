@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Reflection;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
-using HseAr.Data.Entities;
 using System.Linq;
+using HseAr.Data.DataProjections;
 using HseAr.Integration.SceneExport;
 
 namespace HseAr.BusinessLayer.SceneService
@@ -27,12 +26,12 @@ namespace HseAr.BusinessLayer.SceneService
             return await _sceneExport.ExportScene(scene);
         }
 
-        public async Task<Scene> GetUserSceneByFloorId(Guid id, Guid userId)
+        public async Task<Scene> GetSceneByFloorId(Guid floorId, Guid companyId)
         {
-            var floor = await _data.Floors.GetById(id);
+            var floor = await _data.Floors.GetById(floorId);
 
-            var building = await _data.Buildings.GetById(floor.BuildingId);
-            if (!building.UserBuildings.Any(ub => ub.UserId == userId))
+            var company = await _data.Companies.GetById(companyId);
+            if (!company.Buildings.Any(b => b.Id == floor.BuildingId))
             {
                 throw new Exception();
             }
@@ -48,7 +47,7 @@ namespace HseAr.BusinessLayer.SceneService
             return sceneResult;
         }
 
-        public async Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> sceneMods, Guid userId)
+        public async Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> sceneMods, Guid companyId)
         {
             //CheckModelOwnership(sceneModificationDto.ModelId, userId);
             var result = true;

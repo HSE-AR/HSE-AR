@@ -1,10 +1,10 @@
 ﻿using HseAr.Core.Settings;
-using HseAr.Data;
 using HseAr.Data.Entities;
+using HseAr.DataAccess.Mongodb;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace HseAr.DataAccess.Mongodb 
+namespace HseAr.DataAccess.Mongodb
 {
      public class MongoContext
     {

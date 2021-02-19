@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.AccountService.Models;
@@ -15,7 +16,7 @@ namespace HseAr.BusinessLayer.AccountService
         private readonly IUnitOfWork _data;
         private readonly IMapper _mapper;
         private readonly Configuration _configuration;
-        
+
         public AccountService(IUnitOfWork data, IMapper mapper, Configuration configuration)
         {
             _data = data;
@@ -30,14 +31,11 @@ namespace HseAr.BusinessLayer.AccountService
             return _mapper.Map<User, AccountContext>(user);
         }
 
-        public async Task<AccountContext> GetAccountByArClientKey(Guid arClientKey)
+        public async Task<List<AccountContext>> GetAccountsByCompanyId(Guid companyId)
         {
-            var arClient = _configuration.ArClients.Find(x => x.Key == arClientKey);
-            Ensure.IsNotNull(arClient, nameof(arClient));
-            
-            var user = await _data.Users.FindByIdAsync(arClient?.UserId.ToString());
-            
-            return _mapper.Map<User, AccountContext>(user);
+            var users = await _data.Users.GetUsersByCompanyId(companyId);
+            return users.Select(u => _mapper.Map<User, AccountContext>(u)).ToList();
         }
+        
     }
 }

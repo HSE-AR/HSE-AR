@@ -4,6 +4,8 @@
     {
         UnspecifiedError = 2,
         
-        SceneNotFoundError = 3
+        SceneNotFoundError = 3,
+        
+        AccessDenied = 4
     }
 }

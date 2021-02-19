@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using HseAr.Data.Entities;
+using HseAr.Data.DataProjections;
 using MongoDB.Driver;
 
 namespace HseAr.Data.Interfaces

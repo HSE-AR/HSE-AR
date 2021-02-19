@@ -9,11 +9,11 @@ namespace HseAr.Data.Interfaces
     {
         Task<List<Building>> GetList();
 
-        Task<List<Building>> GetListByUserId(Guid userId);
+        Task<List<Building>> GetListByCompanyId(Guid companyId);
         
         Task<Building> GetById(Guid id);
 
-        Task<Building> AddFromUser(Building entity, Guid id);
+        Task<Building> Add(Building entity);
 
         Task Update(Building entity);
 

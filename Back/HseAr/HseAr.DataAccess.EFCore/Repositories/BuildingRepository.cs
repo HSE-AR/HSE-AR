@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HseAr.Data;
 using HseAr.Data.Entities;
 using HseAr.Data.Interfaces;
 using HseAr.Infrastructure;
@@ -12,38 +13,25 @@ namespace HseAr.DataAccess.EFCore.Repositories
     public class BuildingRepository : IBuildingRepository
     {
         private readonly EFCoreContext _context;
-        private readonly IMapper _mapper;
 
-        public BuildingRepository(EFCoreContext context, IMapper mapper)
+        public BuildingRepository(EFCoreContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<List<Building>> GetList() 
             => (await _context.Buildings.AsNoTracking().ToListAsync()).ToList();
 
         public async Task<Building> GetById(Guid id)
-            => await _context.Buildings.Include(b=> b.UserBuildings).
-                    FirstOrDefaultAsync(x => x.Id == id);
+            => await _context.Buildings.Include(b => b.Floors).FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<List<Building>> GetListByUserId(Guid userId)
-        {
-            var user = _context.Users.Include(x => x.UserBuildings).FirstOrDefault(u => u.Id == userId);
-            return user.UserBuildings.Select(ub => _context.Buildings.FirstOrDefault(b => b.Id == ub.BuildingId)).ToList();
-        }
-        
-        public async Task<Building> AddFromUser(Building building, Guid userId)
+        public async Task<List<Building>> GetListByCompanyId(Guid companyId)
+            => await _context.Buildings.Where(building => building.CompanyId == companyId).ToListAsync();
+
+  
+        public async Task<Building> Add(Building building)
         {
             var result = await _context.Buildings.AddAsync(building);
-
-            await _context.UserBuildings.AddAsync(
-                new UserBuilding() 
-                {
-                    BuildingId = result.Entity.Id,
-                    UserId = userId
-                });
-            
             await _context.SaveChangesAsync();
             
             return result.Entity;

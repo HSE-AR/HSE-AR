@@ -8,6 +8,6 @@ namespace HseAr.Data.Entities
     {
         public string Name { get; set; }
         
-        public List<UserBuilding> UserBuildings { get; set; } = new List<UserBuilding>();
+        public List<Position> Positions { get; set; } = new List<Position>();
     }
 }

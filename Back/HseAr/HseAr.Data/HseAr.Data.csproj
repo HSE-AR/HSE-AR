@@ -7,6 +7,7 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.2" />
       <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.2" />
       <PackageReference Include="MongoDB.Bson" Version="2.12.0-beta1" />
       <PackageReference Include="MongoDB.Driver" Version="2.12.0-beta1" />
@@ -14,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\HseAr.Core\HseAr.Core.csproj" />
       <ProjectReference Include="..\HseAr.Infrastructure\HseAr.Infrastructure.csproj" />
     </ItemGroup>
 

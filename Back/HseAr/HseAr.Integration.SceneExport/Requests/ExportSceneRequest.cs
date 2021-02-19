@@ -1,4 +1,4 @@
-﻿using HseAr.Data.Entities;
+﻿using HseAr.Data.DataProjections;
 using HseAr.Integration.SceneExport.Models;
 
 namespace HseAr.Integration.SceneExport.Requests
@@ -11,7 +11,7 @@ namespace HseAr.Integration.SceneExport.Requests
 
         public override object Content => _scene;
         
-        public ExportSceneRequest( Scene scene)
+        public ExportSceneRequest(Scene scene)
         {
             _scene = scene;
         }
