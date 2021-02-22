@@ -28,10 +28,9 @@ namespace HseAr.WebPlatform.Api
 
             services
                 .AddSettings(Configuration)
-                .ConfigureAuthentication(Configuration)
                 .AddDbConnections(Configuration)
-
-                .RegisterDependencies();
+                .RegisterDependencies()
+                .ConfigureAuthentication(Configuration);
 
             services.AddSwagger();
         }
