@@ -38,7 +38,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             var filter = SceneFilter.GetFilterById(sceneMod.ModelId);
             var sceneAsBson = await _scenes.Find(filter).FirstOrDefaultAsync();
 
-            var uuid = sceneMod.Object["uuid"]?.ToString();
+            var uuid = sceneMod.DataJson["uuid"]?.ToString();
 
             DeleteObject(ref sceneAsBson, uuid);
 
