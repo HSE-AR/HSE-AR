@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using System.Threading.Tasks;
 using HseAr.Data.DataProjections;
+using HseAr.Data.Enums;
 
 namespace HseAr.Data.Interfaces
 {
@@ -8,6 +9,6 @@ namespace HseAr.Data.Interfaces
     {
         Task<UpdateResult> Modify(SceneModification sceneMod);
 
-        bool CatchTypeMatch(string modificationName);
+        bool CatchTypeMatch(SceneModificationType modificationType);
     }
 }

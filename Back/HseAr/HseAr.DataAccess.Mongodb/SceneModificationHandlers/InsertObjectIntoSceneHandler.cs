@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 using HseAr.Data.DataProjections;
+using HseAr.Data.Enums;
 
 namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 {
@@ -23,8 +24,9 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             _sceneModMapper = sceneModMapper;
         }
 
-        public InsertObjectIntoSceneHandler()
+        public bool CatchTypeMatch(SceneModificationType modificationType)
         {
+            return modificationType == SceneModificationType.InsertObjectIntoScene;
         }
 
         public async Task<UpdateResult> Modify(SceneModification sceneMod)
@@ -48,11 +50,6 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             var filter = SceneFilter.GetFilterById(sceneModEntity.ModelId);
 
             return await _scenes.UpdateOneAsync(filter, update);
-        }
-
-        public bool CatchTypeMatch(string modificationName)
-        {
-            return modificationName == "InsertObjectIntoScene";
         }
     }
 }

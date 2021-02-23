@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HseAr.Data.Enums;
 
 namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 {
@@ -25,9 +26,10 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             _scenes = mongoContext.ScenesAsBsonDocument;
             _sceneModMapper = sceneModMapper;
         }
-
-        public DeleteLightFromSceneHandler()
+        
+        public bool CatchTypeMatch(SceneModificationType modificationType)
         {
+            return modificationType == SceneModificationType.DeleteLightFromScene;
         }
 
         public async Task<UpdateResult> Modify(SceneModification sceneMod)
@@ -41,9 +43,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
             return await _scenes.UpdateOneAsync(filter, new BsonDocument("$set", sceneAsBson));
         }
-
- 
-
+        
         private void DeleteLight(ref BsonDocument scene, string lightUuid)
         {
             var objects = scene["object"]["children"].AsBsonArray;
@@ -52,11 +52,6 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
             objects.Remove(objectToDelete);
             scene["object"]["children"] = objects;
-        }
-
-        public bool CatchTypeMatch(string modificationName)
-        {
-            return modificationName == "DeleteLightFromScene";
         }
     }
 }

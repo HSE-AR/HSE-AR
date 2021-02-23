@@ -30,7 +30,7 @@ namespace HseAr.DataAccess.Mongodb.Repositories
             
             foreach (var handler in _modificationHandlers)
             {
-                if (handler.CatchTypeMatch(sceneModification.Type.ToString()))
+                if (handler.CatchTypeMatch(sceneModification.Type))
                 {
                     result = await handler.Modify(sceneModification);
                     break;

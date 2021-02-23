@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using HseAr.Data.Enums;
 
 namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 {
@@ -24,11 +25,12 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             _scenes = mongoContext.ScenesAsBsonDocument;
             _sceneModMapper = sceneModMapper;
         }
-
-        public AddLightToSceneHandler()
+        
+        public bool CatchTypeMatch(SceneModificationType modificationType)
         {
+            return modificationType == SceneModificationType.AddLightToScene;
         }
-
+        
         public async Task<UpdateResult> Modify(SceneModification sceneMod)
         {
             var sceneModEntity = _sceneModMapper.Map(sceneMod);
@@ -40,12 +42,5 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
             return await _scenes.UpdateOneAsync(filter, update);
         }
-
-        public bool CatchTypeMatch(string modificationName)
-        {
-            return modificationName == "AddLightToScene";
-        }
-
-
     }
 }

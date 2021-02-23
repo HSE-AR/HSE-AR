@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HseAr.Data.Enums;
 
 namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 {
@@ -26,9 +27,10 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             _scenes = mongoContext.ScenesAsBsonDocument;
             _sceneModMapper = sceneModMapper;
         }
-
-        public DeleteObjectFromSceneHandler()
+        
+        public bool CatchTypeMatch(SceneModificationType modificationType)
         {
+            return modificationType == SceneModificationType.DeleteObjectFromScene;
         }
 
         public async Task<UpdateResult> Modify(SceneModification sceneMod)
@@ -42,23 +44,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
             return await _scenes.UpdateOneAsync(filter, new BsonDocument("$set", sceneAsBson));
         }
-
-        private void DeleteGeometry(ref BsonDocument scene, string geometryUuid)
-        {
-            var geometries = scene["geometries"].AsBsonArray;
-            var geometryToDelete = geometries.FirstOrDefault(x => x["uuid"] == geometryUuid);
-            geometries.Remove(geometryToDelete);
-            scene["geometries"] = geometries;
-        }
-
-        private void DeleteMaterial(ref BsonDocument scene, string materialUuid)
-        {
-            var materials = scene["materials"].AsBsonArray;
-            var materialToDelete = materials.FirstOrDefault(x => x["uuid"] == materialUuid);
-            materials.Remove(materialToDelete);
-            scene["materials"] = materials;
-        }
-
+        
         private void DeleteObject(ref BsonDocument scene, string objectUuid)
         {
             var objects = scene["object"]["children"].AsBsonArray;
@@ -78,9 +64,20 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             scene["object"]["children"] = objects;
         }
 
-        public bool CatchTypeMatch(string modificationName)
+        private void DeleteGeometry(ref BsonDocument scene, string geometryUuid)
         {
-            return modificationName == "DeleteObjectFromScene";
+            var geometries = scene["geometries"].AsBsonArray;
+            var geometryToDelete = geometries.FirstOrDefault(x => x["uuid"] == geometryUuid);
+            geometries.Remove(geometryToDelete);
+            scene["geometries"] = geometries;
+        }
+
+        private void DeleteMaterial(ref BsonDocument scene, string materialUuid)
+        {
+            var materials = scene["materials"].AsBsonArray;
+            var materialToDelete = materials.FirstOrDefault(x => x["uuid"] == materialUuid);
+            materials.Remove(materialToDelete);
+            scene["materials"] = materials;
         }
     }
 }
