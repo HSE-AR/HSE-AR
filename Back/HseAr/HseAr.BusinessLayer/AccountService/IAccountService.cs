@@ -8,7 +8,6 @@ namespace HseAr.BusinessLayer.AccountService
     public interface IAccountService
     {
         Task<AccountContext> GetAccountById(Guid id);
-
-        Task<List<AccountContext>> GetAccountsByCompanyId(Guid companyId);
+        
     }
 }

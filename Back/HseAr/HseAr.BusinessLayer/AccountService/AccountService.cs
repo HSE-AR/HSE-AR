@@ -26,16 +26,10 @@ namespace HseAr.BusinessLayer.AccountService
         
         public async Task<AccountContext> GetAccountById(Guid id)
         {
-            var user = await _data.Users.FindByIdAsync(id.ToString());
+            var user = await _data.Users.FindByGuidIdAsync(id);
 
             return _mapper.Map<User, AccountContext>(user);
         }
 
-        public async Task<List<AccountContext>> GetAccountsByCompanyId(Guid companyId)
-        {
-            var users = await _data.Users.GetUsersByCompanyId(companyId);
-            return users.Select(u => _mapper.Map<User, AccountContext>(u)).ToList();
-        }
-        
     }
 }

@@ -26,10 +26,9 @@ namespace HseAr.Data
         {
         }
 
-        public async Task<List<User>> GetUsersByCompanyId(Guid companyId)
+        public async Task<User> FindByGuidIdAsync(Guid userId)
         {
-            return await base.Users.Include(u => u.Positions)
-                .Where(u => u.Positions.Any(p => p.CompanyId == companyId)).ToListAsync();
+            return await base.FindByIdAsync(userId.ToString());
         }
     }
 }
