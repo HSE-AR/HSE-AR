@@ -49,7 +49,10 @@ namespace HseAr.Dependencies
 
         public static IServiceCollection RegisterHandlers(this IServiceCollection services)
            => services
-                .AddTransient<ISceneModificationHandler, InsertElementToModelHandler>();
+                .AddTransient<ISceneModificationHandler, InsertObjectIntoSceneHandler>()
+                .AddTransient<ISceneModificationHandler, DeleteObjectFromSceneHandler>()
+                .AddTransient<ISceneModificationHandler, AddLightToSceneHandler>()
+                .AddTransient<ISceneModificationHandler, DeleteLightFromSceneHandler>();
 
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
             => services

@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Swashbuckle.AspNetCore.Swagger;
+using HseAr.WebPlatform.Api.Helpers;
 
 namespace HseAr.WebPlatform.Api.Configurations
 {
@@ -46,10 +51,12 @@ namespace HseAr.WebPlatform.Api.Configurations
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.OperationFilter<CustomHeaderSwaggerAttribute>();
                 c.IncludeXmlComments(xmlPath);
             });
 
             return services;
         }
     }
+    
 }

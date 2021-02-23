@@ -2,12 +2,12 @@
 {
     public enum SceneModificationType
     {
-        Delete,
-        
-        Update,
-        
-        Add,
+        InsertObjectIntoScene,
 
-        InsertElementToModel
+        DeleteObjectFromScene,
+
+        AddLightToScene,
+
+        DeleteLightFromScene
     }
 }

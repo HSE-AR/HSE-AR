@@ -13,7 +13,7 @@ namespace HseAr.DataAccess.Mongodb.Mappers
             {
                 Id = source.Id,
                 EditedAtUtc = source.EditedAtUtc,
-                Object = GetJsonOrNull(source.Object.ToJson()),
+                DataJson = GetJsonOrNull(source.DataBson.ToJson()),
                 ModelId = source.ModelId,
                 Type = source.Type,
             };
@@ -23,7 +23,7 @@ namespace HseAr.DataAccess.Mongodb.Mappers
             {
                 Id = source.Id,
                 EditedAtUtc = source.EditedAtUtc,
-                Object = GetBsonOrNull(source.Object.ToString()),
+                DataBson = GetBsonOrNull(source.DataJson.ToString()),
                 ModelId = source.ModelId,
                 Type = source.Type,
             };
