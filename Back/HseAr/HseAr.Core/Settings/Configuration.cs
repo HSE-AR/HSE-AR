@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using HseAr.DataAccess.Mongodb;
 
 namespace HseAr.Core.Settings
 {
