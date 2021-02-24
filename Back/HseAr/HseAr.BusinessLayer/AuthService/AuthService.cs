@@ -64,9 +64,9 @@ return await _jwt.GenerateJwt(appUser);
                 throw new Exception();
             
             await _data.Users.AddToRoleAsync(user, "admin");
-            await _data.Auth.SignInAsync(user, false);
 
             await _companyService.CreateOwnCompany(user.Id, arClientId: null);
+            await _data.Auth.SignInAsync(user, false);
             
             return await _jwt.GenerateJwt(user);
         }

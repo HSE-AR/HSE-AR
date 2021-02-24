@@ -12,7 +12,7 @@ namespace HseAr.Data.DataProjections
 
         public SceneModificationType Type { get; set; }
         
-        public JObject Object { get; set; }
+        public JObject DataJson { get; set; }
 
         public string ModelId { get; set; }
     }

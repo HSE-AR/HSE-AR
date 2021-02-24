@@ -15,7 +15,7 @@ namespace HseAr.Data.Entities
 
         public SceneModificationType Type { get; set; }
         
-        public BsonDocument Object { get; set; }
+        public BsonDocument DataBson { get; set; }
 
         public string ModelId { get; set; }
     }

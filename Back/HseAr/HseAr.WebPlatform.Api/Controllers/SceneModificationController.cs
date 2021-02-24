@@ -23,6 +23,36 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// <summary>
         /// Применение модификаций к сцене
         /// </summary>
+        /// <remarks>
+        /// Содержание поля object в зависимости от типа модификации
+        ///     
+        /// InsertObjectToScene:
+        /// 
+        ///     {        
+        ///         "object": {},
+        ///         "material":{},
+        ///         "geometry":{} 
+        ///     }
+        ///     
+        /// DeleteObjectFromScene:
+        /// 
+        ///     {
+        ///         "uuid": ""
+        ///     }
+        ///     
+        /// AddLightToScene:
+        /// 
+        ///     {
+        ///         "тело объекта света"
+        ///     }
+        ///     
+        /// DeleteLightFromScene:
+        /// 
+        ///     {
+        ///         "uuid":
+        ///     }
+        ///     
+        /// </remarks>
         /// <param name="sceneModifications">список модификаций разных типов</param>
         /// <returns></returns>
         [HttpPost("list")]
