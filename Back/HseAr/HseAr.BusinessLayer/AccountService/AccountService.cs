@@ -27,7 +27,16 @@ namespace HseAr.BusinessLayer.AccountService
         public async Task<AccountContext> GetAccountById(Guid id)
         {
             var user = await _data.Users.FindByGuidIdAsync(id);
+            Ensure.IsNotNull(user, nameof(_data.Users.FindByGuidIdAsync));
 
+            return _mapper.Map<User, AccountContext>(user);
+        }
+        
+        public async Task<AccountContext> GetAccountByEmail(string email)
+        {
+            var user = await _data.Users.FindByEmailAsync(email);
+            Ensure.IsNotNull(user, nameof(_data.Users.FindByEmailAsync));
+            
             return _mapper.Map<User, AccountContext>(user);
         }
 
