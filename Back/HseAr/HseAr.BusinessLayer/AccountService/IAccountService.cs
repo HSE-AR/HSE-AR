@@ -9,6 +9,6 @@ namespace HseAr.BusinessLayer.AccountService
     {
         Task<AccountContext> GetAccountById(Guid id);
 
-        Task<List<AccountContext>> GetAccountsByCompanyId(Guid companyId);
+        Task<AccountContext> GetAccountByEmail(string email);
     }
 }

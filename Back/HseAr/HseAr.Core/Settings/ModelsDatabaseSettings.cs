@@ -1,4 +1,4 @@
-namespace HseAr.DataAccess.Mongodb
+namespace HseAr.Core.Settings
 { 
     public class ModelsDatabaseSettings 
     { 
