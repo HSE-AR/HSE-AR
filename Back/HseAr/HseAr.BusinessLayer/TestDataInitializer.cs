@@ -23,13 +23,14 @@ namespace HseAr.BusinessLayer
     {
         public static async Task Initialize(IServiceProvider services)
         {
+            var configuration = services.GetService<Configuration>();
             var data = services.GetService<IUnitOfWork>();
             var authService = services.GetService<IAuthService>();
             var buildingService = services.GetService<IBuildingService>();
             var companyService = services.GetService<ICompanyService>();
             var floorService = services.GetService<IFloorService>();
             
-            var user = await InitializeTestUser(data);
+            var user = await InitializeTestUser(data, configuration);
             
             var ownCompany = await InitializeTestOwnCompany(user, companyService);
 
@@ -38,24 +39,24 @@ namespace HseAr.BusinessLayer
             var floor = await InitializerTestFloor(buildingInfo, floorService);
         }
 
-        private static async Task<User> InitializeTestUser(IUnitOfWork data)
+        private static async Task<User> InitializeTestUser(IUnitOfWork data, Configuration configuration)
         {
-            if(await data.Users.FindByEmailAsync("test@test.test") == null)
+            if(await data.Users.FindByEmailAsync(configuration.TestUserEmail) == null)
             {
                 var testUser = new User
                 {
-                    Email = "test@test.test",
-                    UserName = "test@test.test",
+                    Email = configuration.TestUserEmail,
+                    UserName = configuration.TestUserEmail,
                     Name = "TestUser"
                 };
-                var result = await data.Users.CreateAsync(testUser, "test1234");
+                var result = await data.Users.CreateAsync(testUser, configuration.TestUserPassword);
                 if (result.Succeeded)
                 {
                     await data.Users.AddToRoleAsync(testUser, "admin");
                 }
             }
             
-            return await data.Users.FindByEmailAsync("test@test.test");
+            return await data.Users.FindByEmailAsync(configuration.TestUserEmail);
         }
 
         private static async Task<CompanyContext> InitializeTestOwnCompany(User user, ICompanyService companyService)

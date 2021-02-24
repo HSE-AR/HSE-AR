@@ -20,6 +20,10 @@ namespace HseAr.Core.Settings
         public string SuperAdminPassword { get; set; }
 
         public string SuperAdminEmail { get; set; }
+        
+        public string TestUserPassword { get; set; }
+        
+        public string TestUserEmail { get; set; }
 
         public List<ArClientsConfig> ArClients { get; set; }
         
