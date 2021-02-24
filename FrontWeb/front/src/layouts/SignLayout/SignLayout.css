@@ -14,7 +14,7 @@ html {
   display: flex;
   align-items: center;
   background-blend-mode: multiply;
-  background: #444444 url("./img/iphone-bg.jpg") no-repeat center;
+  background: linear-gradient(0deg, #C17EFF 0%, #6631FF 56.83%), url("./img/iphone-bg.jpg") no-repeat center;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;

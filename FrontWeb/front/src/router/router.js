@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import Editor from "../views/Editor/Editor";
+import LandingPage from "../views/LandingPage/LandingPage";
+import SignInAdminForm from "../views/SignAdmin/SignInAdminForm";
+import SignUpAdminForm from "../views/SignAdmin/SignUpAdminForm";
+import Adminka from "../views/Adminka";
+import Buildings from "../views/Buildings";
 
 
 
@@ -11,41 +16,41 @@ const routes = [
     path: '/',
     name: 'Landing',
     meta: {layout: 'landing'},
-    component: () => import('../views/LandingPage/LandingPage.vue')
+    component: LandingPage
   },
   {
     path: '/landing',
     name: 'Landing',
     meta: {layout: 'landing'},
-    component: () => import('../views/LandingPage/LandingPage.vue')
+    component: LandingPage
   },
   {
     path: '/signin/admin',
     name: 'SignInAdmin',
     meta: {layout: 'sign'},
-    component: () => import('../views/SignAdmin/SignInAdminForm.vue')
+    component: SignInAdminForm
   },
   {
     path: '/signup/admin',
     name: 'SignUpAdmin',
     meta: {layout: 'sign'},
-    component: () => import('../views/SignAdmin/SignUpAdminForm.vue')
+    component: SignUpAdminForm
   },
   {
-    path: '/adminka/',
+    path: '/adminka',
     name: 'adminka',
     meta: {layout: 'main'},
-    component: () => import('../views/Adminka'),
+    component: Adminka,
     children : [
       {
-        path: 'buildings',
+        path: '/buildings',
         name: 'buildings-list',
         meta: {layout: 'main'},
-        component: () => import('../views/Buildings')
+        component: Buildings,
       },
       {
-        path: 'editor',
-        component: () => import('../views/Editor/Editor.vue')
+        path: '/editor',
+        component: Editor
       }
     ]
   },
@@ -67,14 +72,12 @@ const routes = [
   //   ]
   // },
 
-
-
 ]
-
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
 
 export default router

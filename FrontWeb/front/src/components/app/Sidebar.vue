@@ -23,8 +23,8 @@
         data: () => ({
             links: [
                 {title: 'Buildings', url: '/adminka/buildings'},
-                {title: 'About', url: '#'},
-                {title: 'Help', url: '#'},
+                {title: 'About', url: '/adminka/about'},
+                {title: 'Help', url: '/adminka/help'},
             ]
         })
     }

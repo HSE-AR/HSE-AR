@@ -25,6 +25,7 @@
         <span>Sign up</span>
       </button>
     </div>
+    <router-link to="/signin/admin">Sign In</router-link>
   </form>
 </template>
 
@@ -53,9 +54,9 @@
           .then(response => {
             console.log(response)
             localStorage.setItem('token', response.data)
+            router.push('/adminka/')
           })
           .catch(err => console.log(err))
-        router.push('/adminka')
       }
     }
   }
