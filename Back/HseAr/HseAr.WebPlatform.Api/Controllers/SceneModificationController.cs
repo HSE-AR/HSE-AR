@@ -49,7 +49,14 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// DeleteLightFromScene:
         /// 
         ///     {
-        ///         "uuid":
+        ///         "uuid": ""
+        ///     }
+        ///     
+        /// UpdateTransform:
+        /// 
+        ///     {
+        ///         "uuid": ""
+        ///         "matrix": []
         ///     }
         ///     
         /// </remarks>

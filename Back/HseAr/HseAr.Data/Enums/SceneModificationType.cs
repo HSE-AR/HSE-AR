@@ -8,6 +8,8 @@
 
         AddLightToScene,
 
-        DeleteLightFromScene
+        DeleteLightFromScene,
+
+        UpdateTransform
     }
 }
