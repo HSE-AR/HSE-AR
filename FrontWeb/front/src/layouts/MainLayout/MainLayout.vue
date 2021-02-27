@@ -16,11 +16,13 @@
 <script>
     import Header from '../../components/app/Header'
     import Sidebar from '../../components/app/Sidebar'
+    import axios from "axios";
     export default {
         name: "AdminLayout",
         components: {
             Header, Sidebar
-        }
+        },
+
     }
 </script>
 

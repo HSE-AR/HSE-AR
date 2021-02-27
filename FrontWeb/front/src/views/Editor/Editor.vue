@@ -11,6 +11,7 @@ import { THREE,Editor,Viewport,Toolbar,Player,Sidebar,Menubar,Resizer} from '../
 import { Loader } from '../../../public/threejs/build/three.module.js';
 
 import axios from 'axios'
+import {mapGetters} from "vuex";
 
 Number.prototype.format = function () {
 	return this.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, "$1," );
@@ -31,9 +32,20 @@ export default {
           resizer:null,
           isLoadingFromHash: false,
           hash:null,
+          companyActions: localStorage.getItem('company_actions')
+
+
           
       }
   },
+  props: (route) => ({ query: route.query.floorId }) ,
+    computed: {
+        ...mapGetters({
+            buildingInfo: 'building_info',
+            token: 'token',
+        })
+    },
+
 
   async created(){
 	
@@ -158,12 +170,19 @@ export default {
 	
 	async LoadSceneFromBack()
 	{
-      	await axios.get(this.$store.state.port +'models/'+this.$store.state.sceneTestId).then(response =>{
-			console.log(response)
-			this.editor.idFromBack = response.data.id;
-			this.editor.loader.MyLoader(response.data.scene);
-			this.editor.select( null );
+      	await axios.get(`https://localhost:5555/wapi/floor/scene/${this.$route.query.floorId}`, {
+      	    headers: {
+                'X-Company-Key': JSON.parse(this.companyActions)[0].id
+            }
         })
+            .then(response =>{
+              console.log(response)
+              const token = this.token
+              axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+              this.editor.idFromBack = response.data.id;
+              this.editor.loader.MyLoader(response.data);
+              this.editor.select( null );
+            })
 	},  
 
   }

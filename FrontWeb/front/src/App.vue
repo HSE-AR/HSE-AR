@@ -3,6 +3,9 @@
     <component :is="layout">
       <router-view />
     </component>
+    <component v-if="!this.$route.meta.layout">
+      <Editor/>
+    </component>
 
   </div>
 </template>
@@ -11,15 +14,19 @@
   import LandingLayout from "./layouts/LandingLayout/LandingLayout"
   import SignLayout from "./layouts/SignLayout/SignLayout";
   import MainLayout from "./layouts/MainLayout/MainLayout";
+  import Editor from "./views/Editor/Editor";
+  import axios from "axios";
   export default {
     name: 'App',
+
     computed: {
       layout() {
         return (this.$route.meta.layout || 'sign') + '-layout'
-      }
+      },
     },
+
     components: {
-      SignLayout, MainLayout, LandingLayout
+      SignLayout, MainLayout, LandingLayout, Editor
     }
 
 

@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit.prevent="handleSubmit">
+  <form class="form" @submit.prevent="signIn">
     <div class="heading__container">
       <h1 class="heading__item">Sign In</h1>
       <div class="heading__item">
@@ -19,15 +19,16 @@
       <button class="sign__button" type="submit">
         <span>Sign in</span>
       </button>
+
     </div>
-<!--          <button @click="signUpAdmin()">Регистрация</button>-->
+    <router-link to="/signup/admin">Sign Up</router-link>
+
   </form>
 
 </template>
 
 <script>
   import axios from 'axios'
-  import router from '../../router/router'
   export default {
     name: 'SignInAdmin',
     data() {
@@ -37,29 +38,24 @@
       }
     },
     methods: {
-      handleSubmit() {
+      signIn() {
         const data = {
-          'email': this.email,
-          'password': this.password,
+          email: this.email,
+          password: this.password,
         }
-        axios.post('auth/login', data)
-          .then(response => {
-            console.log(response)
-            localStorage.setItem('token', response.data)
-            router.push('/adminka')
+        this.$store.dispatch('getTokenAndLogin', data)
+          .then(() => {
+              this.$router.push('/adminpage')
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+              console.log(err)
+          })
 
-        // localStorage.setItem('token', response.data.token)
-        // this.$store.dispatch('user', response.data.user)
+
+
 
       },
-
-      signUpAdmin() {
-          this.$router.push('/signup/admin')
-      }
     }
-
   }
 </script>
 

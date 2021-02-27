@@ -27,20 +27,20 @@ namespace HseAr.BusinessLayer.AuthService
         public async Task<object> Login(string email, string password)
         {
             if (email == null || password == null)
-            {
-                throw new Exception("Invalid login or password");
-            }
+{
+throw new Exception("Invalid login or password");
+}
 
-            var result = await _data.Auth.PasswordSignInAsync(email, password, false, false);
+var appUser = await _data.Users.FindByEmailAsync(email);
 
-            if (!result.Succeeded)
-            {
-                throw new Exception("Something went wrong during registration");
-            }
+var result = await _data.Auth.CheckPasswordSignInAsync(appUser,password,false);
 
-            var appUser = await _data.Users.FindByEmailAsync(email);
+if (!result.Succeeded)
+{
+throw new Exception("Something went wrong during registration");
+}
 
-            return await _jwt.GenerateJwt(appUser);
+return await _jwt.GenerateJwt(appUser);
         }
 
         public async Task<object> Register(string email, string password, string name)

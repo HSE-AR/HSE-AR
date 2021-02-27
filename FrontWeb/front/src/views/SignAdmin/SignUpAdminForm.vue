@@ -1,5 +1,6 @@
 <template>
-  <form class="form" @submit.prevent="handleSubmit">
+  <div>
+  <form class="form" @submit.prevent="signUp">
     <div class="heading__container">
       <h1 class="heading__item">Sign up</h1>
       <div class="heading__item">
@@ -7,6 +8,7 @@
           <a href="#">if you are new around here</a>
         </h2>
       </div>
+
     </div>
     <span class="form__input">
       <input v-model="email" id="email" type="text" placeholder="Email..." required>
@@ -21,17 +23,19 @@
     </span>
 
     <div class="sign">
-      <button class="sign__button" type="submit">
+      <button @submit.prevent="signUp" class="sign__button" type="submit">
         <span>Sign up</span>
       </button>
     </div>
+    <router-link to="/signin/admin">Sign In</router-link>
+
   </form>
+
+  </div>
 </template>
 
 <script>
   import axios from 'axios'
-  import router from '../../router/router'
-
 
   export default {
     name: 'SignUpAdmin',
@@ -43,19 +47,20 @@
       }
     },
     methods:{
-      handleSubmit() {
+      signUp() {
         const data = {
-          'email': this.email,
-          'password': this.password,
-          'name': this.name,
+          email: this.email,
+          password: this.password,
+          name: this.name,
         }
-        axios.post('auth/register', data)
-          .then(response => {
-            console.log(response)
-            localStorage.setItem('token', response.data)
+        this.$store.dispatch('registerUser', data)
+          .then(() => {
+              this.$router.push('/adminpage')
           })
-          .catch(err => console.log(err))
-        router.push('/adminka')
+          .catch(err => {
+              console.log(err)
+          })
+
       }
     }
   }
