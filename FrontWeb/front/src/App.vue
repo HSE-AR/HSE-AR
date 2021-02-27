@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <component v-if="this.$route.meta.layout" :is="layout">
-      <router-view :user="user" />
+    <component :is="layout">
+      <router-view />
     </component>
-    <component v-else>
-      <Editor />
+    <component v-if="!this.$route.meta.layout">
+      <Editor/>
     </component>
 
   </div>
@@ -18,8 +18,6 @@
   import axios from "axios";
   export default {
     name: 'App',
-
-
 
     computed: {
       layout() {

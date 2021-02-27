@@ -29,7 +29,6 @@
 
 <script>
   import axios from 'axios'
-  import router from '../../router/router'
   export default {
     name: 'SignInAdmin',
     data() {
@@ -39,28 +38,24 @@
       }
     },
     methods: {
-      async signIn() {
+      signIn() {
         const data = {
           email: this.email,
           password: this.password,
         }
-        await axios.post('auth/login', data)
-          .then(response => {
-            console.log(response)
-            localStorage.setItem('token', response.data)
-            router.push('/adminka/')
+        this.$store.dispatch('getTokenAndLogin', data)
+          .then(() => {
+              this.$router.push('/adminpage')
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+              console.log(err)
+          })
+
 
 
 
       },
-
-      signUpAdmin() {
-          this.$router.push('/signup/admin')
-      }
     }
-
   }
 </script>
 

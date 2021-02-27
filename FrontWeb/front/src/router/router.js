@@ -4,7 +4,7 @@ import Editor from "../views/Editor/Editor";
 import LandingPage from "../views/LandingPage/LandingPage";
 import SignInAdminForm from "../views/SignAdmin/SignInAdminForm";
 import SignUpAdminForm from "../views/SignAdmin/SignUpAdminForm";
-import Adminka from "../views/Adminka";
+import AdminPage from "../views/AdminPage";
 import Buildings from "../views/Buildings";
 
 
@@ -37,40 +37,25 @@ const routes = [
     component: SignUpAdminForm
   },
   {
-    path: '/adminka',
-    name: 'adminka',
+    path: '/adminpage',
+    name: 'adminpage',
     meta: {layout: 'main'},
-    component: Adminka,
+    component: AdminPage,
     children : [
       {
         path: '/buildings',
-        name: 'buildings-list',
+        name: 'buildings',
         meta: {layout: 'main'},
         component: Buildings,
       },
       {
-        path: '/editor',
-        component: Editor
+        path: '/editor/:id',
+        component: Editor,
+        props: true
       }
     ]
   },
-  // {
-  //   path: '/arweb/',
-  //   name: 'ARWeb',
-  //   component: ARWeb,
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: 'MainARWeb',
-  //       component: MainARWeb
-  //     },
-  //     {
-  //       path: 'main',
-  //       name: 'MainARWeb',
-  //       component: MainARWeb
-  //     },
-  //   ]
-  // },
+
 
 ]
 const router = new Router({
@@ -78,6 +63,7 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes
 })
+
 
 
 export default router

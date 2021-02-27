@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "axios";
-import building from "./modules/building";
-import token from './modules/token'
+import buildingsModule from "./modules/buildingsModule";
+import userModule from "./modules/userModule";
+import generalModule from "./modules/generalModule";
 Vue.use(Vuex)
 
 
 
 export default new Vuex.Store({
   modules: {
-    building, token
+    generalModule, buildingsModule, userModule
   },
   state: {
     port:'https://localhost:5555/wapi/', //ip адрес компа,(https://192.168.0.103:5555)
