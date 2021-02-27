@@ -36,12 +36,9 @@
 
 <script>
   import axios from 'axios'
-  import Progress from '../../components/progress-bar'
+
   export default {
     name: 'SignUpAdmin',
-    components: {
-        Progress
-    },
     data() {
       return {
           email: "",
