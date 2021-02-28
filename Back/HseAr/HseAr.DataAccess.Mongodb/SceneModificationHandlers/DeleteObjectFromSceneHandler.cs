@@ -35,7 +35,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
         public async Task<UpdateResult> Modify(SceneModification sceneMod)
         {
-            var filter = SceneFilter.GetFilterById(sceneMod.ModelId);
+            var filter = SceneFilter.GetFilterById(sceneMod.SceneId);
             var sceneAsBson = await _scenes.Find(filter).FirstOrDefaultAsync();
 
             var uuid = sceneMod.DataJson["uuid"]?.ToString();

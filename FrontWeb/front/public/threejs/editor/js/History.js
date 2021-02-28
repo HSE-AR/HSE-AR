@@ -322,15 +322,19 @@ History.prototype = {
 		let arrayOfModifications = []
 		for(let i = this.undos.length-1; i >= 0; i--){
 			let objectModificationData = this.GetCustomModificationObject(this.undos[i])
-			if (objectModificationData.ModelId !== null
+			/*if (objectModificationData.SceneId !== null
 				 && !this.HasModificationInResult(objectModificationData, arrayOfModifications)) 
+			{
+				arrayOfModifications.push(objectModificationData)
+			}*/
+			if (objectModificationData.SceneId !== null)
 			{
 				arrayOfModifications.push(objectModificationData)
 			}
 		}
 
 		this.clear()
-		return arrayOfModifications
+		return arrayOfModifications.reverse();
 	},
 
 	HasModificationInResult: function(objectMod, arrayOfMods) {
@@ -352,76 +356,76 @@ History.prototype = {
 
 	GetCustomModificationObject: function(modificationType) {
 		const objectModificationData = {
-			Type: 'Update',
-			ObjectType: 'ObjectChild',
-			PropertyModificationType: 'Update',
-			ModelId: null,
-			ObjectChild: null
+			Type: null,
+			DataJson: null,
+			SceneId: null
 		}
 
 		switch(modificationType.type) {
 			case 'SetPositionCommand':
 			case 'SetRotationCommand':
 			case 'SetScaleCommand':
-				this.SetObjectModification(objectModificationData, modificationType)
+				this.UpdateTransformModification(objectModificationData, modificationType)
 				break
 			case 'AddObjectCommand':
 				this.AddObjectModification(objectModificationData, modificationType)
 				break
 			case 'RemoveObjectCommand':
-				this.RemoveObjectModification(objectModificationData, modificationType)
+				this.DeleteFromSceneModification(objectModificationData, modificationType)
 				break
 		}
 
 		return objectModificationData
 	},
 
-	SetObjectModification: function(objectModificationData,modificationType) {
-		objectModificationData.ObjectChild = {
+	UpdateTransformModification: function(objectModificationData, modificationType) {
+		objectModificationData.Type = 'UpdateTransform';
+		objectModificationData.DataJson = {
 			uuid: modificationType.toJSON().objectUuid,
 			matrix: modificationType.object.matrix.elements
-		}
-		objectModificationData.ModelId = editor.idFromBack
+		};
+		objectModificationData.SceneId = editor.idFromBack;
 	},
 
 	AddObjectModification: function(objectModificationData, modificationType) {
-		objectModificationData.Type = "Add"
-		objectModificationData.ObjectType = 'ObjectChild'
-		objectModificationData.PropertyModificationType = 'Add'
-		objectModificationData.ModelId = editor.idFromBack
-		objectModificationData.ObjectChild = {
-			uuid: modificationType.object.uuid,
-			type: modificationType.object.type,
-			name: modificationType.object.name,
-			layers: modificationType.object.layers.mask,
-			matrix: modificationType.object.matrix.elements,
-			geometry: modificationType.object.geometry.uuid,
-			material: modificationType.object.material.uuid,
+		if(modificationType.object.type.includes('Light')) { // добавление света на сцену
+			objectModificationData.Type = 'AddLightToScene';
+			objectModificationData.DataJson = modificationType.json.object.object
+			objectModificationData.SceneId = editor.idFromBack;
 		}
-		objectModificationData.Geometry = modificationType.object.geometry
-		objectModificationData.Material = modificationType.object.material
-
-		// if(modificationType.object.type.includes('Light')) { // добавление света на сцену
-		// 	objectModificationData.Type = "Add"
-		// 	objectModificationData.ObjectType = 'ObjectChild'
-		// 	objectModificationData.PropertyModificationType = 'Add'
-		// 	objectModificationData.ModelId = editor.idFromBack
-		// 	objectModificationData.ObjectChild = modificationType.object
-		// }
+		else{
+			objectModificationData.Type = 'InsertObjectToScene';
+			objectModificationData.DataJson = {
+				object: {
+					uuid: modificationType.object.uuid,
+					type: modificationType.object.type,
+					name: modificationType.object.name,
+					layers: modificationType.object.layers.mask,
+					matrix: modificationType.object.matrix.elements,
+					geometry: modificationType.object.geometry.uuid,
+					material: modificationType.object.material.uuid,
+				},
+				material: modificationType.object.material,
+				geometry: modificationType.object.geometry
+			};
+			objectModificationData.SceneId = editor.idFromBack;
+		}
 	},
 
-	RemoveObjectModification: function(objectModificationData, modificationType) {
-		objectModificationData.Type = "Delete"
-		objectModificationData.PropertyModificationType = "Delete"
-		objectModificationData.ModelId = editor.idFromBack
-		objectModificationData.Object = {
-			uuid: modificationType.object.uuid,
-			type: modificationType.object.type,
-			name: modificationType.object.name,
-			layers: modificationType.object.layers.mask,
-			matrix: modificationType.object.matrix.elements,
-			geometry: modificationType.object.geometry.uuid,
-			material: modificationType.object.material.uuid,
+	DeleteFromSceneModification: function(objectModificationData, modificationType) {
+		if(modificationType.object.type.includes('Light')) { // добавление света на сцену
+			objectModificationData.Type = 'DeleteLightFromScene';
+			objectModificationData.DataJson = {
+				uuid: modificationType.object.uuid
+			};
+			objectModificationData.SceneId = editor.idFromBack;
+		}
+		else{
+			objectModificationData.Type = 'DeleteObjectFromScene';
+			objectModificationData.DataJson = {
+				uuid: modificationType.object.uuid
+			};
+			objectModificationData.SceneId = editor.idFromBack;
 		}
 	}
 };

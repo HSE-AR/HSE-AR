@@ -2,7 +2,7 @@
 {
     public enum SceneModificationType
     {
-        InsertObjectIntoScene,
+        InsertObjectToScene,
 
         DeleteObjectFromScene,
 

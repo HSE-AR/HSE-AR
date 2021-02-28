@@ -33,9 +33,6 @@ export default {
           isLoadingFromHash: false,
           hash:null,
           companyActions: localStorage.getItem('company_actions')
-
-
-          
       }
   },
   props: (route) => ({ query: route.query.floorId }) ,
@@ -180,6 +177,7 @@ export default {
               const token = this.token
               axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
               this.editor.idFromBack = response.data.id;
+              this.editor.companyId = JSON.parse(this.companyActions)[0].id;
               this.editor.loader.MyLoader(response.data);
               this.editor.select( null );
             })

@@ -26,7 +26,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
         public bool CatchTypeMatch(SceneModificationType modificationType)
         {
-            return modificationType == SceneModificationType.InsertObjectIntoScene;
+            return modificationType == SceneModificationType.InsertObjectToScene;
         }
 
         public async Task<UpdateResult> Modify(SceneModification sceneMod)
@@ -47,7 +47,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
                 .AddToSet("materials", sceneModEntity.DataBson["material"])
                 .AddToSet("geometries", sceneModEntity.DataBson["geometry"]);
 
-            var filter = SceneFilter.GetFilterById(sceneModEntity.ModelId);
+            var filter = SceneFilter.GetFilterById(sceneModEntity.SceneId);
 
             return await _scenes.UpdateOneAsync(filter, update);
         }
