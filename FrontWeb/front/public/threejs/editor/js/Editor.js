@@ -85,8 +85,10 @@ function Editor() {
 		animationStopped: new Signal()
 
 	};
-
-	this.idFromBack = null; 
+	////////////////////
+	this.idFromBack = null;
+	this.companyId = null
+	////////////////////
 
 	this.config = new Config();
 	this.history = new _History( this );
@@ -123,6 +125,18 @@ function Editor() {
 }
 
 Editor.prototype = {
+
+	ModificationsLoadToBack: function() {
+		let arrayOfModifications = editor.history.GetArrayOfModification()
+		axios.post('https://localhost:5555/wapi/modification/list', arrayOfModifications, {
+			headers: {
+				"Content-Type": "application/json",
+				'X-Company-Key': this.companyId
+			}
+		})
+			.then(response => console.log(response))
+			.catch(err => console.log(err))
+	},
 
 	setScene: function ( scene ) {
 
@@ -727,18 +741,6 @@ Editor.prototype = {
 	redo: function () {
 
 		this.history.redo();
-
-	},
-
-	ModificationsLoadToBack: function() {
-		let arrayOfModifications = editor.history.GetArrayOfModification()
-		axios.post('https://localhost:5555/wapi/modification/list', arrayOfModifications, {
-			headers: {
-				"Content-Type": "application/json",
-			}
-		})
-			.then(response => console.log(response))
-			.catch(err => console.log(err))
 
 	}
 };
