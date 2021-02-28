@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HseAr.WebPlatform.Api.Controllers
 {
     [AccessToCompany]
-    [Route("wapi/test")]
+    [Route("wapi/modification")]
     public class SceneModificationController : ControllerBase
     {
         private readonly ISceneService _sceneService;
@@ -24,7 +24,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// Применение модификаций к сцене
         /// </summary>
         /// <remarks>
-        /// Содержание поля object в зависимости от типа модификации
+        /// Содержание поля dataJson в зависимости от типа модификации
         ///     
         /// InsertObjectToScene:
         /// 

@@ -14,6 +14,6 @@ namespace HseAr.Data.DataProjections
         
         public JObject DataJson { get; set; }
 
-        public string ModelId { get; set; }
+        public string SceneId { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace HseAr.DataAccess.Mongodb.Mappers
                 Id = source.Id,
                 EditedAtUtc = source.EditedAtUtc,
                 DataJson = GetJsonOrNull(source.DataBson.ToJson()),
-                ModelId = source.ModelId,
+                SceneId = source.SceneId,
                 Type = source.Type,
             };
         
@@ -24,7 +24,7 @@ namespace HseAr.DataAccess.Mongodb.Mappers
                 Id = source.Id,
                 EditedAtUtc = source.EditedAtUtc,
                 DataBson = GetBsonOrNull(source.DataJson.ToString()),
-                ModelId = source.ModelId,
+                SceneId = source.SceneId,
                 Type = source.Type,
             };
         

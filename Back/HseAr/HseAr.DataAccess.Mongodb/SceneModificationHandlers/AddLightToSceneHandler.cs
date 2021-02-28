@@ -38,7 +38,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             var update = Builders<BsonDocument>.Update
                 .AddToSet("object.children", sceneModEntity.DataBson);
 
-            var filter = SceneFilter.GetFilterById(sceneModEntity.ModelId);
+            var filter = SceneFilter.GetFilterById(sceneModEntity.SceneId);
 
             return await _scenes.UpdateOneAsync(filter, update);
         }

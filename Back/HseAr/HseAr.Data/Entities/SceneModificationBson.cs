@@ -17,6 +17,6 @@ namespace HseAr.Data.Entities
         
         public BsonDocument DataBson { get; set; }
 
-        public string ModelId { get; set; }
+        public string SceneId { get; set; }
     }
 }
