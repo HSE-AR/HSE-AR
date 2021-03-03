@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HseAr.ArClient.Api.Configurations;
 using HseAr.ArClient.Api.Helpers;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -38,20 +39,43 @@ namespace HseAr.ArClient.Api
                 .AddSettings(Configuration)
                 .AddDbConnections(Configuration)
                 .RegisterDependencies();
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policyBuilder => policyBuilder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    );
+            });
 
             services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ICorsService corsService, ICorsPolicyProvider corsPolicyProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("CorsPolicy");
+            
             app.UseStaticFiles(new StaticFileOptions
             {
+                ServeUnknownFileTypes = true,
+                OnPrepareResponse = (ctx) =>
+                {
+                    var policy = corsPolicyProvider.GetPolicyAsync(ctx.Context, "CorsPolicy")
+                        .ConfigureAwait(false)
+                        .GetAwaiter().GetResult();
+
+                    var corsResult = corsService.EvaluatePolicy(ctx.Context, policy);
+
+                    corsService.ApplyResult(corsResult, ctx.Context.Response);
+                },
+                    
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(env.ContentRootPath)) , "data")),
                 RequestPath = "/data"
@@ -61,10 +85,10 @@ namespace HseAr.ArClient.Api
 
             app.UseRouting();
             
-            app.UseCors(x => x
+            /*app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
-                .AllowAnyMethod());
+                .AllowAnyMethod());*/
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ARapi"));
