@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HseAr.ArClient.Api.Configurations;
 using HseAr.ArClient.Api.Helpers;
+using HseAr.Core.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -53,7 +54,7 @@ namespace HseAr.ArClient.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ICorsService corsService, ICorsPolicyProvider corsPolicyProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ICorsService corsService, ICorsPolicyProvider corsPolicyProvider, Configuration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -76,8 +77,7 @@ namespace HseAr.ArClient.Api
                     corsService.ApplyResult(corsResult, ctx.Context.Response);
                 },
                     
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(env.ContentRootPath)) , "data")),
+                FileProvider = new PhysicalFileProvider(configuration.STORAGE_PATH),
                 RequestPath = "/data"
             });
             

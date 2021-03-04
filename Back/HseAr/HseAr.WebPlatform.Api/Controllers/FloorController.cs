@@ -50,9 +50,8 @@ namespace HseAr.WebPlatform.Api.Controllers
         public async Task<ActionResult<BuildingCurrentViewModel>> Create([FromBody] FloorCreationForm floorCreationForm)
         {
             var floorContext = _mapper.Map<FloorCreationForm, FloorContext>(floorCreationForm);
-            var floorResult = await _floorService.CreateFloor(floorContext);
+            var floorResult = await _floorService.CreateFloor(floorContext, floorCreationForm.FloorPlanImg);
             
-
             var buildingContext = await _buildingService.GetBuildingById(floorResult.BuildingId, this.GetCompanyId());
             return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }

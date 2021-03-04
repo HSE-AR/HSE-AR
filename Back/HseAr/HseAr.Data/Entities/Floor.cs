@@ -15,5 +15,7 @@ namespace HseAr.Data.Entities
         public string SceneId { get; set; }
         
         public Guid BuildingId { get; set; }
+
+        public string FloorPlanImg { get; set; }
     }
 }

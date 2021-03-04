@@ -12,6 +12,7 @@ import { Loader } from '../../../public/threejs/build/three.module.js';
 
 import axios from 'axios'
 import {mapGetters} from "vuex";
+import {AddObjectCommand} from "../../../public/threejs/editor/js/commands/AddObjectCommand";
 
 Number.prototype.format = function () {
 	return this.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, "$1," );
@@ -70,61 +71,7 @@ export default {
 
     this.resizer = new Resizer( this.editor );
 	document.body.appendChild( this.resizer.dom );
-	
 
-
-    /*this.editor.storage.init( function () {
-
-		editor.storage.get( function ( state ) {
-            if ( isLoadingFromHash ) 
-                return;
-            
-			if ( state !== undefined ) {
-				editor.fromJSON( state );
-			}
-            var selected = editor.config.getKey( 'selected' );
-
-			if ( selected !== undefined ) {
-				editor.selectByUuid( selected );
-			}
-		});
-		//
-		var timeout;
-
-		function saveState() {
-
-			
-			console.log(editor.toJSON()["scene"] = {"test" : "qwerty"})
-			console.log(editor.toJSON()["scene"])
-
-					/*( editor.config.getKey( 'autosave' ) === false ) {
-						return;
-					}
-					clearTimeout( timeout );
-					timeout = setTimeout( function () {
-						editor.signals.savingStarted.dispatch();
-						timeout = setTimeout( function () {
-							editor.storage.set( editor.toJSON() );
-							editor.signals.savingFinished.dispatch();
-						}, 100 );
-					}, 1000 );*/
-
-		/*}
-
-		var signals = editor.signals;
-
-		signals.geometryChanged.add( saveState );
-		signals.objectAdded.add( saveState );
-		signals.objectChanged.add( saveState );
-		signals.objectRemoved.add( saveState );
-		//signals.materialChanged.add( saveState );
-		signals.sceneBackgroundChanged.add( saveState );
-		signals.sceneFogChanged.add( saveState );
-		signals.sceneGraphChanged.add( saveState );
-		//signals.scriptChanged.add( saveState );
-		signals.historyChanged.add( saveState );
-	} );*/
-    
     document.addEventListener( 'dragover', function ( event ) {
 		event.preventDefault();
 		event.dataTransfer.dropEffect = 'copy';
@@ -147,7 +94,7 @@ export default {
 	window.addEventListener( 'resize', this.onWindowResize, false );
 
     this.onWindowResize();
-            
+
     var isLoadingFromHash = false;
 	this.hash = window.location.hash;
 
@@ -179,9 +126,45 @@ export default {
               this.editor.idFromBack = response.data.id;
               this.editor.companyId = JSON.parse(this.companyActions)[0].id;
               this.editor.loader.MyLoader(response.data);
+
+              /*let color = 0xffffff;
+              let intensity = 0.5;
+              let distance = 0;
+              let  light = new THREE.PointLight( color, intensity, distance );
+              light.name = 'PointLight';
+              light.position.y = 10
+              this.editor.execute( new AddObjectCommand( this.editor, light ) );*/
+
+              this.InitializeFloorPlane();
+
               this.editor.select( null );
             })
-	},  
+	},
+    InitializeFloorPlane()
+    {
+      let geometry = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
+      let material = new THREE.MeshStandardMaterial();
+      let loader = new THREE.TextureLoader();
+      let currentFloor = this.$store.getters.building_info.buildingInfo.floors
+          .find( currentValue => currentValue.id === this.$route.query.floorId);
+      let img= "https://localhost:5555"+ currentFloor.floorPlanImage;
+      loader.load(img,
+          function(texture) {
+            console.log(img + ' downloaded successfully');
+            material.map = texture;
+            material.needsUpdate = true
+          }
+      );
+      let  mesh = new THREE.Mesh( geometry, material );
+
+      mesh.uuid = this.editor.floorPlaneUuid;
+      mesh.rotation.x = 270 * Math.PI/180;
+      mesh.scale.set(10,10,1)
+      mesh.name = 'FloorPlan Plane';
+      this.editor.execute( new AddObjectCommand( this.editor, mesh ) );
+    }
+
+
 
   }
 

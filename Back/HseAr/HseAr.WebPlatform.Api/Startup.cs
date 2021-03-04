@@ -1,10 +1,14 @@
 using System;
+using System.IO;
+using HseAr.Core.Settings;
 using HseAr.WebPlatform.Api.Configurations;
 using HseAr.WebPlatform.Api.Helpers;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace HseAr.WebPlatform.Api
@@ -31,12 +35,21 @@ namespace HseAr.WebPlatform.Api
                 .AddDbConnections(Configuration)
                 .RegisterDependencies()
                 .ConfigureAuthentication(Configuration);
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policyBuilder => policyBuilder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                );
+            });
 
             services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ICorsService corsService, ICorsPolicyProvider corsPolicyProvider, Configuration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -45,15 +58,32 @@ namespace HseAr.WebPlatform.Api
             
             app.UseExceptionHandler(err => err.UseCustomErrors(env));
             
-            
-
             app.UseRouting();
             
+            app.UseCors("CorsPolicy");
             
-            app.UseCors(x => x
+            /*app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
-                .AllowAnyMethod());
+                .AllowAnyMethod());*/
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ServeUnknownFileTypes = true,
+                OnPrepareResponse = (ctx) =>
+                {
+                    var policy = corsPolicyProvider.GetPolicyAsync(ctx.Context, "CorsPolicy")
+                        .ConfigureAwait(false)
+                        .GetAwaiter().GetResult();
+
+                    var corsResult = corsService.EvaluatePolicy(ctx.Context, policy);
+
+                    corsService.ApplyResult(corsResult, ctx.Context.Response);
+                },
+                    
+                FileProvider = new PhysicalFileProvider(configuration.STORAGE_PATH),
+                RequestPath = "/data"
+            });
 
             app.UseAuthentication(); 
             app.UseAuthorization();
