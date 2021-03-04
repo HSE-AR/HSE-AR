@@ -327,7 +327,8 @@ History.prototype = {
 			{
 				arrayOfModifications.push(objectModificationData)
 			}*/
-			if (objectModificationData.SceneId !== null)
+			if (objectModificationData.SceneId !== null
+			&& editor.IsEnableToEdit(this.undos[i].object.uuid) )
 			{
 				arrayOfModifications.push(objectModificationData)
 			}

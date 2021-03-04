@@ -22,7 +22,7 @@ function Viewport( editor ) {
 	container.setId( 'viewport' );
 	container.setPosition( 'absolute' );
 
-	container.add( new ViewportCamera( editor ) );
+	//container.add( new ViewportCamera( editor ) );
 	container.add( new ViewportInfo( editor ) );
 
 	//
@@ -40,7 +40,7 @@ function Viewport( editor ) {
 
 	// helpers
 
-	var grid = new THREE.GridHelper( 30, 30, 0x444444, 0x888888 );
+	var grid = new THREE.GridHelper( 100, 100, 0x444444, 0x888888 );
 	var viewHelper = new ViewHelper( camera, container );
 
 	//

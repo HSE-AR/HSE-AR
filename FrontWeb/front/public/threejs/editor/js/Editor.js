@@ -88,6 +88,7 @@ function Editor() {
 	////////////////////
 	this.idFromBack = null;
 	this.companyId = null
+	this.floorPlaneUuid = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' //id плоскости с чертежем
 	////////////////////
 
 	this.config = new Config();
@@ -125,6 +126,13 @@ function Editor() {
 }
 
 Editor.prototype = {
+
+	IsEnableToEdit: function (uuid){
+		if(uuid != this.floorPlaneUuid){
+			return true
+		}
+		return false
+	},
 
 	ModificationsLoadToBack: function() {
 		let arrayOfModifications = editor.history.GetArrayOfModification()
@@ -554,10 +562,15 @@ Editor.prototype = {
 
 		var uuid = null;
 
-		if ( object !== null ) {
+		if ( object !== null  ) {
 
 			uuid = object.uuid;
 
+		}
+
+		if(object == null || !editor.IsEnableToEdit(object.uuid)){
+			uuid = null
+			object = null;
 		}
 
 		this.selected = object;

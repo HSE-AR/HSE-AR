@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
@@ -13,6 +14,11 @@ namespace HseAr.Dependencies.Configure
             var contentRootPath = hostingContext.HostingEnvironment.ContentRootPath;
             var parentDirectory = Path.GetDirectoryName(contentRootPath);
             var provider = new PhysicalFileProvider(parentDirectory);
+            
+            config.AddInMemoryCollection(new Dictionary<string, string>
+            {
+                {"STORAGE_PATH",  Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(contentRootPath)), "data")}
+            });
             
             config.AddJsonFile(
                 provider,
