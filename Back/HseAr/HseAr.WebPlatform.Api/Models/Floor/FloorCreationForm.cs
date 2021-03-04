@@ -21,6 +21,7 @@ namespace HseAr.WebPlatform.Api.Models.Floor
         
         /// <summary>
         /// Изображение чертежа этажа
+        /// <example>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAAQAQMAAADOJ....</example>
         /// </summary>
         public string FloorPlanImg { get; set; }
         
