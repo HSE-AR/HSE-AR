@@ -8,6 +8,7 @@ using System;
 using System.Threading.Tasks;
 using HseAr.Data.DataProjections;
 using HseAr.Data.Enums;
+using System.Linq;
 
 namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 {
@@ -32,24 +33,56 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
         public async Task<UpdateResult> Modify(SceneModification sceneMod)
         {
             var sceneModEntity = _sceneModMapper.Map(sceneMod);
+            var filter = SceneFilter.GetFilterById(sceneMod.SceneId);
+            var sceneAsBson = await _scenes.Find(filter).FirstOrDefaultAsync();
 
-
-            if (sceneModEntity.DataBson["material"] == null
-                || sceneModEntity.DataBson["geometry"] == null
-                || sceneModEntity.DataBson["object"] == null) //object или всё же objectChild?
+            BsonValue elements;
+            
+            if (sceneModEntity.DataBson.TryGetValue("materials", out elements))
             {
-                throw new Exception("Для добавления объекта должны быть не нулевыми " +
-                                    "поля Material, Geometry, ObjectChildren");
+                sceneAsBson["materials"].AsBsonArray.AddRange(elements.AsBsonArray);
             }
 
-            var update = Builders<BsonDocument>.Update
-                .AddToSet("object.children", sceneModEntity.DataBson["object"])
-                .AddToSet("materials", sceneModEntity.DataBson["material"])
-                .AddToSet("geometries", sceneModEntity.DataBson["geometry"]);
+            if (sceneModEntity.DataBson.TryGetValue("geometries", out elements))
+            {
+                sceneAsBson["geometries"].AsBsonArray.AddRange(elements.AsBsonArray);
 
-            var filter = SceneFilter.GetFilterById(sceneModEntity.SceneId);
+            }
 
-            return await _scenes.UpdateOneAsync(filter, update);
+            var sceneObject = sceneAsBson["object"].AsBsonDocument;
+
+            FindParentsAndInsertObjectsRecursively(ref sceneObject, ref sceneModEntity);
+            
+            return await _scenes.UpdateOneAsync(filter, new BsonDocument("$set", sceneAsBson));
+        }
+
+        private void FindParentsAndInsertObjectsRecursively(ref BsonDocument currentObject,
+           ref SceneModificationBson sceneModEntity)
+        {
+            var uuid = currentObject["uuid"];
+            var obj = sceneModEntity.DataBson["objects"].AsBsonArray
+                .FirstOrDefault(x => x["parentUuid"] == uuid);
+
+            if (obj != null)
+            {
+                if (!currentObject.AsBsonDocument.Contains("children"))
+                {
+                    currentObject.InsertAt(0, new BsonElement("children", new BsonArray()));
+                }
+                currentObject.Set("children", new BsonArray(currentObject["children"].AsBsonArray.Append(obj["object"])));
+                sceneModEntity.DataBson["objects"].AsBsonArray.Remove(obj);
+            }
+
+            if (currentObject.AsBsonDocument.Contains("children"))
+            {
+                foreach (var child in currentObject["children"].AsBsonArray)
+                {
+                    var childObj = child.AsBsonDocument;
+                    FindParentsAndInsertObjectsRecursively(ref childObj, ref sceneModEntity);
+                }
+            }
+            
+                
         }
     }
 }
