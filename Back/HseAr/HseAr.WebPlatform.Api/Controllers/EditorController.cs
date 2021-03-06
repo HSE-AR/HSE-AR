@@ -53,9 +53,9 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// InsertObjectToScene:
         /// 
         ///     {        
-        ///         "object": {},
-        ///         "material":{},
-        ///         "geometry":{} 
+        ///         "objects": [{"parentUuid":"", "object":{}}],
+        ///         "materials":[],
+        ///         "geometries":[]
         ///     }
         ///     
         /// DeleteObjectFromScene:
