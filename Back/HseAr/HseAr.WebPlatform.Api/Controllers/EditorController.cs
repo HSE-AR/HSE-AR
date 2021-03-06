@@ -53,7 +53,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// InsertObjectToScene:
         /// 
         ///     {        
-        ///         "objects": [{"parentUuid":"", "object":{}}],
+        ///         "object": {},
         ///         "materials":[],
         ///         "geometries":[]
         ///     }

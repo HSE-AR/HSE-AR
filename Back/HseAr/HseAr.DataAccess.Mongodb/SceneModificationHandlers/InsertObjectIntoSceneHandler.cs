@@ -51,17 +51,15 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
             var sceneObject = sceneAsBson["object"].AsBsonDocument;
 
-            FindParentsAndInsertObjectsRecursively(ref sceneObject, ref sceneModEntity);
+            InsertObject(ref sceneObject, ref sceneModEntity);
             
             return await _scenes.UpdateOneAsync(filter, new BsonDocument("$set", sceneAsBson));
         }
 
-        private void FindParentsAndInsertObjectsRecursively(ref BsonDocument currentObject,
+        private void InsertObject(ref BsonDocument currentObject,
            ref SceneModificationBson sceneModEntity)
         {
-            var uuid = currentObject["uuid"];
-            var obj = sceneModEntity.DataBson["objects"].AsBsonArray
-                .FirstOrDefault(x => x["parentUuid"] == uuid);
+            var obj = sceneModEntity.DataBson["object"];
 
             if (obj != null)
             {
@@ -69,20 +67,8 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
                 {
                     currentObject.InsertAt(0, new BsonElement("children", new BsonArray()));
                 }
-                currentObject.Set("children", new BsonArray(currentObject["children"].AsBsonArray.Append(obj["object"])));
-                sceneModEntity.DataBson["objects"].AsBsonArray.Remove(obj);
+                currentObject.Set("children", new BsonArray(currentObject["children"].AsBsonArray.Append(obj)));
             }
-
-            if (currentObject.AsBsonDocument.Contains("children"))
-            {
-                foreach (var child in currentObject["children"].AsBsonArray)
-                {
-                    var childObj = child.AsBsonDocument;
-                    FindParentsAndInsertObjectsRecursively(ref childObj, ref sceneModEntity);
-                }
-            }
-            
-                
         }
     }
 }
