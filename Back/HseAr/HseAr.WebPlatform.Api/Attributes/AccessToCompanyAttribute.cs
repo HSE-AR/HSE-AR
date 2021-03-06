@@ -59,10 +59,6 @@ namespace HseAr.WebPlatform.Api.Attributes
                 
                 context.Result = new UnauthorizedObjectResult("не указан ключ компании");
             }
-            
-            /*public void OnActionExecuted(ActionExecutedContext context)
-            {
-            }*/
         }
     }
 }
