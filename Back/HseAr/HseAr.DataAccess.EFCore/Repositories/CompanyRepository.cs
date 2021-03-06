@@ -22,10 +22,10 @@ namespace HseAr.DataAccess.EFCore.Repositories
 
         public async Task<Company> GetById(Guid id)
             => await _context.Companies
-                .Include(c=> c.Positions)
+                .Include(c => c.Positions)
                 .Include(c => c.Buildings)
                 .FirstOrDefaultAsync(company => company.Id == id);
-
+        
         public async Task<List<Company>> GetList()
             => await _context.Companies.ToListAsync();
         

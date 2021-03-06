@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using HseAr.BusinessLayer.AccountService;
 using HseAr.BusinessLayer.CompanyService;
 using HseAr.Core.Settings;
@@ -18,7 +19,7 @@ namespace HseAr.WebPlatform.Api.Attributes
         {
         }
         
-        public class AccessToCompanyFilter : IActionFilter
+        public class AccessToCompanyFilter : IAsyncActionFilter
         {
             private readonly IUnitOfWork _data;
             
@@ -28,7 +29,8 @@ namespace HseAr.WebPlatform.Api.Attributes
                 _data = data;
             }
 
-            public async void OnActionExecuting(ActionExecutingContext context)
+            public async Task OnActionExecutionAsync(ActionExecutingContext context, 
+                ActionExecutionDelegate next)
             {
                 var httpContext = context.HttpContext;
                 
@@ -50,7 +52,7 @@ namespace HseAr.WebPlatform.Api.Attributes
                         var company = await _data.Companies.GetById(companyId);
                         if (company.Positions.Any(u => u.UserId == userId))
                         {
-                            return;
+                            await next();
                         }
                     }
                 }
@@ -58,9 +60,9 @@ namespace HseAr.WebPlatform.Api.Attributes
                 context.Result = new UnauthorizedObjectResult("не указан ключ компании");
             }
             
-            public void OnActionExecuted(ActionExecutedContext context)
+            /*public void OnActionExecuted(ActionExecutedContext context)
             {
-            }
+            }*/
         }
     }
 }
