@@ -44,9 +44,7 @@ export default {
         })
     },
 
-
   async created(){
-	
     window.URL = window.URL || window.webkitURL;
     window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
     
@@ -55,7 +53,6 @@ export default {
 	window.THREE = THREE; // Expose THREE to APP Scripts and Console
 
 
-    
     this.viewport = new Viewport( this.editor );
     document.body.appendChild( this.viewport.dom );
 
@@ -114,7 +111,7 @@ export default {
 	
 	async LoadSceneFromBack()
 	{
-      	await axios.get(`https://localhost:5555/wapi/floor/scene/${this.$route.query.floorId}`, {
+      	await axios.get(`https://localhost:5555/wapi/editor/${this.$route.query.floorId}`, {
       	    headers: {
                 'X-Company-Key': JSON.parse(this.companyActions)[0].id
             }
@@ -123,31 +120,22 @@ export default {
               console.log(response)
               const token = this.token
               axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-              this.editor.idFromBack = response.data.id;
+              this.editor.idFromBack = response.data.scene.id;
               this.editor.companyId = JSON.parse(this.companyActions)[0].id;
-              this.editor.loader.MyLoader(response.data);
+              this.editor.loader.MyLoader(response.data.scene);
 
-              /*let color = 0xffffff;
-              let intensity = 0.5;
-              let distance = 0;
-              let  light = new THREE.PointLight( color, intensity, distance );
-              light.name = 'PointLight';
-              light.position.y = 10
-              this.editor.execute( new AddObjectCommand( this.editor, light ) );*/
-
-              this.InitializeFloorPlane();
+              this.InitializeFloorPlane(response.data.floorPlan);
 
               this.editor.select( null );
             })
 	},
-    InitializeFloorPlane()
+    InitializeFloorPlane(floorPlan)
     {
       let geometry = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
       let material = new THREE.MeshStandardMaterial();
       let loader = new THREE.TextureLoader();
-      let currentFloor = this.$store.getters.building_info.buildingInfo.floors
-          .find( currentValue => currentValue.id === this.$route.query.floorId);
-      let img= "https://localhost:5555"+ currentFloor.floorPlanImage;
+
+      let img= "https://localhost:5555"+ floorPlan.floorPlanImg;
       loader.load(img,
           function(texture) {
             console.log(img + ' downloaded successfully');
@@ -159,13 +147,10 @@ export default {
 
       mesh.uuid = this.editor.floorPlaneUuid;
       mesh.rotation.x = 270 * Math.PI/180;
-      mesh.scale.set(10,10,1)
+      mesh.scale.set(floorPlan.imgWidth /10,floorPlan.imgHeight/10,1)
       mesh.name = 'FloorPlan Plane';
       this.editor.execute( new AddObjectCommand( this.editor, mesh ) );
     }
-
-
-
   }
 
 }

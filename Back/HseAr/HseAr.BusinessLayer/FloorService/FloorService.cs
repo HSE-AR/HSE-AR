@@ -48,7 +48,7 @@ namespace HseAr.BusinessLayer.FloorService
             var sceneResult = await _sceneService.AddEmptyScene();
             floorContext.SceneId = sceneResult.Id;
             
-            floorContext.FloorPlanImg = UploadFloorPlanImage(floorPlanImg, floorContext.Id);
+            UploadFloorPlanImage(ref floorContext, floorPlanImg, floorContext.Id);
 
             var floor = _mapper.Map<FloorContext, Floor>(floorContext);
             
@@ -56,12 +56,16 @@ namespace HseAr.BusinessLayer.FloorService
             return _mapper.Map<Floor, FloorContext>(floorResult);
         }
 
-        private string UploadFloorPlanImage(string floorPlanImage, Guid floorId)
+        private void UploadFloorPlanImage(ref FloorContext floorContext, string floorPlanImage, Guid floorId)
         {
             var imagePathWithoutFormat = $"{_configuration.STORAGE_PATH}{storageFloorplanImgs}{floorId}";
-            var format = ImageManager.UploadImage(floorPlanImage, imagePathWithoutFormat);
+            var image = ImageManager.GetImage(floorPlanImage);
+            var format = ImageManager.UploadImage(image, imagePathWithoutFormat);
+
+            floorContext.ImgHeight = image.Height;
+            floorContext.ImgWidth = image.Width;
+            floorContext.FloorPlanImg = $"/data{storageFloorplanImgs}{floorId}.{ImageManager.GetFormatString(format)}";
             
-            return $"/data{storageFloorplanImgs}{floorId}.{ImageManager.GetFormatString(format)}";
         }
     }
 }

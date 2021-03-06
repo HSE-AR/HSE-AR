@@ -33,6 +33,7 @@ namespace HseAr.WebPlatform.Api
         {
             return services
                 .AddTransient<IBuildingModelConstructor, BuildingModelConstructor>()
+                .AddTransient<IEditorModelConstructor, EditorModelConstructor>()
                 .AddTransient<IAccountModelConstructor, AccountModelConstructor>();
         }
         

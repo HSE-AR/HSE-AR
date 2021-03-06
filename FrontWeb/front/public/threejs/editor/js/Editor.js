@@ -136,7 +136,7 @@ Editor.prototype = {
 
 	ModificationsLoadToBack: function() {
 		let arrayOfModifications = editor.history.GetArrayOfModification()
-		axios.post('https://localhost:5555/wapi/modification/list', arrayOfModifications, {
+		axios.post('https://localhost:5555/wapi/editor/list', arrayOfModifications, {
 			headers: {
 				"Content-Type": "application/json",
 				'X-Company-Key': this.companyId

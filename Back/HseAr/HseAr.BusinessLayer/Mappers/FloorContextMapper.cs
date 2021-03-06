@@ -15,7 +15,9 @@ namespace HseAr.BusinessLayer.Mappers
                 CreatedAtUtc = source.CreatedAtUtc,
                 SceneId = source.SceneId,
                 BuildingId = source.BuildingId,
-                FloorPlanImg = source.FloorPlanImg
+                FloorPlanImg = source.FloorPlanImg ,
+                ImgHeight = source.ImgHeight,
+                ImgWidth = source.ImgWidth
             };
 
         public Floor Map(FloorContext source)
@@ -27,7 +29,9 @@ namespace HseAr.BusinessLayer.Mappers
                 CreatedAtUtc = source.CreatedAtUtc,
                 SceneId = source.SceneId,
                 BuildingId = source.BuildingId,
-                FloorPlanImg = source.FloorPlanImg
+                FloorPlanImg = source.FloorPlanImg,
+                ImgHeight = source.ImgHeight,
+                ImgWidth = source.ImgWidth
             };
     }
 }

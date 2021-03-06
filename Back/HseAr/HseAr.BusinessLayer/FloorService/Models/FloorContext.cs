@@ -11,6 +11,10 @@ namespace HseAr.BusinessLayer.FloorService.Models
         public string Title { get; set; }
         
         public string FloorPlanImg { get; set; }
+        
+        public int ImgHeight { get; set; }
+        
+        public int ImgWidth { get; set; }
 
         public DateTime CreatedAtUtc { get; set; }
 
