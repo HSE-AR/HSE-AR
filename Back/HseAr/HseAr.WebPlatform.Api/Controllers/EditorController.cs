@@ -1,23 +1,47 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using HseAr.BusinessLayer.FloorService;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Data.DataProjections;
 using HseAr.WebPlatform.Api.Attributes;
 using HseAr.WebPlatform.Api.Helpers;
+using HseAr.WebPlatform.Api.Models.Editor;
+using HseAr.WebPlatform.Api.ViewModelConstructors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HseAr.WebPlatform.Api.Controllers
 {
     [AccessToCompany]
-    [Route("wapi/modification")]
-    public class SceneModificationController : ControllerBase
+    [Route("wapi/[controller]")]
+    public class EditorController : ControllerBase
     {
         private readonly ISceneService _sceneService;
+        private readonly IFloorService _floorService;
+        private readonly IEditorModelConstructor _editorConstructor;
 
-        public SceneModificationController(ISceneService sceneService)
+        public EditorController(ISceneService sceneService, IEditorModelConstructor editorConstructor, IFloorService floorService)
         {
             _sceneService = sceneService;
+            _floorService = floorService;
+            _editorConstructor = editorConstructor;
+        }
+        
+        /// <summary>
+        /// получение данных для инициализации редактора
+        /// </summary>
+        /// <param name="floorId"></param>
+        /// <returns></returns>
+        [HttpGet("{floorId}")]
+        [Authorize]
+        public async Task<ActionResult<EditorInfoModel>> InitializeEditorByFloorId(Guid floorId)
+        {
+            var scene = await _sceneService.GetSceneByFloorId(floorId, this.GetCompanyId());
+            var floorContext = await _floorService.GetFloorById(floorId);
+
+            return _editorConstructor.ConstructInfoModel(floorContext, scene);
+
         }
         
         /// <summary>

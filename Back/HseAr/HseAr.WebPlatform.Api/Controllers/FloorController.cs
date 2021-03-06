@@ -55,17 +55,5 @@ namespace HseAr.WebPlatform.Api.Controllers
             var buildingContext = await _buildingService.GetBuildingById(floorResult.BuildingId, this.GetCompanyId());
             return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
-
-        /// <summary>
-        /// Получение сцены по id этажа
-        /// </summary>
-        /// <param name="floorId"></param>
-        /// <returns></returns>
-        [HttpGet("scene/{floorId}")]
-        [Authorize]
-        public async Task<ActionResult<Scene>> GetSceneByFloorId(Guid floorId)
-        {
-            return await _sceneService.GetSceneByFloorId(floorId, this.GetCompanyId());
-        }
     }
 }

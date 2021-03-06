@@ -8,27 +8,28 @@ namespace HseAr.BusinessLayer.Helpers
 {
     public static class ImageManager
     {
-        public static ImageFormat UploadImage(string imageData, string imagePath)
+        public static Image GetImage(string imageData)
         {
             var base64Str = imageData.Substring(imageData.IndexOf(',') + 1);  
             var bytes = Convert.FromBase64String(base64Str);
-            //File.WriteAllBytes(imagePath, bytes);
 
-            using(var image = Image.FromStream(new MemoryStream(bytes)))
+            return Image.FromStream(new MemoryStream(bytes));
+        }
+
+        public static ImageFormat UploadImage(Image image, string imagePath)
+        {
+            if (ImageFormat.Jpeg.Equals(image.RawFormat))
             {
-                if (ImageFormat.Jpeg.Equals(image.RawFormat))
-                {
-                    image.Save(imagePath + ".jpg", ImageFormat.Jpeg);
-                    return ImageFormat.Jpeg;
-                }
-                else if (ImageFormat.Png.Equals(image.RawFormat))
-                {
-                    image.Save(imagePath + ".png", ImageFormat.Png);
-                    return ImageFormat.Png;
-                }
-                
-                throw new Exception("не поддерживающий формат файла");
+                image.Save(imagePath + ".jpg", ImageFormat.Jpeg);
+                return ImageFormat.Jpeg;
             }
+            else if (ImageFormat.Png.Equals(image.RawFormat))
+            {
+                image.Save(imagePath + ".png", ImageFormat.Png);
+                return ImageFormat.Png;
+            }
+                
+            throw new Exception("не поддерживающий формат файла");
         }
 
         public static string GetFormatString(ImageFormat imageFormat)
