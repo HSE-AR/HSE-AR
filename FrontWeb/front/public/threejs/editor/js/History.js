@@ -389,6 +389,7 @@ History.prototype = {
 	},
 
 	AddObjectModification: function(objectModificationData, modificationType) {
+		console.log(modificationType.toJSON());
 		if(modificationType.object.type.includes('Light')) { // добавление света на сцену
 			objectModificationData.Type = 'AddLightToScene';
 			objectModificationData.DataJson = modificationType.toJSON().object.object
@@ -398,8 +399,9 @@ History.prototype = {
 			objectModificationData.Type = 'InsertObjectToScene';
 			objectModificationData.DataJson = {
 				object: modificationType.toJSON().object.object,
-				material: modificationType.object.material,
-				geometry: modificationType.object.geometry
+				materials: modificationType.toJSON().object.materials,
+				geometries: modificationType.toJSON().object.geometries
+
 			};
 			objectModificationData.SceneId = editor.idFromBack;
 		}
