@@ -53,7 +53,7 @@ namespace HseAr.BusinessLayer.SceneService.Constructors
             var animations = @"[]";
             
             var sceneObject = @"{
-                uuid: '52DB20E6-4144-461A-BA37-0D41CCD4E73D',
+                uuid: 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA',
                 type: 'Scene',
                 name: 'Scene',
                 layers: 1,

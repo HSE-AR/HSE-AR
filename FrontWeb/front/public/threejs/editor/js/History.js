@@ -367,13 +367,15 @@ History.prototype = {
 			case 'SetRotationCommand':
 			case 'SetScaleCommand':
 				this.UpdateTransformModification(objectModificationData, modificationType)
-				break
+				break;
 			case 'AddObjectCommand':
 				this.AddObjectModification(objectModificationData, modificationType)
-				break
+				break;
 			case 'RemoveObjectCommand':
 				this.DeleteFromSceneModification(objectModificationData, modificationType)
-				break
+				break;
+			case 'ForbiddenCommand':
+				break;
 		}
 
 		return objectModificationData
