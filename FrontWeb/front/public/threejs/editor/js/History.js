@@ -367,13 +367,15 @@ History.prototype = {
 			case 'SetRotationCommand':
 			case 'SetScaleCommand':
 				this.UpdateTransformModification(objectModificationData, modificationType)
-				break
+				break;
 			case 'AddObjectCommand':
 				this.AddObjectModification(objectModificationData, modificationType)
-				break
+				break;
 			case 'RemoveObjectCommand':
 				this.DeleteFromSceneModification(objectModificationData, modificationType)
-				break
+				break;
+			case 'ForbiddenCommand':
+				break;
 		}
 
 		return objectModificationData
@@ -400,8 +402,10 @@ History.prototype = {
 			objectModificationData.DataJson = {
 				object: modificationType.toJSON().object.object,
 				materials: modificationType.toJSON().object.materials,
-				geometries: modificationType.toJSON().object.geometries
-
+				geometries: modificationType.toJSON().object.geometries,
+				textures: modificationType.toJSON().object.textures,
+				images: modificationType.toJSON().object.images,
+				animations : modificationType.toJSON().object.animations
 			};
 			objectModificationData.SceneId = editor.idFromBack;
 		}

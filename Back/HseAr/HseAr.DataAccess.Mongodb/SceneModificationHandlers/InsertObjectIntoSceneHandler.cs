@@ -46,9 +46,23 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
             if (sceneModEntity.DataBson.TryGetValue("geometries", out elements))
             {
                 sceneAsBson["geometries"].AsBsonArray.AddRange(elements.AsBsonArray);
-
             }
-
+            
+            if (sceneModEntity.DataBson.TryGetValue("textures", out elements))
+            {
+                sceneAsBson["textures"].AsBsonArray.AddRange(elements.AsBsonArray);
+            }
+            
+            if (sceneModEntity.DataBson.TryGetValue("images", out elements))
+            {
+                sceneAsBson["images"].AsBsonArray.AddRange(elements.AsBsonArray);
+            }
+            
+            if (sceneModEntity.DataBson.TryGetValue("animations", out elements))
+            {
+                sceneAsBson["animations"].AsBsonArray.AddRange(elements.AsBsonArray);
+            }
+            
             var sceneObject = sceneAsBson["object"].AsBsonDocument;
 
             InsertObject(ref sceneObject, ref sceneModEntity);

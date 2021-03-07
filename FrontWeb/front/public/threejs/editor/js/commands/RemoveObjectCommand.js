@@ -10,14 +10,26 @@ import * as THREE from '../../../build/three.module.js';
  */
 function RemoveObjectCommand( editor, object ) {
 
+	this.sceneUuid = editor.sceneUuid
+	this.parent = (object !== undefined ) ? object.parent : undefined;
+
+	this.isDisable = this.parent !== undefined && this.parent.uuid !== editor.sceneUuid;
+	if (this.isDisable) {
+		alert("хоба, низя")
+		this.type = 'ForbiddenCommand';
+		this.object = object;
+		this.name = 'Remove Object';
+		return;
+	}
+
 	Command.call( this, editor );
+
 
 	this.type = 'RemoveObjectCommand';
 	this.name = 'Remove Object';
-
 	this.object = object;
-	this.parent = ( object !== undefined ) ? object.parent : undefined;
-	if ( this.parent !== undefined ) {
+
+	if ( this.parent !== undefined  ) {
 
 		this.index = this.parent.children.indexOf( this.object );
 
@@ -29,8 +41,10 @@ RemoveObjectCommand.prototype = {
 
 	execute: function () {
 
-		this.editor.removeObject( this.object );
-		this.editor.deselect();
+		if (!this.isDisable){
+			this.editor.removeObject( this.object );
+			this.editor.deselect();
+		}
 
 	},
 

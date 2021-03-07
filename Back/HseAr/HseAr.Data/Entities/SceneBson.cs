@@ -20,5 +20,14 @@ namespace HseAr.Data.Entities
         
         [BsonElement("object")]
         public BsonDocument Object { get; set; }
+        
+        [BsonElement("textures")]
+        public BsonArray Textures { get; set; }
+        
+        [BsonElement("images")]
+        public BsonArray Images { get; set; }
+        
+        [BsonElement("animations")]
+        public BsonArray Animations { get; set; }
     }
 }

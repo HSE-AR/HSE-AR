@@ -17,7 +17,10 @@ namespace HseAr.DataAccess.Mongodb.Mappers
                     Materials = JArray.Parse(source.Materials.ToJson()),
                     Metadata = JObject.Parse(source.Metadata.ToJson()),
                     Geometries = JArray.Parse(source.Geometries.ToJson()),
-                    Object = JObject.Parse(source.Object.ToJson())
+                    Object = JObject.Parse(source.Object.ToJson()),
+                    Images = JArray.Parse(source.Images.ToJson()),
+                    Textures = JArray.Parse(source.Textures.ToJson()),
+                    Animations = JArray.Parse(source.Animations.ToJson()),
                 };
 
         SceneBson IMapper<Scene,SceneBson>.Map(Scene source)
@@ -27,7 +30,10 @@ namespace HseAr.DataAccess.Mongodb.Mappers
                     Materials = Serializer.GetBsonArrayFromString(source.Materials.ToString()),
                     Metadata = BsonDocument.Parse(source.Metadata.ToString()),
                     Geometries = Serializer.GetBsonArrayFromString(source.Geometries.ToString()),
-                    Object = BsonDocument.Parse(source.Object.ToString())
+                    Object = BsonDocument.Parse(source.Object.ToString()),
+                    Textures = Serializer.GetBsonArrayFromString(source.Textures.ToString()),
+                    Images = Serializer.GetBsonArrayFromString(source.Images.ToString()),
+                    Animations = Serializer.GetBsonArrayFromString(source.Animations.ToString()),
                 };
     }
 }

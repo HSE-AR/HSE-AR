@@ -13,5 +13,11 @@ namespace HseAr.Data.DataProjections
         public JArray Materials { get; set; }
 
         public JObject Object { get; set; }
+        
+        public JArray Textures { get; set; }
+        
+        public JArray Images { get; set; }
+        
+        public JArray Animations { get; set; }
     }
 }

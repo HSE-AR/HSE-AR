@@ -55,7 +55,10 @@ namespace HseAr.WebPlatform.Api.Controllers
         ///     {        
         ///         "object": {},
         ///         "materials":[],
-        ///         "geometries":[]
+        ///         "geometries":[],
+        ///         "textures": [],
+        ///         "images": [],
+        ///         "animations":[]
         ///     }
         ///     
         /// DeleteObjectFromScene:

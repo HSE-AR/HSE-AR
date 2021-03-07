@@ -89,6 +89,7 @@ function Editor() {
 	this.idFromBack = null;
 	this.companyId = null
 	this.floorPlaneUuid = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' //id плоскости с чертежем
+	this.sceneUuid = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'
 	////////////////////
 
 	this.config = new Config();
