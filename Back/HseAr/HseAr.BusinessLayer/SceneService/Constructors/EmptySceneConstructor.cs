@@ -48,6 +48,10 @@ namespace HseAr.BusinessLayer.SceneService.Constructors
                 }
             ]";
             
+            var textures = @"[]";
+            var images = @"[]";
+            var animations = @"[]";
+            
             var sceneObject = @"{
                 uuid: '52DB20E6-4144-461A-BA37-0D41CCD4E73D',
                 type: 'Scene',
@@ -72,6 +76,9 @@ namespace HseAr.BusinessLayer.SceneService.Constructors
                 Geometries = JArray.Parse(geometries),
                 Materials = JArray.Parse(materials),
                 Object = JObject.Parse(sceneObject),
+                Textures = JArray.Parse(textures),
+                Images = JArray.Parse(images),
+                Animations = JArray.Parse(animations)
             };
         }
     }

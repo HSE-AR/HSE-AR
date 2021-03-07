@@ -40,44 +40,107 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
 
             var uuid = sceneMod.DataJson["uuid"]?.ToString();
 
-            DeleteObject(ref sceneAsBson, uuid);
+            var objects = sceneAsBson["object"]["children"].AsBsonArray;
+            var objectToDelete = objects.FirstOrDefault(x => x["uuid"] == uuid);
+
+            FindAndDeleteElementsRecursively(objectToDelete.AsBsonDocument, sceneAsBson);
+                
+            objects.Remove(objectToDelete);
+            sceneAsBson["object"]["children"] = objects;
 
             return await _scenes.UpdateOneAsync(filter, new BsonDocument("$set", sceneAsBson));
         }
         
-        private void DeleteObject(ref BsonDocument scene, string objectUuid)
+        private void FindAndDeleteElementsRecursively(BsonDocument objectToDelete, BsonDocument scene)
         {
-            var objects = scene["object"]["children"].AsBsonArray;
-            var objectToDelete = objects.FirstOrDefault(x => x["uuid"] == objectUuid);
-
-            if(objectToDelete["material"] != null)
-            {
-                DeleteMaterial(ref scene, objectToDelete["material"].ToString());
-            }
-
-            if(objectToDelete["geometry"] != null)
+            if(objectToDelete.Contains("geometry"))
             {
                 DeleteGeometry(ref scene, objectToDelete["geometry"].ToString());
             }
             
-            objects.Remove(objectToDelete);
-            scene["object"]["children"] = objects;
+            if(objectToDelete.Contains("animations"))
+            {
+                DeleteAnimations(ref scene, objectToDelete["animations"].AsBsonArray);
+            }
+            
+            if (objectToDelete.Contains("material"))
+            {
+                DeleteMaterialAndTexture(ref scene, objectToDelete["material"].ToString());
+            }
+            
+            if(objectToDelete.Contains("children"))
+            {
+                foreach (var obj in  objectToDelete["children"].AsBsonArray)
+                {
+                    FindAndDeleteElementsRecursively(obj.AsBsonDocument, scene);
+                }
+            }
         }
 
         private void DeleteGeometry(ref BsonDocument scene, string geometryUuid)
         {
             var geometries = scene["geometries"].AsBsonArray;
             var geometryToDelete = geometries.FirstOrDefault(x => x["uuid"] == geometryUuid);
+            if (geometryToDelete == null)
+            {
+                return;
+            }
             geometries.Remove(geometryToDelete);
             scene["geometries"] = geometries;
         }
 
-        private void DeleteMaterial(ref BsonDocument scene, string materialUuid)
+        private void DeleteAnimations(ref BsonDocument scene, BsonArray animsToDelete)
+        {
+            var animations = scene["animations"].AsBsonArray;
+            foreach (var anim in animsToDelete)
+            {
+                var animationToDelete = animations.FirstOrDefault(x => x["uuid"] == anim.ToString());
+                if (animationToDelete == null)
+                {
+                    continue;
+                }
+                
+                animations.Remove(animationToDelete);
+            }
+            scene["animations"] = animations;
+        }
+        
+        private void DeleteMaterialAndTexture(ref BsonDocument scene, string materialUuid)
         {
             var materials = scene["materials"].AsBsonArray;
             var materialToDelete = materials.FirstOrDefault(x => x["uuid"] == materialUuid);
+
+            if (materialToDelete == null)
+            {
+                return;
+            }
+
+            if(materialToDelete.AsBsonDocument.Contains("map"))
+            {
+                DeleteTexture(ref scene, materialToDelete["map"].ToString());
+            }
+            
             materials.Remove(materialToDelete);
             scene["materials"] = materials;
+        }
+        
+        private void DeleteTexture(ref BsonDocument scene, string textureUuid)
+        {
+            var textures = scene["textures"].AsBsonArray;
+            var images = scene["images"].AsBsonArray;
+            
+            var textureToDelete = textures.FirstOrDefault(x => x["uuid"] == textureUuid);
+            if (textureToDelete == null)
+            {
+                return;
+            }
+            var imageToDelete =  images.FirstOrDefault(x => x["uuid"] == textureToDelete["image"].ToString());
+            
+            textures.Remove(textureToDelete);
+            images.Remove(imageToDelete);
+            
+            scene["textures"] = textures;
+            scene["images"] = images;
         }
     }
 }

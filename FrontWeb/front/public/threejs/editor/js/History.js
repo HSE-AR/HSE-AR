@@ -400,8 +400,10 @@ History.prototype = {
 			objectModificationData.DataJson = {
 				object: modificationType.toJSON().object.object,
 				materials: modificationType.toJSON().object.materials,
-				geometries: modificationType.toJSON().object.geometries
-
+				geometries: modificationType.toJSON().object.geometries,
+				textures: modificationType.toJSON().object.textures,
+				images: modificationType.toJSON().object.images,
+				animations : modificationType.toJSON().object.animations
 			};
 			objectModificationData.SceneId = editor.idFromBack;
 		}
