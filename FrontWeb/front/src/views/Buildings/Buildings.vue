@@ -2,29 +2,28 @@
     <div>
         <div>
             <h2>BUILDINGS:</h2>
-            <div class="buildings__cards" v-if="buildings">
+                <div class="buildings__cards">
+                    <div
+                        v-for="building in buildings"
+                        :key="building.id"
+                    >
+                        <div class="building__container">
+                            <div class="building__header">
+                                {{building.title}}
+                            </div>
+                            <div class="building__main">
+                                {{building.address}}
+                            </div>
+                            <div class="building__footer">
+                                {{building.coordinate}}
+                            </div>
+                            <router-link :to="{path: `/admin/buildinginfo/`, query: {buildingId: building.id}}">
+                                Info
+                            </router-link>
 
-                <div
-                    v-for="building in buildings"
-                    :key="building.id"
-                >
-                    <div class="building__container">
-                        <div class="building__header">
-                            {{building.title}}
                         </div>
-                        <div class="building__main">
-                            {{building.address}}
-                        </div>
-                        <div class="building__footer">
-                            {{building.coordinate}}
-                        </div>
-                        <router-link :to="{path: `/admin/buildinginfo/`, query: {buildingId: building.id}}">
-                            Info
-                        </router-link>
-
                     </div>
                 </div>
-            </div>
             <hr>
             <div class="building__creation_container">
                 <div class="building__creation">

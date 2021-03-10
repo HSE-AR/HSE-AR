@@ -30,8 +30,12 @@
                           <input v-model="pointCloudId" type="text" id="pointCloudId" class="input" placeholder="pointCloudId..." required>
                         </span>
                         <span class="form__input">
-                          <input v-model="floorPlanImg" type="text" id="floorPlanImg" class="input" placeholder="floorPlanImg..." required>
+                          <input type="file" ref="floorPlanImg" id="floorPlanImg" @change="convertImage" accept="image/*" class="input" placeholder="floorPlanImg..." required>
                         </span>
+
+<!--                        <div class="image-preview" v-if="floorPlanImg.length > 0">-->
+<!--                          <img class="preview" :src="floorPlanImg">-->
+<!--                        </div>-->
                         <span class="form__input">
                           <input v-model="buildingId" type="text" id="buildingId" class="input" placeholder="buildingId..." required>
                         </span>
@@ -58,7 +62,7 @@
           }
         },
         computed: {
-            ...mapGetters(['building_info', 'buildings', 'floors'])
+            ...mapGetters(['building_info', 'buildings'])
         },
         props: (route) => ({ query: route.query.buildingId }),
         async created() {
@@ -71,12 +75,22 @@
 
         },
         methods: {
+            convertImage(event) {
+              let input = event.target
+              if (input.files && input.files[0]) {
+                  let reader = new FileReader()
+                  reader.onload = (e) => {
+                      this.floorPlanImg = e.target.result
+                  }
+                  reader.readAsDataURL(input.files[0]);
+              }
+            },
             async createFloor() {
                 const data = {
                     title: this.title,
                     number: this.number,
                     pointCloudId: this.pointCloudId,
-                    floorPlanImg: this.floorPlanImg,
+                    floorPlanImg: this.floorPlanImg.toString(),
                     buildingId: this.buildingId,
                 }
                 await this.$store.dispatch('createFloor', data )
@@ -87,6 +101,6 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  @import 'Buildings.scss';
 </style>
