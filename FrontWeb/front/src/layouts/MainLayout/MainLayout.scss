@@ -7,6 +7,21 @@ html {
 *, *::before, *::after {
   box-sizing: inherit;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
 .app-main-layout {
   font-family: 'Montserrat', sans-serif;
@@ -19,14 +34,18 @@ html {
 .wrapper {
   margin-top: 60px;
   display: flex;
-  height: 100vh;
+  height: 100%;
   justify-content: space-between;
+  overflow: auto;
 
   .app-content {
     width: 100%;
     margin-left: 15%;
+
+    height: 120vh;
     background: linear-gradient(0deg, #C17EFF 0%, #6631FF 56.83%), #000000;
   }
+
 }
 
 

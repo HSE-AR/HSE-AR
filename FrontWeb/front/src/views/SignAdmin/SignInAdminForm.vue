@@ -45,7 +45,7 @@
         }
         this.$store.dispatch('getTokenAndLogin', data)
           .then(() => {
-              this.$router.push('/adminpage')
+              this.$router.push('/admin/profile')
           })
           .catch(err => {
               console.log(err)

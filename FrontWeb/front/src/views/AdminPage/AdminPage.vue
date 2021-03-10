@@ -26,3 +26,7 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+  @import 'AdminPage.scss';
+</style>

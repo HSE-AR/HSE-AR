@@ -390,7 +390,7 @@ History.prototype = {
 	AddObjectModification: function(objectModificationData, modificationType) {
 		if(modificationType.object.type.includes('Light')) { // добавление света на сцену
 			objectModificationData.Type = 'AddLightToScene';
-			objectModificationData.DataJson = modificationType.json.object.object
+			objectModificationData.DataJson = modificationType.toJSON().object.object
 			objectModificationData.SceneId = editor.idFromBack;
 		}
 		else{
