@@ -27,4 +27,21 @@ a:focus {
   height: 60px;
 }
 
+.header__acc-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logout {
+  margin-left: 20px;
+}
+.header__logout svg {
+  fill: white;
+  transition: 0.3s;
+}
+.header__logout svg:hover {
+  fill: #8C31FF;
+}
+
 /*# sourceMappingURL=Header.css.map */

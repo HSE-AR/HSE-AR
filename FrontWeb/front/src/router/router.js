@@ -4,9 +4,11 @@ import Editor from "../views/Editor/Editor";
 import LandingPage from "../views/LandingPage/LandingPage";
 import SignInAdminForm from "../views/SignAdmin/SignInAdminForm";
 import SignUpAdminForm from "../views/SignAdmin/SignUpAdminForm";
-import AdminPage from "../views/AdminPage";
-import Buildings from "../views/Buildings";
-
+import AdminPage from "../views/AdminPage/AdminPage";
+import Buildings from "../views/Buildings/Buildings";
+import About from "../views/About";
+import Help from "../views/Help";
+import BuildingInfo from "../views/Buildings/BuildingInfo";
 
 
 Vue.use(Router)
@@ -36,25 +38,46 @@ const routes = [
     meta: {layout: 'sign'},
     component: SignUpAdminForm
   },
+
   {
-    path: '/adminpage',
+    path: '/admin/profile',
     name: 'adminpage',
     meta: {layout: 'main'},
     component: AdminPage,
-    children : [
-      {
-        path: '/buildings',
-        name: 'buildings',
-        meta: {layout: 'main'},
-        component: Buildings,
-      },
-      {
-        path: '/editor/:id',
-        component: Editor,
-        props: true
-      }
-    ]
   },
+  {
+    path: '/admin/buildings',
+    name: 'buildings',
+    meta: {layout: 'main'},
+    component: Buildings,
+  },
+  {
+    path: '/admin/buildinginfo/',
+    name: 'buildingInfo',
+    meta: {layout: 'main'},
+    component: BuildingInfo,
+    props: true
+  },
+  {
+    path: '/admin/editor/:id',
+    component: Editor,
+    props: true
+  },
+  {
+    path: '/admin/help',
+    name: 'help',
+    meta: {layout: 'main'},
+    component: Help,
+  },
+  {
+    path: '/admin/about',
+    name: 'about',
+    meta: {layout: 'main'},
+    component: About,
+  },
+
+
+
 
 
 ]

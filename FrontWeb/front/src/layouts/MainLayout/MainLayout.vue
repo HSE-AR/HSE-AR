@@ -16,11 +16,26 @@
 <script>
     import Header from '../../components/app/Header'
     import Sidebar from '../../components/app/Sidebar'
-    import axios from "axios";
     export default {
-        name: "AdminLayout",
+        name: "MainLayout",
         components: {
             Header, Sidebar
+        },
+        async mounted() {
+            await this.$store.dispatch('getUserFromToken')
+                    .then(response => {
+                        console.log(response)
+                    })
+            await this.$store.dispatch('getCompanyFromToken')
+                    .then(response => {
+                        console.log(response)
+                    })
+            await this.$store.dispatch('getBuildingsFromUser')
+                    .then(response => {
+                        console.log(response)
+                    })
+                    .catch(err => console.log(err))
+
         },
 
     }

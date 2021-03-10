@@ -20,7 +20,9 @@
   color: white;
   transition: 0.3s;
 }
-.sidenav__item .sidenav__link:hover {
+
+.active {
+  background-color: #8C31FF;
   color: #8C31FF;
 }
 

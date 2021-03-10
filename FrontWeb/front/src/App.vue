@@ -3,9 +3,6 @@
     <component :is="layout">
       <router-view />
     </component>
-    <component v-if="!this.$route.meta.layout">
-      <Editor/>
-    </component>
 
   </div>
 </template>
