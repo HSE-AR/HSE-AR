@@ -6,7 +6,7 @@ export default {
         status: '',
         token: localStorage.getItem('token') || null,
         user: null,
-        company_actions: []
+        company_actions: localStorage.getItem('company_actions') || []
     },
 
     getters: {

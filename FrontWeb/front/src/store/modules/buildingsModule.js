@@ -16,7 +16,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.get('https://localhost:5555/wapi/building', {
                     headers: {
-                        'X-Company-Key': context.getters.company_actions[0].id
+                        'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }
                 })
                     .then(response => {
@@ -37,7 +37,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.get(`https://localhost:5555/wapi/building/${payload}`, {
                     headers: {
-                        'X-Company-Key': context.getters.company_actions[0].id
+                        'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }
                 })
                         .then(response => {
@@ -58,7 +58,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(`https://localhost:5555/wapi/building`, payload, {
                     headers: {
-                        'X-Company-Key': context.getters.company_actions[0].id
+                        'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }
                 })
                     .then(response => {
@@ -78,7 +78,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(`https://localhost:5555/wapi/floor`, payload, {
                     headers: {
-                        'X-Company-Key': context.getters.company_actions[0].id
+                        'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }
                 })
                     .then(response => {
