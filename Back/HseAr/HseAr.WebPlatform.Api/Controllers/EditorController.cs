@@ -38,7 +38,8 @@ namespace HseAr.WebPlatform.Api.Controllers
         public async Task<ActionResult<EditorInfoModel>> InitializeEditorByFloorId(Guid floorId)
         {
             var scene = await _sceneService.GetSceneByFloorId(floorId, this.GetCompanyId());
-            var floorContext = await _floorService.GetFloorById(floorId);
+            
+            var floorContext = await _floorService.GetFloorById(floorId, this.GetCompanyId());
 
             return _editorConstructor.ConstructInfoModel(floorContext, scene);
 

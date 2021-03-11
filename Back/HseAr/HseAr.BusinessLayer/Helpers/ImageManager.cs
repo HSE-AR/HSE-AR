@@ -16,6 +16,17 @@ namespace HseAr.BusinessLayer.Helpers
             return Image.FromStream(new MemoryStream(bytes));
         }
 
+        public static bool DeleteImage(string imagePath)
+        {
+            if(File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+                return true;
+            }
+
+            return false;
+        }
+
         public static ImageFormat UploadImage(Image image, string imagePath)
         {
             if (ImageFormat.Jpeg.Equals(image.RawFormat))
@@ -45,6 +56,8 @@ namespace HseAr.BusinessLayer.Helpers
             
             throw new Exception("не поддерживающий формат файла");
         }
+        
+        
         
 
     }

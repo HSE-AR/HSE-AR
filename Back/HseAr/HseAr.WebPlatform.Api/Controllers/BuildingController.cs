@@ -75,5 +75,19 @@ namespace HseAr.WebPlatform.Api.Controllers
             return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
         
+        /// <summary>
+        /// Удаление здания вместе с его этажами
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<BuildingsViewModel>> Delete(Guid id)
+        {
+            var companyId = this.GetCompanyId();
+            await _buildingService.DeleteBuilding(id, companyId);
+            
+            return _buildingConstructor.ConstructModels(await _buildingService.GetBuildingsByCompanyId(companyId));
+        }
+        
     }
 }

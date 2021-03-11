@@ -81,8 +81,7 @@ namespace HseAr.WebPlatform.Api
                     corsService.ApplyResult(corsResult, ctx.Context.Response);
                 },
                     
-                FileProvider = new PhysicalFileProvider(configuration.STORAGE_PATH),
-                RequestPath = "/data"
+                FileProvider = new PhysicalFileProvider(configuration.STORAGE_PATH)
             });
 
             app.UseAuthentication(); 

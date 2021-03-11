@@ -6,8 +6,10 @@ namespace HseAr.BusinessLayer.FloorService
 {
     public interface IFloorService
     {
-        Task<FloorContext> CreateFloor(FloorContext floorDto, string floorPlanImg);
+        Task<FloorContext> CreateFloor(FloorContext floorDto, string floorPlanImg, Guid companyId);
 
-        Task<FloorContext> GetFloorById(Guid id);
+        Task<FloorContext> GetFloorById(Guid id, Guid companyId);
+
+        Task DeleteFloor(Guid id, Guid companyId);
     }
 }
