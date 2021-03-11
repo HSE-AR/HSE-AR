@@ -32,10 +32,6 @@
                         <span class="form__input">
                           <input type="file" ref="floorPlanImg" id="floorPlanImg" @change="convertImage" accept="image/*" class="input" placeholder="floorPlanImg..." required>
                         </span>
-
-<!--                        <div class="image-preview" v-if="floorPlanImg.length > 0">-->
-<!--                          <img class="preview" :src="floorPlanImg">-->
-<!--                        </div>-->
                         <span class="form__input">
                           <input v-model="buildingId" type="text" id="buildingId" class="input" placeholder="buildingId..." required>
                         </span>
