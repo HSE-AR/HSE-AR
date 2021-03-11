@@ -11,7 +11,8 @@ namespace HseAr.WebPlatform.Api.Mappers
             {
                 Title = source.Title,
                 Number = source.Number,
-                BuildingId = source.BuildingId
+                BuildingId = source.BuildingId,
+                FloorPlanImg = source.FloorPlanImg
             };
     }
 }
