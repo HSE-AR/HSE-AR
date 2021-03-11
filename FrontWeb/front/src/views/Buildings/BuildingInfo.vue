@@ -32,9 +32,6 @@
                         <span class="form__input">
                           <input type="file" ref="floorPlanImg" id="floorPlanImg" @change="convertImage" accept="image/*" class="input" placeholder="floorPlanImg..." required>
                         </span>
-                        <span class="form__input">
-                          <input v-model="buildingId" type="text" id="buildingId" class="input" placeholder="buildingId..." required>
-                        </span>
           <button class="building__creation__submit">Create Building</button>
         </form>
       </div>
@@ -53,20 +50,23 @@
               number: null,
               pointCloudId: null,
               floorPlanImg: null,
-              buildingId: null,
+              buildingId: this.$route.query.buildingId,
               isHidden: true,
           }
         },
         computed: {
             ...mapGetters(['building_info', 'buildings'])
         },
-        props: (route) => ({ query: route.query.buildingId }),
-        async created() {
-          await this.$store.dispatch('getBuildingInfo', this.$route.query.buildingId)
+
+        async mounted() {
+          await this.$store.dispatch('getBuildingInfo', this.buildingId)
             .then(response => {
                 console.log(response)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+
+            })
 
 
         },
