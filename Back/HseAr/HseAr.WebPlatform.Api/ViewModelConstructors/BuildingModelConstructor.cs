@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.BusinessLayer.FloorService;
+using HseAr.Data;
 using HseAr.Data.Entities;
 using HseAr.WebPlatform.Api.Models.Building;
 using HseAr.WebPlatform.Api.Models.Floor;
@@ -12,11 +13,11 @@ namespace HseAr.WebPlatform.Api.ViewModelConstructors
 {
     public class BuildingModelConstructor : IBuildingModelConstructor
     {
-        private readonly IFloorService _floorService;
+        private readonly IUnitOfWork _data;
         
-        public BuildingModelConstructor(IFloorService floorService)
+        public BuildingModelConstructor(IUnitOfWork data)
         {
-            _floorService = floorService;
+            _data = data;
         }
 
         public async Task<BuildingCurrentViewModel> ConstructCurrentModel(BuildingContext source)
@@ -60,16 +61,16 @@ namespace HseAr.WebPlatform.Api.ViewModelConstructors
 
         private async Task<FloorItemModel> ConstructFloorItemModel(Guid id)
         {
-            var floorContext = await _floorService.GetFloorById(id);
+            var floor = await _data.Floors.GetById(id);
             
             return new FloorItemModel()
             {
-                Id = floorContext.Id,
-                Number = floorContext.Number,
-                Title = floorContext.Title,
-                CreatedAtUtc = floorContext.CreatedAtUtc,
-                SceneId = floorContext.SceneId,
-                FloorPlanImage = floorContext.FloorPlanImg
+                Id = floor.Id,
+                Number = floor.Number,
+                Title = floor.Title,
+                CreatedAtUtc = floor.CreatedAtUtc,
+                SceneId = floor.SceneId,
+                FloorPlanImage = floor.FloorPlanImg
             };
         }
     }

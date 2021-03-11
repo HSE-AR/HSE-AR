@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Afisha.Tickets.Core.Linq;
 using HseAr.BusinessLayer.BuildingService.Models;
+using HseAr.BusinessLayer.Helpers;
 using HseAr.Core.Guard;
+using HseAr.Core.Settings;
 using HseAr.Data;
 using HseAr.Data.Entities;
 using HseAr.Infrastructure;
@@ -14,11 +17,13 @@ namespace HseAr.BusinessLayer.BuildingService
     {
         private readonly IUnitOfWork _data;
         private readonly IMapper _mapper;
+        private readonly Configuration _configuration;
         
-        public BuildingService(IUnitOfWork data, IMapper mapper)
+        public BuildingService(IUnitOfWork data, IMapper mapper, Configuration configuration)
         {
             _data = data;
             _mapper = mapper;
+            _configuration = configuration;
         }
         
         public async Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, Guid companyId)
@@ -44,6 +49,21 @@ namespace HseAr.BusinessLayer.BuildingService
             Ensure.Equals(companyId,building.CompanyId, nameof(building));
 
             return _mapper.Map<Building, BuildingContext>(building);
+        }
+
+        public async Task DeleteBuilding(Guid id, Guid companyId)
+        {
+            var building = await _data.Buildings.GetById(id);
+            Ensure.IsNotNull(building, nameof(building));
+            Ensure.Equals(building.CompanyId, companyId, nameof(DeleteBuilding));
+            
+            foreach (var floor in building.Floors)
+            {
+                ImageManager.DeleteImage($"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}");
+                await _data.Scenes.Remove(floor.SceneId);
+            }
+            
+            await _data.Buildings.Delete(building.Id);
         }
     }
 }

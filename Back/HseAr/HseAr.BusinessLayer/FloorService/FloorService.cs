@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.CompanyService.Models;
 using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.Helpers;
 using HseAr.BusinessLayer.SceneService;
+using HseAr.Core.Guard;
 using HseAr.Core.Settings;
 using HseAr.Data;
 using HseAr.Data.Entities;
@@ -35,14 +37,42 @@ namespace HseAr.BusinessLayer.FloorService
             _configuration = configuration;
         }
         
-        public async Task<FloorContext> GetFloorById(Guid id)
+        public async Task<FloorContext> GetFloorById(Guid floorId, Guid companyId)
         {
-            var floor = await _data.Floors.GetById(id);
+            var buildings = await _data.Buildings.GetListByCompanyId(companyId);
+            Ensure.IsNotNullOrEmptySequence(buildings, nameof(_data.Buildings.GetListByCompanyId));
+
+            var floor = await _data.Floors.GetById(floorId);
+            
+            var currentBuilding = buildings.FirstOrDefault(b => b.Id == floor.BuildingId);
+            Ensure.IsNotNull(currentBuilding, nameof(GetFloorById));
+            
             return _mapper.Map<Floor, FloorContext>(floor);
         }
 
-        public async Task<FloorContext> CreateFloor(FloorContext floorContext, string floorPlanImg)
+        public async Task DeleteFloor(Guid floorId, Guid companyId)
         {
+            var buildings = await _data.Buildings.GetListByCompanyId(companyId);
+            Ensure.IsNotNullOrEmptySequence(buildings, nameof(_data.Buildings.GetListByCompanyId));
+
+            var floor = await _data.Floors.GetById(floorId);
+                
+            var currentBuilding = buildings.FirstOrDefault(b => b.Id == floor.BuildingId);
+            Ensure.IsNotNull(currentBuilding, nameof(GetFloorById));
+
+            ImageManager.DeleteImage($"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}");
+            await _data.Scenes.Remove(floor.SceneId);
+            await _data.Floors.Delete(floor.Id);
+        }
+
+        public async Task<FloorContext> CreateFloor(FloorContext floorContext, string floorPlanImg, Guid companyId)
+        {
+            var buildings = await _data.Buildings.GetListByCompanyId(companyId);
+            Ensure.IsNotNullOrEmptySequence(buildings, nameof(_data.Buildings.GetListByCompanyId));
+
+            var currentBuilding = buildings.FirstOrDefault(b => b.Id == floorContext.BuildingId);
+            Ensure.IsNotNull(currentBuilding, nameof(CreateFloor));
+            
             floorContext.Id = Guid.NewGuid();
             
             var sceneResult = await _sceneService.AddEmptyScene();
@@ -64,8 +94,7 @@ namespace HseAr.BusinessLayer.FloorService
 
             floorContext.ImgHeight = image.Height;
             floorContext.ImgWidth = image.Width;
-            floorContext.FloorPlanImg = $"/data{storageFloorplanImgs}{floorId}.{ImageManager.GetFormatString(format)}";
-            
+            floorContext.FloorPlanImg = $"{storageFloorplanImgs}{floorId}.{ImageManager.GetFormatString(format)}";
         }
     }
 }

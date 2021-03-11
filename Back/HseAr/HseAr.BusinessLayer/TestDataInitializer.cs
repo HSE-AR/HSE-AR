@@ -119,13 +119,13 @@ namespace HseAr.BusinessLayer
 
                         // Convert byte[] to Base64 String
                         var base64String = Convert.ToBase64String(imageBytes);
-                        return await floorService.CreateFloor(floor, base64String);
+                        return await floorService.CreateFloor(floor, base64String, buildingInfo.CompanyId);
                         
                     }
                 }
             }
 
-            return await floorService.GetFloorById(buildingInfo.Floors.First().Id);
+            return await floorService.GetFloorById(buildingInfo.Floors.First().Id, buildingInfo.CompanyId);
         }
     }
 }

@@ -4,6 +4,7 @@ using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.FloorService;
 using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.SceneService;
+using HseAr.Data;
 using HseAr.Data.DataProjections;
 using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Attributes;
@@ -21,27 +22,27 @@ namespace HseAr.WebPlatform.Api.Controllers
     public class FloorController : ControllerBase
     {
         private readonly IFloorService _floorService;
-        private readonly ISceneService _sceneService;
+        private readonly IUnitOfWork _data;
         private readonly IMapper _mapper;
         private readonly IBuildingModelConstructor _buildingConstructor;
         private readonly IBuildingService _buildingService;
         
         public FloorController(
-            IFloorService floorService, 
-            ISceneService sceneService,
+            IFloorService floorService,
+            IUnitOfWork data,
             IMapper mapper,
             IBuildingModelConstructor buildingConstructor,
             IBuildingService buildingService)
         {
             _floorService = floorService;
-            _sceneService = sceneService;
             _mapper = mapper;
             _buildingConstructor = buildingConstructor;
             _buildingService = buildingService;
+            _data = data;
         }
         
         /// <summary>
-        /// Создание этажа вмесе с пустой сценой
+        /// Создание этажа вместе с пустой сценой
         /// </summary>
         /// <param name="floorCreationForm"></param>
         /// <returns></returns>
@@ -50,9 +51,30 @@ namespace HseAr.WebPlatform.Api.Controllers
         public async Task<ActionResult<BuildingCurrentViewModel>> Create([FromBody] FloorCreationForm floorCreationForm)
         {
             var floorContext = _mapper.Map<FloorCreationForm, FloorContext>(floorCreationForm);
-            var floorResult = await _floorService.CreateFloor(floorContext, floorCreationForm.FloorPlanImg);
+            
+            var floorResult = await _floorService.CreateFloor(
+                floorContext,
+                floorCreationForm.FloorPlanImg,
+                this.GetCompanyId());
             
             var buildingContext = await _buildingService.GetBuildingById(floorResult.BuildingId, this.GetCompanyId());
+            return await _buildingConstructor.ConstructCurrentModel(buildingContext);
+        }
+        
+        /// <summary>
+        /// Удаление этажа
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Authorize]
+        public async Task<ActionResult<BuildingCurrentViewModel>> Delete([FromBody] FloorDeletionForm request)
+        {
+            await _floorService.DeleteFloor(
+                    request.FloorId,
+                this.GetCompanyId());
+            
+            var buildingContext = await _buildingService.GetBuildingById(request.BuildingId, this.GetCompanyId());
             return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
     }
