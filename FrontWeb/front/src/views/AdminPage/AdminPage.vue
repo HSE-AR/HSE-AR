@@ -22,7 +22,10 @@ import {mapGetters} from 'vuex'
 export default {
   name: 'AdminPage',
   computed: {
-    ...mapGetters(['user', 'company_actions'])
+    ...mapGetters({
+        user: 'user',
+        company_actions: 'company_actions'
+    })
   },
 }
 </script>

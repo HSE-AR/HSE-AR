@@ -14,6 +14,8 @@ import { Sidebar } from '../public/threejs/editor/js/Sidebar.js';
 import { Menubar } from '../public/threejs/editor/js/Menubar.js';
 import { Resizer } from '../public/threejs/editor/js/Resizer.js';
 import Axios from 'axios'
+import VueProgressBar from 'vue-progressbar'
+
 
 
 Vue.prototype.$http = Axios;
@@ -21,6 +23,12 @@ const token = localStorage.getItem('token')
 if (token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
+
+Vue.use(VueProgressBar, {
+  color: '#9774FF',
+  failedColor: 'red',
+  height: '4px'
+})
 
 
 Vue.config.productionTip = false
