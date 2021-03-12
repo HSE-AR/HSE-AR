@@ -50,7 +50,7 @@ namespace HseAr.WebPlatform.Api.Attributes
                     if(Guid.TryParse(companyKey, out var companyId) )
                     {
                         var company = await _data.Companies.GetById(companyId);
-                        if (company.Positions.Any(u => u.UserId == userId))
+                        if (company != null && company.Positions.Any(u => u.UserId == userId))
                         {
                             await next();
                         }
