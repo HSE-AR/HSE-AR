@@ -1,13 +1,18 @@
 <template>
     <div>
         <div>
-            <h2>BUILDINGS:</h2>
+            <div class="buildings__heading_container">
+                <h1 class="buildings__heading">Your Buildings:</h1>
+            </div>
                 <div class="buildings__cards">
                     <div
                         v-for="building in buildings"
                         :key="building.id"
                     >
                         <div class="building__container">
+                            <button @click="deleteBuilding(building.id)" class="building__deletion">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
+                            </button>
                             <div class="building__header">
                                 {{building.title}}
                             </div>
@@ -20,6 +25,7 @@
                             <router-link :to="{path: `/admin/buildinginfo/`, query: {buildingId: building.id}}">
                                 Info
                             </router-link>
+
 
                         </div>
                     </div>
@@ -63,6 +69,7 @@
         },
         methods: {
             async createBuilding() {
+                this.$Progress.start()
                 const data = {
                     title: this.title,
                     address: this.address,
@@ -71,9 +78,28 @@
                 await this.$store.dispatch('createBuilding', data)
                     .then(response => {
                         console.log(response)
+                        this.$Progress.finish()
+                        this.title = ""
+                        this.address = ""
+                        this.coordinate = ""
                     })
-                    .catch(err => console.log(err))
+                    .catch(err => {
+                        console.log(err)
+                        this.$Progress.fail()
+                    })
             },
+            async deleteBuilding(buildingId) {
+                this.$Progress.start()
+                await this.$store.dispatch('deleteBuilding', buildingId)
+                    .then(response => {
+                        console.log(response)
+                        this.$Progress.finish()
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        this.$Progress.fail()
+                    })
+            }
 
         }
 

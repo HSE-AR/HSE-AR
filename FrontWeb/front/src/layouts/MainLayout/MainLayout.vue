@@ -22,19 +22,45 @@
             Header, Sidebar
         },
         async mounted() {
-            await this.$store.dispatch('getUserFromToken')
-                    .then(response => {
-                        console.log(response)
-                    })
-            await this.$store.dispatch('getCompanyFromToken')
-                    .then(response => {
-                        console.log(response)
-                    })
-            await this.$store.dispatch('getBuildingsFromUser')
-                    .then(response => {
-                        console.log(response)
-                    })
-                    .catch(err => console.log(err))
+
+            if(localStorage.getItem('user') === null) {
+                this.$Progress.start()
+                await this.$store.dispatch('getUserFromToken')
+                        .then(response => {
+                            console.log(response)
+                            this.$Progress.finish()
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            this.$Progress.fail()
+                        })
+            }
+            if(localStorage.getItem('company_actions') === null) {
+                await this.$store.dispatch('getCompanyFromToken')
+                        .then(response => {
+                            console.log(response)
+                            this.$Progress.finish()
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            this.$Progress.fail()
+                        })
+            }
+
+            if(localStorage.getItem('buildings') === null) {
+                await this.$store.dispatch('getBuildingsFromUser')
+                        .then(response => {
+                            console.log(response)
+                            this.$Progress.finish()
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            this.$Progress.fail()
+                        })
+            }
+
+
+
 
         },
 
