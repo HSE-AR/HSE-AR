@@ -39,16 +39,19 @@
     },
     methods: {
       signIn() {
+        this.$Progress.start()
         const data = {
           email: this.email,
           password: this.password,
         }
         this.$store.dispatch('getTokenAndLogin', data)
           .then(() => {
+              this.$Progress.finish()
               this.$router.push('/admin/profile')
           })
           .catch(err => {
               console.log(err)
+              this.$Progress.fail()
           })
 
 

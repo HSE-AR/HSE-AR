@@ -1,16 +1,35 @@
+.buildings__heading_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  .buildings__heading {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 800;
+
+  }
+}
+
+
 .buildings__cards {
   margin: 20px;
   display:grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 5px;
+  grid-gap: 10px;
 }
 
 .building__container {
-  border: 1px solid white;
+  position: relative;
+  background: white;
+  color: black;
   padding: 20px;
+  border: 5px solid black;
 }
-
+.building__header {
+  font-weight: 800;
+}
 button {
   border: none;
   background-color: white;
@@ -51,9 +70,26 @@ input[type=number] {
   color: black;
   box-sizing: border-box;
 }
-img.preview {
-  width: 20px;
-  background-color: white;
-  border: 1px solid #DDD;
-  padding: 5px;
+.building__deletion {
+  position:absolute;
+  right: 0;
+  top: 0;
+  background: none;
+  svg {
+    fill: black;
+    transition: 0.3s;
+    &:hover {
+      fill: red;
+    }
+  }
+}
+.floor__deletion {
+  background: none;
+  svg {
+    fill: black;
+    transition: 0.3s;
+    &:hover {
+      fill: red;
+    }
+  }
 }

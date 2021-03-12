@@ -111,22 +111,28 @@ export default {
 	
 	async LoadSceneFromBack()
 	{
+        this.$Progress.start()
       	await axios.get(`https://localhost:5555/wapi/editor/${this.$route.query.floorId}`, {
       	    headers: {
-                'X-Company-Key': JSON.parse(this.companyActions)[0].id
+                'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
             }
         })
             .then(response =>{
+
               console.log(response)
               const token = this.token
               axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
               this.editor.idFromBack = response.data.scene.id;
-              this.editor.companyId = JSON.parse(this.companyActions)[0].id;
+              this.editor.companyId = JSON.parse(localStorage.getItem('company_actions'))[0].id;
               this.editor.loader.MyLoader(response.data.scene);
 
               this.InitializeFloorPlane(response.data.floorPlan);
-
+              this.$Progress.finish()
               this.editor.select( null );
+            })
+            .catch(err => {
+                console.log(err)
+                this.$Progress.fail()
             })
 	},
     InitializeFloorPlane(floorPlan)
