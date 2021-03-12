@@ -64,18 +64,18 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// <summary>
         /// Удаление этажа
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="buildingId"></param>
+        /// <param name="floorId"></param>
         /// <returns></returns>
-        [AddMissingContentType]
-        [HttpDelete]
+        [HttpDelete("{floorId}/building/{buildingId}")]
         [Authorize]
-        public async Task<ActionResult<BuildingCurrentViewModel>> Delete([FromBody] FloorDeletionForm request)
+        public async Task<ActionResult<BuildingCurrentViewModel>> Delete(Guid buildingId, Guid floorId)
         {
             await _floorService.DeleteFloor(
-                    request.FloorId,
+                    floorId,
                 this.GetCompanyId());
             
-            var buildingContext = await _buildingService.GetBuildingById(request.BuildingId, this.GetCompanyId());
+            var buildingContext = await _buildingService.GetBuildingById(buildingId, this.GetCompanyId());
             return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
     }
