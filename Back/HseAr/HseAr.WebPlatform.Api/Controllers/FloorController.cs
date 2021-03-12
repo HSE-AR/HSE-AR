@@ -66,6 +66,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
+        [AddMissingContentType]
         [HttpDelete]
         [Authorize]
         public async Task<ActionResult<BuildingCurrentViewModel>> Delete([FromBody] FloorDeletionForm request)
