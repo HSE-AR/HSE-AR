@@ -5,8 +5,8 @@ export default {
     state: {
         status: '',
         token: localStorage.getItem('token') || null,
-        user: null,
-        company_actions: []
+        user: JSON.parse(localStorage.getItem('user')) || null,
+        company_actions: localStorage.getItem('company_actions') || []
     },
 
     getters: {
@@ -47,6 +47,7 @@ export default {
                     .then(response => {
                         const user = response.data
                         const token = context.getters.token
+                        localStorage.setItem('user', JSON.stringify(user))
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
                         context.commit('get_user_success', user)
                         resolve(response)
@@ -102,6 +103,10 @@ export default {
                 commit('logout')
                 localStorage.removeItem('token')
                 localStorage.removeItem('company_actions')
+                localStorage.removeItem('user')
+                localStorage.removeItem('buildings')
+                localStorage.removeItem('building_info')
+
                 delete axios.defaults.headers.common['Authorization']
                 resolve()
             })
