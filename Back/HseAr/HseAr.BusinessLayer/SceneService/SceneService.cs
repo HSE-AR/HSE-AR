@@ -4,7 +4,10 @@ using System.Threading.Tasks;
 using HseAr.BusinessLayer.SceneService.Constructors;
 using HseAr.Data;
 using System.Linq;
+using Afisha.Tickets.Core.Linq;
+using HseAr.Core.Guard;
 using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 using HseAr.Integration.SceneExport;
 
 namespace HseAr.BusinessLayer.SceneService
@@ -20,10 +23,17 @@ namespace HseAr.BusinessLayer.SceneService
             _sceneExport = sceneExport;
         }
 
-        public async Task<string> UploadScene(Scene scene)
+        public async Task UploadScene(Scene scene, Floor floor)
         {
-
-            return await _sceneExport.ExportScene(scene);
+            var resultStatus = await _sceneExport.ExportScene(scene);
+            
+            if (!resultStatus)
+            {
+                throw new Exception("что-то не так");
+            }
+                
+            floor.IsLatestVersion = true;
+            await _data.Floors.Update(floor);
         }
 
         public async Task<Scene> GetSceneByFloorId(Guid floorId, Guid companyId)
@@ -47,15 +57,30 @@ namespace HseAr.BusinessLayer.SceneService
             return sceneResult;
         }
 
-        public async Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> sceneMods, Guid companyId)
+        public async Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> sceneMods, Guid floorId, Guid companyId)
         {
-            //CheckModelOwnership(sceneModificationDto.ModelId, userId);
+            if (sceneMods.IsNullOrEmpty())
+            {
+                return true;
+            }
+            var sceneId = sceneMods.First().SceneId;
+            
+            var floor = await _data.Floors.GetById(floorId);
+            Ensure.Equals(floor.SceneId, sceneId, nameof(ApplyAndSaveSceneModifications));
+            
+            var building = await _data.Buildings.GetById(floor.BuildingId);
+            Ensure.Equals(building.CompanyId, companyId, nameof(ApplyAndSaveSceneModifications));
+
+            
             var result = true;
             foreach (var sceneMod in sceneMods)
             {
                 result &= await _data.Scenes.ApplyModification(sceneMod);
             }
-            
+
+            floor.IsLatestVersion = false;
+            await _data.Floors.Update(floor);
+
             return result;
         }
         

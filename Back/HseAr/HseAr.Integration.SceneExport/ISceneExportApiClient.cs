@@ -5,7 +5,7 @@ namespace HseAr.Integration.SceneExport
 {
     public interface ISceneExportApiClient
     {
-        Task<string> ExportScene(Scene scene);
+        Task<bool> ExportScene(Scene scene);
         
     }
 }

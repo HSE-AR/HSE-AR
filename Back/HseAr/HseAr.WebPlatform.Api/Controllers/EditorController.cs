@@ -88,13 +88,13 @@ namespace HseAr.WebPlatform.Api.Controllers
         ///     }
         ///     
         /// </remarks>
-        /// <param name="sceneModifications">список модификаций разных типов</param>
+        /// <param name="request">список модификаций разных типов</param>
         /// <returns></returns>
         [HttpPost("list")]
         [Authorize]
-        public async Task<ActionResult<bool>> SetModifications([FromBody] IEnumerable<SceneModification> sceneModifications)
+        public async Task<ActionResult<bool>> SetModifications([FromBody] ApplyingSceneModificationsForm request)
         {
-            return await _sceneService.ApplyAndSaveSceneModifications(sceneModifications, this.GetCompanyId());
+            return await _sceneService.ApplyAndSaveSceneModifications(request.SceneModifications, request.FloorId, this.GetCompanyId());
         }
     }
 }

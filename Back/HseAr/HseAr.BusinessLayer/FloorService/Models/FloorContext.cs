@@ -21,5 +21,7 @@ namespace HseAr.BusinessLayer.FloorService.Models
         public string SceneId { get; set; }
         
         public Guid BuildingId { get; set; }
+        
+        public bool IsOutdatedGltfScene { get; set; }
     }
 }
