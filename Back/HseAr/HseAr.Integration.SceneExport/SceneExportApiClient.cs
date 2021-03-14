@@ -35,12 +35,10 @@ namespace HseAr.Integration.SceneExport
             _configuration = configuration;
         }
         
-        public async Task<string> ExportScene(Scene scene)
+        public async Task<bool> ExportScene(Scene scene)
         {
             var result = await Execute(new ExportSceneRequest(scene));
-            return result.Error
-                ? throw new InvalidOperationException("чо-то не так")
-                : $"/data/scenes/gltfs/{scene.Id}.gltf";
+            return !result.Error;
         }
         
         private async Task<TResponse> Execute<TResponse>(BaseRequest<TResponse> request ) where TResponse : class
@@ -70,19 +68,6 @@ namespace HseAr.Integration.SceneExport
 
             try
             {
-                /*var clientHandler = new HttpClientHandler();
-                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-
-                var client = new HttpClient(clientHandler);
-
-                using var response = await client.SendAsync(httpRequest);*/
-                
-                /*HttpClient httpClient = HttpClients
-                    .custom()
-                    .setSSLContext(new SSLContextBuilder().loadTrustMaterial(null, TrustAllStrategy.INSTANCE).build())
-                    .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
-                    .build();*/
-                
                 using var response = await _httpClientFactory.CreateClient()
                     .SendAsync(httpRequest);
                 

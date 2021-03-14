@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HseAr.Data.DataProjections;
+using HseAr.Data.Entities;
 
 namespace HseAr.BusinessLayer.SceneService
 {
@@ -11,8 +12,8 @@ namespace HseAr.BusinessLayer.SceneService
         
         Task<Scene> AddEmptyScene();
         
-        Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> sceneModifications, Guid companyId);
+        Task<bool> ApplyAndSaveSceneModifications(IEnumerable<SceneModification> sceneModifications, Guid floorId, Guid companyId);
 
-        Task<string> UploadScene(Scene scene);
+        Task UploadScene(Scene scene, Floor floor);
     }
 }

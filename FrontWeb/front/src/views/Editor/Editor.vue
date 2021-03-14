@@ -123,6 +123,7 @@ export default {
               const token = this.token
               axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
               this.editor.idFromBack = response.data.scene.id;
+              this.editor.floorId = this.$route.query.floorId;
               this.editor.companyId = JSON.parse(localStorage.getItem('company_actions'))[0].id;
               this.editor.loader.MyLoader(response.data.scene);
 
@@ -141,7 +142,7 @@ export default {
       let material = new THREE.MeshStandardMaterial();
       let loader = new THREE.TextureLoader();
 
-      let img= "https://localhost:5555"+ floorPlan.floorPlanImg;
+      let img = "https://localhost:5555"+ floorPlan.floorPlanImg;
       loader.load(img,
           function(texture) {
             console.log(img + ' downloaded successfully');

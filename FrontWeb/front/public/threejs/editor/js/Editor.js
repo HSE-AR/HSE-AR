@@ -87,6 +87,7 @@ function Editor() {
 	};
 	////////////////////
 	this.idFromBack = null;
+	this.floorId = null;
 	this.companyId = null
 	this.floorPlaneUuid = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' //id плоскости с чертежем
 	this.sceneUuid = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'
@@ -137,7 +138,7 @@ Editor.prototype = {
 
 	ModificationsLoadToBack: function() {
 		let arrayOfModifications = editor.history.GetArrayOfModification()
-		axios.post('https://localhost:5555/wapi/editor/list', arrayOfModifications, {
+		axios.post('https://localhost:5555/wapi/editor/list', {sceneModifications: arrayOfModifications, floorId: this.floorId}, {
 			headers: {
 				"Content-Type": "application/json",
 				'X-Company-Key': this.companyId

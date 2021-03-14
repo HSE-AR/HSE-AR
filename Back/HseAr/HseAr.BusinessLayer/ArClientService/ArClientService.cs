@@ -24,7 +24,7 @@ namespace HseAr.BusinessLayer.ArClientService
             _data = data;
         }
         
-        public async Task<string> GetStartScene( Guid floorId, Guid clientKey)
+        public async Task<string> GetStartScene(Guid floorId, Guid clientKey)
         {
             var floor = await _data.Floors.GetById(floorId);
             var building = await _data.Buildings.GetById(floor.BuildingId);
@@ -34,10 +34,14 @@ namespace HseAr.BusinessLayer.ArClientService
             {
                 throw new Exception("Ошибка доступа");
             }
-
-            var scene = await _data.Scenes.GetById(floor.SceneId);
-
-            return await _sceneService.UploadScene(scene);
+            
+            if (!floor.IsLatestVersion)
+            {
+                var scene = await _data.Scenes.GetById(floor.SceneId);
+                await _sceneService.UploadScene(scene, floor);
+            }
+            
+            return floor.GltfScene;
         }
 
     }

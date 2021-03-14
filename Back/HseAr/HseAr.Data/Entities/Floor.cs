@@ -1,9 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HseAr.Data.Entities
 {
     public class Floor
     {
+        [NotMapped]
+        private const string GltfScenesStore ="/scenes/gltfs/";
+        
         public Guid Id { get; set; }
         
         public int Number { get; set; }
@@ -21,5 +25,10 @@ namespace HseAr.Data.Entities
         public int ImgHeight { get; set; }
         
         public int ImgWidth { get; set; }
+        
+        public bool IsLatestVersion { get; set; }
+
+        [NotMapped]
+        public string GltfScene => GltfScenesStore + SceneId +".gltf";
     }
 }
