@@ -11,6 +11,8 @@ using HseAr.BusinessLayer.FloorService;
 using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.Jwt;
 using HseAr.BusinessLayer.Mappers;
+using HseAr.BusinessLayer.PointCloudService;
+using HseAr.BusinessLayer.PointCloudService.Models;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Core.Settings;
 using HseAr.Data;
@@ -63,7 +65,8 @@ namespace HseAr.Dependencies
                 .AddTransient<ICompanyRepository, CompanyRepository>()
                 .AddTransient<IArClientRepository,ArClientRepository>()
                 .AddTransient<IPositionRepository,PositionRepository>()
-                .AddTransient<ISceneRepository, SceneRepository>();
+                .AddTransient<ISceneRepository, SceneRepository>()
+                .AddTransient<IPointCloudRepository, PointCloudRepository>();
         
         
         public static IServiceCollection RegisterServices(this IServiceCollection services)
@@ -78,7 +81,8 @@ namespace HseAr.Dependencies
                 .AddTransient<IAuthService, AuthService>()
                 .AddTransient<IAccountService, AccountService>()
                 .AddTransient<ICompanyService,CompanyService>()
-                .AddTransient<IArClientService, ArClientService>();
+                .AddTransient<IArClientService, ArClientService>()
+                .AddTransient<IPointCloudService, PointCloudService>();
         }
         
         public static IServiceCollection RegisterMappers(this IServiceCollection services)
@@ -96,7 +100,9 @@ namespace HseAr.Dependencies
                 .AddTransient<IMapper<FloorContext, Floor>, FloorContextMapper>()
                 .AddTransient<IMapper<Company, CompanyContext>, CompanyContextMapper>()
                 .AddTransient<IMapper<CompanyContext, Company>, CompanyContextMapper>()
-                .AddTransient<IMapper<User, AccountContext>, AccountContextMapper>();
+                .AddTransient<IMapper<User, AccountContext>, AccountContextMapper>()
+                .AddTransient<IMapper<PointCloud, PointCloudContext>, PointCloudContextMapper>()
+                .AddTransient<IMapper<PointCloudContext, PointCloud>, PointCloudContextMapper>(); ;
         }
         
         public static IServiceCollection RegisterHttpClients(this IServiceCollection services)

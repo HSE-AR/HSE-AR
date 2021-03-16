@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HseAr.Scanner.Api.Controllers
 {
-    [Route("wapi/[controller]/[action]")]
+    [Route("sapi/[controller]/[action]")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;

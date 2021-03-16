@@ -8,6 +8,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using HseAr.Core.Settings;
+using HseAr.Scanner.Api.Helpers;
 
 namespace HseAr.Scanner.Api
 {
@@ -54,7 +55,7 @@ namespace HseAr.Scanner.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseExceptionHandler(err => err.UseCustomErrors(env));
+            app.UseExceptionHandler(err => err.UseCustomErrors(env));
 
             app.UseRouting();
 

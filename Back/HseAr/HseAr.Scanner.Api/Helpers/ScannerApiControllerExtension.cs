@@ -5,7 +5,7 @@ using HseAr.Scanner.Api.Helpers;
 using HseAr.Scanner.Api.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HseAr.WebPlatform.Api.Helpers
+namespace HseAr.Scanner.Api.Helpers
 {
     internal static class ScannerApiControllerExtension
     {

@@ -1,8 +1,9 @@
-﻿using HseAr.BusinessLayer.BuildingService.Models;
-using HseAr.BusinessLayer.FloorService.Models;
+﻿using HseAr.BusinessLayer.PointCloudService.Models;
 using HseAr.Dependencies;
 using HseAr.Infrastructure;
-
+using HseAr.Scanner.Api.Mappers;
+using HseAr.Scanner.Api.Models.PointCloud;
+using HseAr.Scanner.Api.ViewModelConstructors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HseAr.Scanner.Api
@@ -19,27 +20,24 @@ namespace HseAr.Scanner.Api
                 .RegisterIdentity()
                 .RegisterHttpClients();
 
-            //services
-            //    .AddViewModelConstructors()
-            //    .AddMappers();
+            services
+                .AddViewModelConstructors()
+                .AddMappers();
 
             return services;
         }
 
-        //private static IServiceCollection AddViewModelConstructors(this IServiceCollection services)
-        //{
-        //    return services
-        //        .AddTransient<IBuildingModelConstructor, BuildingModelConstructor>()
-        //        .AddTransient<IEditorModelConstructor, EditorModelConstructor>()
-        //        .AddTransient<IAccountModelConstructor, AccountModelConstructor>();
-        //}
-        
-        //private static IServiceCollection AddMappers(this IServiceCollection services)
-        //{
-        //    return services
-        //        .AddTransient<IMapper<BuildingCreationForm, BuildingContext>, BuildingCreationFormMapper>()
-        //        .AddTransient<IMapper<FloorCreationForm, FloorContext>, FloorCreationFormMapper>();
-        //}
-        
+        private static IServiceCollection AddViewModelConstructors(this IServiceCollection services)
+        {
+            return services
+                .AddTransient<IPointCloudModelConstructor, PointCloudModelConstructor>();
+        }
+
+        private static IServiceCollection AddMappers(this IServiceCollection services)
+        {
+            return services
+                .AddTransient<IMapper<PointCloudCreationForm, PointCloudContext>, PointCloudCreationFormMapper>();
+        }
+
     }
 }
