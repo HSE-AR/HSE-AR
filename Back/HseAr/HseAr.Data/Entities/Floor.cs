@@ -6,7 +6,7 @@ namespace HseAr.Data.Entities
     public class Floor
     {
         [NotMapped]
-        private const string GltfScenesStore ="/scenes/gltfs/";
+        private const string GltfScenesStore = "/scenes/gltfs/";
         
         public Guid Id { get; set; }
         
