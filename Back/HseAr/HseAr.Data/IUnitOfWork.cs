@@ -18,6 +18,8 @@ namespace HseAr.Data
         IPositionRepository Positions { get; }
         
         IArClientRepository ArClients { get; }
+
+        IPointCloudRepository PointClouds { get; }
         
         HseArUserManager Users { get; }
         

@@ -11,8 +11,11 @@ namespace HseAr.Data.Entities
         public TariffPlanType TariffPlan { get; set; }
         
         public Guid ArClientId { get; set; }
+
         public List<Building> Buildings { get; set; } = new List<Building>();
         
         public List<Position> Positions { get; set; } = new List<Position>();
+
+        public List<PointCloud> PointClouds { get; set; } = new List<PointCloud>();
     }
 }

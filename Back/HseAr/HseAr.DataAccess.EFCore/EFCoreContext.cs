@@ -18,6 +18,8 @@ namespace HseAr.DataAccess.EFCore
         
         public DbSet<ArClient> ArClients { get; set; }
 
+        public DbSet<PointCloud> PointClouds { get; set; }
+
         public EFCoreContext(DbContextOptions<EFCoreContext> opt) 
             : base(opt)
         {

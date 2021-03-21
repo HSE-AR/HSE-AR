@@ -20,7 +20,7 @@ namespace HseAr.DataAccess.EFCore.Repositories
         }
 
         public async Task<List<Building>> GetList() 
-            => (await _context.Buildings.AsNoTracking().ToListAsync()).ToList();
+            => await _context.Buildings.AsNoTracking().ToListAsync();
 
         public async Task<Building> GetById(Guid id)
             => await _context.Buildings.Include(b => b.Floors).FirstOrDefaultAsync(x => x.Id == id);

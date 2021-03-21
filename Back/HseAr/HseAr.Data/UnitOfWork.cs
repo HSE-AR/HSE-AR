@@ -13,6 +13,7 @@ namespace HseAr.Data
         private readonly IPositionRepository _positionRepo;
         private readonly IArClientRepository _arClientRepo;
         private readonly ISceneRepository _sceneRepo;
+        private readonly IPointCloudRepository _pointCloudRepo;
         private readonly HseArUserManager _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
@@ -24,6 +25,7 @@ namespace HseAr.Data
             IPositionRepository positionRepo,
             IArClientRepository arClientRepo,
             ISceneRepository sceneRepo,
+            IPointCloudRepository pointCloudRepo,
             HseArUserManager userManager,
             SignInManager<User> signInManager,
             RoleManager<IdentityRole<Guid>> roleManager)
@@ -34,6 +36,7 @@ namespace HseAr.Data
             _positionRepo = positionRepo;
             _arClientRepo = arClientRepo;
             _sceneRepo = sceneRepo;
+            _pointCloudRepo = pointCloudRepo;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
@@ -50,6 +53,8 @@ namespace HseAr.Data
         public IPositionRepository Positions => _positionRepo;
 
         public IArClientRepository ArClients => _arClientRepo;
+
+        public IPointCloudRepository PointClouds => _pointCloudRepo;
 
         public HseArUserManager Users => _userManager;
 
