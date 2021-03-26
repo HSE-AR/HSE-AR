@@ -1,5 +1,6 @@
-var express = require("express");
-const routes = require('./routes/api.js')
+import express from 'express'
+import * as routes from './routes/api.js'
+
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
