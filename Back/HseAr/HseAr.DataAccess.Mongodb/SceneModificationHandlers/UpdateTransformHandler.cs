@@ -57,7 +57,7 @@ namespace HseAr.DataAccess.Mongodb.SceneModificationHandlers
         private bool FindAndUpdateElementRecursively(ref BsonArray children, 
            ref SceneModificationBson sceneModEntity, string uuid)
         {
-            bool isFoundAndUpdated = false;
+            var isFoundAndUpdated = false;
             foreach (var obj in children)
             {
                 if (obj["uuid"] == uuid)
