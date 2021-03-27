@@ -327,7 +327,10 @@ History.prototype = {
 			{
 				arrayOfModifications.push(objectModificationData)
 			}*/
-			if (objectModificationData.SceneId !== null
+			if(Array.isArray(objectModificationData)){
+				objectModificationData.forEach((mod) => {arrayOfModifications.push(mod)})
+			}
+			else if(objectModificationData.SceneId !== null
 			&& editor.IsEnableToEdit(this.undos[i].object.uuid) )
 			{
 				arrayOfModifications.push(objectModificationData)
@@ -356,7 +359,7 @@ History.prototype = {
 	},
 
 	GetCustomModificationObject: function(modificationType) {
-		const objectModificationData = {
+		let objectModificationData = {
 			Type: null,
 			DataJson: null,
 			SceneId: null
@@ -373,6 +376,10 @@ History.prototype = {
 				break;
 			case 'RemoveObjectCommand':
 				this.DeleteFromSceneModification(objectModificationData, modificationType)
+				break;
+			case 'SetSceneCommand':
+				objectModificationData = []
+				objectModificationData = this.AddObjectsFromSceneModification(objectModificationData, modificationType)
 				break;
 			case 'ForbiddenCommand':
 				break;
@@ -391,24 +398,54 @@ History.prototype = {
 	},
 
 	AddObjectModification: function(objectModificationData, modificationType) {
-		console.log(modificationType.toJSON());
+		let modifData = modificationType.toJSON();
 		if(modificationType.object.type.includes('Light')) { // добавление света на сцену
 			objectModificationData.Type = 'AddLightToScene';
-			objectModificationData.DataJson = modificationType.toJSON().object.object
+			objectModificationData.DataJson = modifData.object.object
 			objectModificationData.SceneId = editor.idFromBack;
 		}
 		else{
 			objectModificationData.Type = 'InsertObjectToScene';
 			objectModificationData.DataJson = {
-				object: modificationType.toJSON().object.object,
-				materials: modificationType.toJSON().object.materials,
-				geometries: modificationType.toJSON().object.geometries,
-				textures: modificationType.toJSON().object.textures,
-				images: modificationType.toJSON().object.images,
-				animations : modificationType.toJSON().object.animations
+				object: modifData.object.object,
+				materials: modifData.object.materials,
+				geometries: modifData.object.geometries,
+				textures: modifData.object.textures,
+				images: modifData.object.images,
+				animations : modifData.object.animations
 			};
 			objectModificationData.SceneId = editor.idFromBack;
 		}
+	},
+
+	AddObjectsFromSceneModification: function (objectModificationData, modificationType){
+		let modifData = modificationType.toJSON()
+		console.log("11112")
+		console.log(modifData.cmds[0].newUuid)
+		console.log(this.editor.sceneUuid)
+
+		if(modifData.cmds[0].newUuid == this.editor.sceneUuid)
+			return []
+
+		console.log("1111")
+		modifData.cmds.forEach( (command)=> {
+			if(command.type == 'AddObjectCommand'){
+				let modData ={}
+				modData.Type = 'InsertObjectToScene';
+				modData.DataJson = {
+					object: command.object.object,
+					materials: command.object.materials,
+					geometries: command.object.geometries,
+					textures: command.object.textures,
+					images: command.object.images,
+					animations : command.object.animations
+				};
+				modData.SceneId = editor.idFromBack;
+				objectModificationData.push(modData)
+			}
+		})
+		console.log(objectModificationData)
+		return objectModificationData
 	},
 
 	DeleteFromSceneModification: function(objectModificationData, modificationType) {
