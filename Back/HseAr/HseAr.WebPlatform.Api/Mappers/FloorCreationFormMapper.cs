@@ -12,6 +12,7 @@ namespace HseAr.WebPlatform.Api.Mappers
                 Title = source.Title,
                 Number = source.Number,
                 BuildingId = source.BuildingId,
+                PointCloudId = source.PointCloudId
             };
     }
 }

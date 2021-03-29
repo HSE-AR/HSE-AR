@@ -8,8 +8,6 @@ namespace HseAr.Scanner.Api.Models.PointCloud
 
         public Guid CompanyId { get; set; }
 
-        public Guid FloorId { get; set; }
-
         public string Name { get; set; }
 
         public string FilePath { get; set; }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Afisha.Tickets.Core.Linq;
 using HseAr.BusinessLayer.BuildingService.Models;
 using HseAr.BusinessLayer.Helpers;
 using HseAr.Core.Guard;
@@ -59,11 +58,24 @@ namespace HseAr.BusinessLayer.BuildingService
             
             foreach (var floor in building.Floors)
             {
-                ImageManager.DeleteImage($"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}");
+                await SetFloorIdInPointCloud(floor.PointCloudId, null);
+                FileManager.DeleteFile($"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}");
                 await _data.Scenes.Remove(floor.SceneId);
             }
             
             await _data.Buildings.Delete(building.Id);
+        }
+        
+        private async Task SetFloorIdInPointCloud(Guid? pcdId, Guid? newValue)
+        {
+            if (pcdId != null)
+            {
+                var pointCloud = await _data.PointClouds.GetById((Guid) pcdId);
+                Ensure.IsNotNull(pointCloud, nameof(_data.PointClouds.GetById));
+                
+                pointCloud.FloorId = newValue;
+                await _data.PointClouds.Update(pointCloud);
+            }
         }
     }
 }

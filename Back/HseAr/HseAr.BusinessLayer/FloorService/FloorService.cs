@@ -1,24 +1,22 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using HseAr.BusinessLayer.CompanyService.Models;
 using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.BusinessLayer.Helpers;
+using HseAr.BusinessLayer.PointCloudService.Models;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Core.Guard;
 using HseAr.Core.Settings;
 using HseAr.Data;
 using HseAr.Data.Entities;
 using HseAr.Infrastructure;
-using MongoDB.Driver;
 
 namespace HseAr.BusinessLayer.FloorService
 {
     public class FloorService : IFloorService
     {
-        private const string storageFloorplanImgs = "/floorplans/imgs/";
+        private const string StorageFloorplanImgs = "/floorplans/imgs/";
         
         private readonly ISceneService _sceneService;
         private readonly IUnitOfWork _data;
@@ -60,7 +58,9 @@ namespace HseAr.BusinessLayer.FloorService
             var currentBuilding = buildings.FirstOrDefault(b => b.Id == floor.BuildingId);
             Ensure.IsNotNull(currentBuilding, nameof(GetFloorById));
 
-            ImageManager.DeleteImage($"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}");
+            await SetFloorIdInPointCloud(floor.PointCloudId, null);
+            
+            FileManager.DeleteFile($"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}");
             await _data.Scenes.Remove(floor.SceneId);
             await _data.Floors.Delete(floor.Id);
         }
@@ -75,6 +75,8 @@ namespace HseAr.BusinessLayer.FloorService
             
             floorContext.Id = Guid.NewGuid();
             
+            await SetFloorIdInPointCloud(floorContext.PointCloudId, floorContext.Id);
+            
             var sceneResult = await _sceneService.AddEmptyScene();
             floorContext.SceneId = sceneResult.Id;
             
@@ -86,15 +88,27 @@ namespace HseAr.BusinessLayer.FloorService
             return _mapper.Map<Floor, FloorContext>(floorResult);
         }
 
+        private async Task SetFloorIdInPointCloud(Guid? pcdId, Guid? newValue)
+        {
+            if (pcdId != null)
+            {
+                var pointCloud = await _data.PointClouds.GetById((Guid) pcdId);
+                Ensure.IsNotNull(pointCloud, nameof(_data.PointClouds.GetById));
+                
+                pointCloud.FloorId = newValue;
+                await _data.PointClouds.Update(pointCloud);
+            }
+        }
+        
         private void UploadFloorPlanImage(ref FloorContext floorContext, string floorPlanImage, Guid floorId)
         {
-            var imagePathWithoutFormat = $"{_configuration.STORAGE_PATH}{storageFloorplanImgs}{floorId}";
+            var imagePathWithoutFormat = $"{_configuration.STORAGE_PATH}{StorageFloorplanImgs}{floorId}";
             var image = ImageManager.GetImage(floorPlanImage);
             var format = ImageManager.UploadImage(image, imagePathWithoutFormat);
 
             floorContext.ImgHeight = image.Height;
             floorContext.ImgWidth = image.Width;
-            floorContext.FloorPlanImg = $"{storageFloorplanImgs}{floorId}.{ImageManager.GetFormatString(format)}";
+            floorContext.FloorPlanImg = $"{StorageFloorplanImgs}{floorId}.{ImageManager.GetFormatString(format)}";
         }
     }
 }
