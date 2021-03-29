@@ -30,7 +30,7 @@ namespace HseAr.WebPlatform.Api.Controllers
         }
         
         /// <summary>
-        /// Получение списка поинтклаудов
+        /// Удаление поинтклауда
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{id}")]

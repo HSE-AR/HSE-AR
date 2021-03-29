@@ -14,7 +14,7 @@ namespace HseAr.Scanner.Api.Configurations
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SwaggerApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ScannerApi", Version = "v1" });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
