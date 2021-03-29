@@ -105,16 +105,22 @@ namespace HseAr.BusinessLayer
 
         private static async Task<PointCloudContext> InitializePointCloud(CompanyContext company, IPointCloudService pcdService, Configuration configuration)
         {
-            var pcdPath = $"{configuration.STORAGE_PATH}/pointclouds/testData.xyz";
-            using var stream = new MemoryStream(File.ReadAllBytes(pcdPath).ToArray());
-            var formFile = new FormFile(stream, 0, stream.Length, "streamFile", pcdPath.Split(@"\").Last());
-
-            var pcd = new PointCloudContext()
+            var pcds = await pcdService.GetPointClouds(company.Id);
+            if (pcds.IsNullOrEmpty())
             {
-                Name = "TestPcd"
-            };
+                var pcdPath = $"{configuration.STORAGE_PATH}/pointclouds/testData.xyz";
+                using var stream = new MemoryStream(File.ReadAllBytes(pcdPath).ToArray());
+                var formFile = new FormFile(stream, 0, stream.Length, "streamFile", pcdPath.Split(@"\").Last());
 
-            return await pcdService.AddPointCloudToCompany(pcd, formFile, company.Id);
+                var pcd = new PointCloudContext()
+                {
+                    Name = "TestPcd"
+                };
+
+                return await pcdService.AddPointCloudToCompany(pcd, formFile, company.Id);
+            }
+
+            return pcds.First();
         }
         
         private static async Task<FloorContext> InitializerTestFloor(
