@@ -11,7 +11,7 @@ namespace HseAr.Data.Entities
 
         public Guid CompanyId { get; set; }
 
-        public Guid FloorId { get; set; }
+        public Guid? FloorId { get; set; } 
 
         public string Name { get; set; }
 

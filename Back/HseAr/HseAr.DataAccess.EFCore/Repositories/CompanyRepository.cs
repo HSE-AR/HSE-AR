@@ -24,6 +24,7 @@ namespace HseAr.DataAccess.EFCore.Repositories
             => await _context.Companies
                 .Include(c => c.Positions)
                 .Include(c => c.Buildings)
+                .Include(c => c.PointClouds)
                 .FirstOrDefaultAsync(company => company.Id == id);
         
         public async Task<List<Company>> GetList()

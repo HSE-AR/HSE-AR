@@ -47,5 +47,6 @@ namespace HseAr.DataAccess.EFCore.Repositories
             _context.PointClouds.Remove(pointCloud);
             await _context.SaveChangesAsync();
         }
+        
     }
 }

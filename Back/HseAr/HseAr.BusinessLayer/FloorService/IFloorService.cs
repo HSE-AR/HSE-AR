@@ -11,5 +11,6 @@ namespace HseAr.BusinessLayer.FloorService
         Task<FloorContext> GetFloorById(Guid id, Guid companyId);
 
         Task DeleteFloor(Guid id, Guid companyId);
+        
     }
 }

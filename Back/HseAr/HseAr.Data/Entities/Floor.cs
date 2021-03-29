@@ -9,7 +9,7 @@ namespace HseAr.Data.Entities
         private const string GltfScenesStore = "/scenes/gltfs/";
         
         public Guid Id { get; set; }
-        
+
         public int Number { get; set; }
         
         public string Title { get; set; }
@@ -19,6 +19,8 @@ namespace HseAr.Data.Entities
         public string SceneId { get; set; }
         
         public Guid BuildingId { get; set; }
+        
+        public Guid? PointCloudId { get; set; }
 
         public string FloorPlanImg { get; set; }
         
