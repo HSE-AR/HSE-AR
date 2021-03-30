@@ -60,7 +60,8 @@ export default {
 
     async LoadSceneFromBack(renderer){
       this.scene.enableStats(false)
-      await axios.get(this.$store.state.portBack +'arapi/scene/'+this.$store.state.floorId,{
+      alert(this.$store.state.portBack +'arapi/scene/'+this.$route.params.floorId)
+      await axios.get(this.$store.state.portBack +'arapi/scene/'+this.$route.params.floorId,{
         headers: {
           'X-ArClient-Key':this.$store.state.arClientKey
         }

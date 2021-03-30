@@ -35,7 +35,8 @@ namespace HseAr.WebPlatform.Api.ViewModelConstructors
                     Id = source.Id,
                     Title = source.Title,
                     Address  = source.Address,
-                    Coordinate = source.Coordinate,
+                    Latitude = source.Latitude,
+                    Longitude = source.Longitude,
                     Floors = floors
                 }
             };
@@ -50,7 +51,8 @@ namespace HseAr.WebPlatform.Api.ViewModelConstructors
                     Id = building.Id,
                     Title = building.Title,
                     Address = building.Address,
-                    Coordinate = building.Coordinate
+                    Latitude = building.Latitude,
+                    Longitude = building.Longitude,
                 }).ToList();
 
             return new BuildingsViewModel()

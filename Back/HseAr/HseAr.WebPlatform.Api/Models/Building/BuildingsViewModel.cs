@@ -30,8 +30,13 @@ namespace HseAr.WebPlatform.Api.Models.Building
         public string Address { get; set; }
         
         /// <summary>
-        /// Координаты
+        /// широта
         /// </summary>
-        public string Coordinate { get; set; }
+        public double Latitude { get; set; }
+        
+        /// <summary>
+        /// долгота
+        /// </summary>
+        public double Longitude { get; set; }
     }
 }

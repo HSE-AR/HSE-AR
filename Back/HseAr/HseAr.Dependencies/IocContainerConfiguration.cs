@@ -102,7 +102,7 @@ namespace HseAr.Dependencies
                 .AddTransient<IMapper<CompanyContext, Company>, CompanyContextMapper>()
                 .AddTransient<IMapper<User, AccountContext>, AccountContextMapper>()
                 .AddTransient<IMapper<PointCloud, PointCloudContext>, PointCloudContextMapper>()
-                .AddTransient<IMapper<PointCloudContext, PointCloud>, PointCloudContextMapper>(); ;
+                .AddTransient<IMapper<PointCloudContext, PointCloud>, PointCloudContextMapper>(); 
         }
         
         public static IServiceCollection RegisterHttpClients(this IServiceCollection services)

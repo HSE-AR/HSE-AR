@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.AccountService;
 using HseAr.BusinessLayer.SceneService;
 using HseAr.Data;
 using HseAr.Data.Entities;
+using HseAr.Infrastructure;
 
 namespace HseAr.BusinessLayer.ArClientService
 {
@@ -13,15 +15,18 @@ namespace HseAr.BusinessLayer.ArClientService
         private readonly ISceneService _sceneService;
         private readonly IAccountService _accountService;
         private readonly IUnitOfWork _data;
+        private readonly IMapper _mapper;
         
         public ArClientService(
             ISceneService sceneService,
             IAccountService accountService,
-            IUnitOfWork data)
+            IUnitOfWork data,
+            IMapper mapper)
         {
             _sceneService = sceneService;
             _accountService = accountService;
             _data = data;
+            _mapper = mapper;
         }
         
         public async Task<string> GetStartScene(Guid floorId, Guid clientKey)
@@ -32,7 +37,7 @@ namespace HseAr.BusinessLayer.ArClientService
 
             if (!arClient.Companies.Any(company => company.Id == building.CompanyId))
             {
-                throw new Exception("Ошибка доступа");
+                throw new Exception("этаж не содержится у данного ar клиента");
             }
             
             if (!floor.IsLatestVersion)
@@ -44,5 +49,23 @@ namespace HseAr.BusinessLayer.ArClientService
             return floor.GltfScene;
         }
 
+        public async Task<List<Building>> GetArPlaces(Guid clientKey)
+        {
+            var arClient = await _data.ArClients.GetById(clientKey);
+            var companies = arClient.Companies;
+            
+            var resultBuildings = new List<Building>();
+            
+            foreach (var company in companies)
+            {
+                var buildings = await _data.Buildings.GetListWithFloorsByCompanyId(company.Id);
+                foreach (var building in buildings)
+                {
+                    resultBuildings.Add(building);
+                }
+            }
+
+            return resultBuildings;
+        }
     }
 }

@@ -6,6 +6,14 @@
         
         public string Address { get; set; }
         
-        public string Coordinate { get; set; }
+        /// <summary>
+        /// широта
+        /// </summary>
+        public double Latitude { get; set; }
+        
+        /// <summary>
+        /// долгота
+        /// </summary>
+        public double Longitude { get; set; }
     }
 }
