@@ -26,7 +26,16 @@ namespace HseAr.DataAccess.EFCore.Repositories
             => await _context.Buildings.Include(b => b.Floors).FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<List<Building>> GetListByCompanyId(Guid companyId)
-            => await _context.Buildings.Where(building => building.CompanyId == companyId).ToListAsync();
+            => await _context.Buildings
+                .Where(building => building.CompanyId == companyId)
+                .ToListAsync();
+        
+        public async Task<List<Building>> GetListWithFloorsByCompanyId(Guid companyId)
+            => await _context.Buildings
+                .Include(b => b.Floors)
+                .Where(building => building.CompanyId == companyId)
+                .ToListAsync();
+        
 
   
         public async Task<Building> Add(Building building)

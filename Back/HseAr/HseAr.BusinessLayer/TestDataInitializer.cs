@@ -90,7 +90,8 @@ namespace HseAr.BusinessLayer
                     CompanyId = ownCompany.Id,
                     Title = "Test Title",
                     Address = "Test Address",
-                    Coordinate = "100 100"
+                    Latitude = 55.6147603,
+                    Longitude = 37.6001614,
                 };
                 
                 buildingTest = await data.Buildings.Add(building);
