@@ -11,11 +11,6 @@ const routes = [
     name: 'StartPage',
     component: StartPage
   },
-  /*{
-    path: '/ar/:buildingId/:floorId',
-    name: 'MainAR',
-    component: MainAR
-  }*/
   {
     path: '/ar/:buildingId/:floorId',
     name: 'MainAR',

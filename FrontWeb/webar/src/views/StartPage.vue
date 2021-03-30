@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>КИС КИС КИС КИС ТЫ КОТИК Я КОТИК</h1>
     {{buildings}}
 
     <div id="app" v-cloak>
