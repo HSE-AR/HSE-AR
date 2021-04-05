@@ -56,3 +56,11 @@ services:
    - hsear_network
   volumes:
    - "C:/Users/X1CARBON/source/repos/HSE-AR/Back/data:/data"
+ sceneexport:
+  image: sceneexportservice
+  ports:
+   - "3000:3000"
+  networks:
+   - hsear_network
+  volumes:
+   - "C:/Users/X1CARBON/source/repos/HSE-AR/Back/data:/usr/src/data"
