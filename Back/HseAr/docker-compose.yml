@@ -1,0 +1,58 @@
+version: '3.9'
+networks:
+ hsear_network:
+  external:
+   name: "hsear_network"
+services:
+ postgres:
+  image: "postgres"
+  restart: always
+  networks:
+   - hsear_network
+  environment:
+   POSTGRES_DB: HseAr
+   POSTGRES_USER: hsear
+   POSTGRES_PASSWORD: hsear
+   PGDATA: /var/lib/postgresql/data
+  volumes:
+   - ./var/lib/postgresql/data
+  ports:
+   - "5432:5432"
+ mongodb:
+  image: mongo
+  networks:
+   - hsear_network
+  environment:
+   MONGODB_DATABASE: ModelsDb
+  volumes:
+   - ./var/lib/mongodb/data
+  ports:
+   - "27017:27017"
+ webapi:
+  links:
+   - "postgres"
+   - "mongodb"
+  depends_on: 
+   - "postgres"
+   - "mongodb"
+  image: webapi
+  ports:
+   - "5005:5005"
+  networks:
+   - hsear_network
+  volumes:
+   - "C:/Users/X1CARBON/source/repos/HSE-AR/Back/data:/data"
+ scannerapi:
+  links:
+   - "postgres"
+   - "mongodb"
+  depends_on: 
+   - "postgres"
+   - "mongodb"
+  image: webapi
+  ports:
+   - "3003:3003"
+  networks:
+   - hsear_network
+  volumes:
+   - "C:/Users/X1CARBON/source/repos/HSE-AR/Back/data:/data"

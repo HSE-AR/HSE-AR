@@ -7,11 +7,14 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    <UserSecretsId>77ce60c3-d8ac-4a8e-ae41-bfab1322b05a</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.11" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
+      <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
       <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.0" />
