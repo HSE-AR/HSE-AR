@@ -9,6 +9,8 @@ namespace HseAr.BusinessLayer.ArClientService
     {
         Task<string> GetStartScene(Guid floorId, Guid clientKey);
 
-        Task<List<Building>> GetArPlaces(Guid clientKey);
+        Task<List<Building>> GetArPlaces(Guid clientKey, double? lat, double? lon );
+        
+        Task<Building> GetArPlaceById(Guid clientKey, Guid id);
     }
 }

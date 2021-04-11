@@ -1,4 +1,4 @@
-import { UIPanel } from './libs/ui.js';
+import {UIButton, UIDiv, UIPanel} from './libs/ui.js';
 
 import { MenubarAdd } from './Menubar.Add.js';
 import { MenubarEdit } from './Menubar.Edit.js';
@@ -15,10 +15,25 @@ function Menubar( editor ) {
 	var container = new UIPanel();
 	container.setId( 'menubar' );
 
+	var c = new UIPanel();
+	c.setClass( 'menu' );
+
+	var translateIcon = document.createElement( 'img' );
+	translateIcon.src = '/logo.svg';
+
+	var translate = new UIPanel();
+	translate.setClass('logodiv')
+	translate.dom.appendChild( translateIcon );
+
+	c.add( translate );
+
+
+	container.add(c)
+
 	container.add( new MenubarFile( editor ) );
 	container.add( new MenubarEdit( editor ) );
 	container.add( new MenubarAdd( editor ) );
-	container.add( new MenubarSaveAndExit( editor ) );
+	//container.add( new MenubarSaveAndExit( editor ) );
 
 
 

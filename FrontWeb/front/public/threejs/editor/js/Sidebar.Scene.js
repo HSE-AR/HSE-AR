@@ -194,7 +194,7 @@ function SidebarScene( editor ) {
 	backgroundEquirectangularTexture.setDisplay( 'none' );
 	backgroundRow.add( backgroundEquirectangularTexture );
 
-	container.add( backgroundRow );
+	//container.add( backgroundRow );
 
 	//
 
@@ -229,7 +229,7 @@ function SidebarScene( editor ) {
 	environmentRow.add( new UIText( strings.getKey( 'sidebar/scene/environment' ) ).setWidth( '90px' ) );
 	environmentRow.add( environmentType );
 
-	container.add( environmentRow );
+	//container.add( environmentRow );
 
 	// fog
 
@@ -275,14 +275,14 @@ function SidebarScene( editor ) {
 	fogTypeRow.add( new UIText( strings.getKey( 'sidebar/scene/fog' ) ).setWidth( '90px' ) );
 	fogTypeRow.add( fogType );
 
-	container.add( fogTypeRow );
+	//container.add( fogTypeRow );
 
 	// fog color
 
 	var fogPropertiesRow = new UIRow();
 	fogPropertiesRow.setDisplay( 'none' );
 	fogPropertiesRow.setMarginLeft( '90px' );
-	container.add( fogPropertiesRow );
+	//container.add( fogPropertiesRow );
 
 	var fogColor = new UIColor().setValue( '#aaaaaa' );
 	fogColor.onInput( onFogSettingsChanged );

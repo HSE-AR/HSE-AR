@@ -437,11 +437,11 @@ function MenubarAdd( editor ) {
 
 	//
 
-	options.add( new UIHorizontalRule() );
+	//options.add( new UIHorizontalRule() );
 
 	// OrthographicCamera
 
-	var option = new UIRow();
+	/*var option = new UIRow();
 	option.setClass( 'option' );
 	option.setTextContent( strings.getKey( 'menubar/add/orthographiccamera' ) );
 	option.onClick( function () {
@@ -467,7 +467,7 @@ function MenubarAdd( editor ) {
 		editor.execute( new AddObjectCommand( editor, camera ) );
 
 	} );
-	options.add( option );
+	options.add( option );*/
 
 	return container;
 

@@ -1,5 +1,5 @@
 import * as THREE from '../../build/three.module.js';
-
+import router from "@/router/router";
 import { Config } from './Config.js';
 import { Loader } from './Loader.js';
 import { History as _History } from './History.js';
@@ -91,6 +91,8 @@ function Editor() {
 	this.companyId = null
 	this.floorPlaneUuid = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' //id плоскости с чертежем
 	this.sceneUuid = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'
+
+	this.progres =null;
 	////////////////////
 
 	this.config = new Config();
@@ -136,15 +138,21 @@ Editor.prototype = {
 		return false
 	},
 
-	ModificationsLoadToBack: function() {
+	ModificationsLoadToBack: async function(toBack) {
+		this.progres.start()
 		let arrayOfModifications = editor.history.GetArrayOfModification()
-		axios.post('https://localhost:5555/wapi/editor/list', {sceneModifications: arrayOfModifications, floorId: this.floorId}, {
+		await axios.post('https://localhost:5555/wapi/editor/list', {sceneModifications: arrayOfModifications, floorId: this.floorId}, {
 			headers: {
 				"Content-Type": "application/json",
 				'X-Company-Key': this.companyId
 			}
 		})
-			.then(response => console.log(response))
+			.then(response => {
+				this.progres.finish()
+				if(toBack){
+					router.back()
+				}
+			})
 			.catch(err => console.log(err))
 	},
 

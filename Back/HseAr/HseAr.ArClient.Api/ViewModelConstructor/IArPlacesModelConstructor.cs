@@ -7,6 +7,7 @@ namespace HseAr.ArClient.Api.ViewModelConstructor
 {
     public interface IArPlacesModelConstructor
     {
-        ArPlacesViewModel ConstructArPlace(List<Building> buildings);
+        ArPlacesViewModel ConstructArPlaces(List<Building> buildings);
+        ArPlaceInfoViewModel ConstructArPlaceInfo(Building buildings);
     }
 }

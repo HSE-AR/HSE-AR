@@ -16,14 +16,5 @@ namespace HseAr.ArClient.Api.Models
         public double Latitude { get; set; }
         
         public double Longitude { get; set; }
-
-        public List<ArFloorModel> Floors { get; set; } =new List<ArFloorModel>();
-    }
-
-    public class ArFloorModel
-    {
-        public Guid FloorId { get; set; }
-        
-        public int FloorNumber { get; set; }
     }
 }

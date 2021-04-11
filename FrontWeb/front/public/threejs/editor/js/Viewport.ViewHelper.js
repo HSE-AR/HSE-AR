@@ -11,11 +11,6 @@ function ViewHelper( editorCamera, container ) {
 
 	var panel = new UIPanel();
 	panel.setId( 'viewHelper' );
-	panel.setPosition( 'absolute' );
-	panel.setRight( '0px' );
-	panel.setBottom( '0px' );
-	panel.setHeight( '128px' );
-	panel.setWidth( '128px' );
 
 	var scope = this;
 
