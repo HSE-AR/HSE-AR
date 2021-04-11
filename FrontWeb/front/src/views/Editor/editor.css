@@ -284,6 +284,7 @@ select {
 	text-transform: uppercase;
 	cursor: pointer;
 	outline: none;
+	height: 30px;
 }
 
 	select:hover {
@@ -424,7 +425,7 @@ select {
 				}
 
 		#menubar .menu .options .inactive {
-			color: white;
+			color: gray;
 			background-color: transparent;
 			padding: 5px 10px;
 			margin: 0 !important;
@@ -442,10 +443,28 @@ select {
 	overflow: auto;
 }
 
+	#sidebar input {
+		background-color: white;
+		border: 1px solid gray;
+		border-radius: 10px;
+	}
+
+	#sidebar input.Number {
+		background-color: rgba(0,0,0,0);
+		border: 0px solid gray;
+		color: white;
+
+	}
+
+	#sidebar hr {
+		background-color: rgba(68,152,255,1);
+		color: rgba(68,152,255,1);;
+	}
+
 	#sidebar .Panel {
 		color: #888;
 		padding: 10px;
-		border-top: 1px solid #ccc;
+		border-top: 2px solid rgba(68,152,255,1);
 		background: rgba(0,0,0,0.5);
 	}
 
@@ -458,15 +477,21 @@ select {
 		margin-bottom: 10px;
 	}
 
-	#sidebar span{
+	#sidebar .Row span{
+		color: white;
+	}
+	#sidebar .Text {
 		color: white;
 	}
 
-	#sidebar canvas {
+
+
+
+#sidebar canvas {
 		vertical-align: middle;
 	}
 
-#tabs {
+/*#tabs {
 
 	background-color: #ddd;
 	border-top: 2px solid white;
@@ -485,7 +510,7 @@ select {
 	#tabs span.selected {
 		color: #888;
 		background-color: #eee;
-	}
+	}*/
 
 #dialog{
 	display: none;
@@ -633,15 +658,6 @@ select {
 	line-height:  50px;
 }
 
-/*.TabbedPanel .Tab {
-	width: 100px;
-	height: 80px;
-	color: white;
-	border-bottom: 2px solid white;
-	text-align: center;
-	vertical-align: middle;
-}*/
-
 .TabbedPanel .Tab  {
 	height: 50px;
 	width: 50%;
@@ -649,8 +665,13 @@ select {
 	text-align: center;
 	text-transform: uppercase;
 	font-size: 22px;
-
+	cursor: pointer;
 }
+.TabbedPanel .Tab.selected {
+	color: rgba(75,156,255,1);
+}
+
+
 .TabbedPanel #settings.Tab  {
 	border-left:2px solid rgba(75,156,255,1);
 }
@@ -669,11 +690,6 @@ select {
 	right: 0px;
 	border-top: 2px solid rgba(75,156,255,1);
 }
-
-.TabbedPanel .Tab.selected {
-	color: rgba(75,156,255,1);
-}
-
 
 .Listbox {
 	color: #444;
@@ -812,19 +828,11 @@ select {
 
 
 
-
-
-
-
-
-
-
-
 /* DARK MODE */
 
 @media ( prefers-color-scheme: dark ) {
 
-	button {
+	/*button {
 		color: #aaa;
 		background-color: #222;
 	}
@@ -837,15 +845,15 @@ select {
 		button.selected {
 			color: #fff;
 			background-color: #08f;
-		}
+		}*/
 
-	input, textarea {
+	/*input, textarea {
 		background-color: #222;
 		border: 1px solid transparent;
 		color: #888;
-	}
+	}*/
 
-	select {
+	/*select {
 		color: #aaa;
 		background-color: #222;
 	}
@@ -853,7 +861,7 @@ select {
 		select:hover {
 			color: #ccc;
 			background-color: #444;
-		}
+		}*/
 
 	/* UI */
 
