@@ -295,8 +295,8 @@ function UIInput( text ) {
 
 	var dom = document.createElement( 'input' );
 	dom.className = 'Input';
-	dom.style.padding = '2px';
-	dom.style.border = '1px solid transparent';
+	/*dom.style.padding = '2px';
+	dom.style.border = '1px solid transparent';*/
 
 	dom.addEventListener( 'keydown', function ( event ) {
 

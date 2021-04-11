@@ -33,11 +33,11 @@ function MenubarAdd( editor ) {
 		editor.execute( new AddObjectCommand( editor, mesh ) );
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	//
 
-	options.add( new UIHorizontalRule() );
+	//options.add( new UIHorizontalRule() );
 
 	// Box
 
@@ -390,7 +390,7 @@ function MenubarAdd( editor ) {
 		editor.execute( new AddObjectCommand( editor, light ) );
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	// PointLight
 
