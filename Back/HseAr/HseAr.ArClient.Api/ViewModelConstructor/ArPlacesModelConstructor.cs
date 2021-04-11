@@ -8,7 +8,7 @@ namespace HseAr.ArClient.Api.ViewModelConstructor
 {
     public class ArPlacesModelConstructor : IArPlacesModelConstructor
     {
-        public ArPlacesViewModel ConstructArPlace(List<Building> buildings)
+        public ArPlacesViewModel ConstructArPlaces(List<Building> buildings)
         {
             var arPlaces = new List<ArPlaceModel>();
 
@@ -21,12 +21,7 @@ namespace HseAr.ArClient.Api.ViewModelConstructor
                     Latitude = building.Latitude,
                     Longitude = building.Longitude,
                     Address = building.Address,
-                    CompanyId = building.CompanyId,
-                    Floors = building.Floors.Select(floor => new ArFloorModel()
-                    {
-                        FloorId = floor.Id,
-                        FloorNumber = floor.Number
-                    }).ToList()
+                    CompanyId = building.CompanyId
                 };
                 
                 arPlaces.Add(arPlace);
@@ -35,6 +30,31 @@ namespace HseAr.ArClient.Api.ViewModelConstructor
             return new ArPlacesViewModel()
             {
                 ArPlaces = arPlaces
+            };
+        }
+        
+        public ArPlaceInfoViewModel ConstructArPlaceInfo(Building building)
+        {
+            var arPlace = new ArPlaceModel()
+            {
+                BuildingId = building.Id,
+                BuildingTitle = building.Title,
+                Latitude = building.Latitude,
+                Longitude = building.Longitude, 
+                Address = building.Address, 
+                CompanyId = building.CompanyId
+            };
+
+            var floors = building.Floors.Select(floor => new ArFloorModel()
+            {
+                FloorId = floor.Id,
+                FloorNumber = floor.Number
+            }).ToList();
+            
+            return new ArPlaceInfoViewModel()
+            {
+                ArPlace = arPlace,
+                Floors = floors
             };
         }
     }

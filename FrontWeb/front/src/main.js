@@ -13,6 +13,7 @@ import { Player } from '../public/threejs/editor/js/Player.js';
 import { Sidebar } from '../public/threejs/editor/js/Sidebar.js';
 import { Menubar } from '../public/threejs/editor/js/Menubar.js';
 import { Resizer } from '../public/threejs/editor/js/Resizer.js';
+import { Dialog } from '../public/threejs/editor/js/Dialog.js';
 import Axios from 'axios'
 import VueProgressBar from 'vue-progressbar'
 
@@ -41,4 +42,4 @@ new Vue({
 
 
 
-export { THREE,Editor,Viewport,Toolbar,Script,Player,Sidebar,Menubar,Resizer};
+export { THREE,Editor,Viewport,Toolbar,Script,Player,Sidebar,Menubar,Resizer, Dialog};

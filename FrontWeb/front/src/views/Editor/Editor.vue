@@ -7,7 +7,7 @@
 
 <script>
 
-import { THREE,Editor,Viewport,Toolbar,Player,Sidebar,Menubar,Resizer} from '../../main.js'
+import {THREE, Editor, Viewport, Toolbar, Player, Sidebar, Menubar, Resizer, Dialog,} from '../../main.js'
 import { Loader } from '../../../public/threejs/build/three.module.js';
 
 import axios from 'axios'
@@ -52,6 +52,7 @@ export default {
     window.editor = this.editor; // Expose editor to Console
 	window.THREE = THREE; // Expose THREE to APP Scripts and Console
 
+    this.editor.progres = this.$Progress
 
     this.viewport = new Viewport( this.editor );
     document.body.appendChild( this.viewport.dom );

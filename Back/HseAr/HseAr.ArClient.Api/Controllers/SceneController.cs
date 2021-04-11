@@ -19,12 +19,11 @@ namespace HseAr.ArClient.Api.Controllers
     public class SceneController : ControllerBase
     {
         private readonly IArClientService _arClientService;
-        private readonly IWebHostEnvironment _hostingEnvironment;
+      
         
-        public SceneController(IArClientService arClientService,IWebHostEnvironment environment)
+        public SceneController(IArClientService arClientService)
         {
             _arClientService = arClientService;
-            _hostingEnvironment = environment;
         }
         
         /// <summary>
@@ -39,7 +38,6 @@ namespace HseAr.ArClient.Api.Controllers
             {
                 SceneUrl =  await _arClientService.GetStartScene(floorId, this.GetArClientKey())
             };
-            
         }
     }
 }
