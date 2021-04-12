@@ -78,5 +78,22 @@ namespace HseAr.WebPlatform.Api.Controllers
             var buildingContext = await _buildingService.GetBuildingById(buildingId, this.GetCompanyId());
             return await _buildingConstructor.ConstructCurrentModel(buildingContext);
         }
+        
+        /// <summary>
+        /// Редактирование метаданных этажа
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<ActionResult<BuildingCurrentViewModel>> UpdateFloor([FromBody] FloorUpdatingForm form)
+        {
+            var companyId = this.GetCompanyId();
+            var floorContext = _mapper.Map<FloorUpdatingForm, FloorContext>(form);
+            
+            await _floorService.UpdateFloor(floorContext, form.FloorPlanImg, companyId);
+            
+            var buildingContext = await _buildingService.GetBuildingById(form.BuildingId, this.GetCompanyId());
+            return await _buildingConstructor.ConstructCurrentModel(buildingContext);
+        }
+        
     }
 }

@@ -14,5 +14,7 @@ namespace HseAr.BusinessLayer.BuildingService
         Task<BuildingContext> GetBuildingById(Guid id, Guid companyId);
 
         Task DeleteBuilding(Guid id, Guid companyId);
+
+        Task<BuildingContext> UpdateBuilding(BuildingContext buildingContext, Guid companyId);
     }
 }

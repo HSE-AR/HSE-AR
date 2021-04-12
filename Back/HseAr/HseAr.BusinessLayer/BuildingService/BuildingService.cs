@@ -65,6 +65,21 @@ namespace HseAr.BusinessLayer.BuildingService
             
             await _data.Buildings.Delete(building.Id);
         }
+
+        public async Task<BuildingContext> UpdateBuilding(BuildingContext buildingContext, Guid companyId)
+        {
+            var building = await _data.Buildings.GetById(buildingContext.Id);
+            Ensure.IsNotNull(building, nameof(building));
+            Ensure.Equals(building.CompanyId, companyId, nameof(UpdateBuilding));
+
+            building.Address = buildingContext.Address;
+            building.Title = buildingContext.Title;
+            building.Longitude = buildingContext.Longitude;
+            building.Latitude = buildingContext.Latitude;
+
+             var result = await _data.Buildings.Update(building);
+             return _mapper.Map<Building, BuildingContext>(result);
+        }
         
         private async Task SetFloorIdInPointCloud(Guid? pcdId, Guid? newValue)
         {

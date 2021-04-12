@@ -46,10 +46,11 @@ namespace HseAr.DataAccess.EFCore.Repositories
             return result.Entity;
         }
         
-        public async Task Update(Building building)
+        public async Task<Building> Update(Building building)
         {
-            _context.Buildings.Update(building);
+            var result = _context.Buildings.Update(building);
             await _context.SaveChangesAsync();
+            return result.Entity;
         }
         
         public async Task Delete(Guid id)
