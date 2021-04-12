@@ -2,10 +2,13 @@
 using System.Threading.Tasks;
 using HseAr.BusinessLayer.BuildingService;
 using HseAr.BusinessLayer.BuildingService.Models;
+using HseAr.BusinessLayer.FloorService;
+using HseAr.BusinessLayer.FloorService.Models;
 using HseAr.Infrastructure;
 using HseAr.WebPlatform.Api.Attributes;
 using HseAr.WebPlatform.Api.Helpers;
 using HseAr.WebPlatform.Api.Models.Building;
+using HseAr.WebPlatform.Api.Models.Floor;
 using HseAr.WebPlatform.Api.ViewModelConstructors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +27,8 @@ namespace HseAr.WebPlatform.Api.Controllers
         public BuildingController(
             IBuildingService buildingService, 
             IBuildingModelConstructor buildingConstructor,
-            IMapper mapper)
+            IMapper mapper, 
+            IFloorService floorService)
         {
             _buildingService = buildingService;
             _buildingConstructor = buildingConstructor;
@@ -89,5 +93,20 @@ namespace HseAr.WebPlatform.Api.Controllers
             return _buildingConstructor.ConstructModels(await _buildingService.GetBuildingsByCompanyId(companyId));
         }
         
+        /// <summary>
+        /// Редактирование здания 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<ActionResult<BuildingCurrentViewModel>> Update([FromBody] BuildingUpdatingForm form)
+        {
+            var companyId = this.GetCompanyId();
+            var buildingContext = _mapper.Map<BuildingUpdatingForm, BuildingContext>(form);
+            
+            var buildingContextNew =await _buildingService.UpdateBuilding(buildingContext, companyId);
+            
+            return await _buildingConstructor.ConstructCurrentModel(buildingContextNew);
+        }
+
     }
 }

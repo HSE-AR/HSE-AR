@@ -88,6 +88,38 @@ namespace HseAr.BusinessLayer.FloorService
             return _mapper.Map<Floor, FloorContext>(floorResult);
         }
 
+        public async Task UpdateFloor(FloorContext floorContext, string? img, Guid companyId)
+        {
+            var buildings = await _data.Buildings.GetListByCompanyId(companyId);
+            Ensure.IsNotNullOrEmptySequence(buildings, nameof(_data.Buildings.GetListByCompanyId));
+
+            var floor = await _data.Floors.GetById(floorContext.Id);
+            Ensure.IsNotNull(floor, nameof(CreateFloor));
+            
+            var currentBuilding = buildings.FirstOrDefault(b => b.Id == floor.BuildingId);
+            Ensure.IsNotNull(currentBuilding, nameof(CreateFloor));
+            Ensure.Equals(currentBuilding!.Id, floorContext.BuildingId, nameof(CreateFloor));
+
+            floor.Number = floorContext.Number;
+            floor.Title = floorContext.Title;
+
+            if (floor.PointCloudId != floorContext.PointCloudId)
+            {
+                await SetFloorIdInPointCloud(floor.PointCloudId, null);
+                floor.PointCloudId = floorContext.PointCloudId;
+                
+                await SetFloorIdInPointCloud(floor.PointCloudId, floor.Id);
+            }
+
+            if (img != null)
+            {
+                FileManager.DeleteFile($"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}");
+                UploadFloorPlanImage(ref floorContext, img, floorContext.Id);
+            }
+
+            await _data.Floors.Update(floor);
+        }
+
         private async Task SetFloorIdInPointCloud(Guid? pcdId, Guid? newValue)
         {
             if (pcdId != null)
