@@ -1,0 +1,9 @@
+cd FrontWeb/Front
+docker build -t front  .
+cd ../../Back/SceneExportService
+docker build -t sceneexportservice .
+cd ../
+docker build -t webapi -f hsear/hsear.webplatform.api/Dockerfile .
+docker build -t scanner -f hsear/hsear.scanner.api/Dockerfile .
+cd ../
+docker compose up -d

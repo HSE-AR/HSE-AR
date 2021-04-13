@@ -6,7 +6,7 @@ WORKDIR /app
 EXPOSE 5005
 
 
-WORKDIR "/"
+WORKDIR "/app"
 COPY ["HseAr/global.json", "./"]
 COPY ["HseAr/global.Development.json", "./"]
 COPY ["HseAr/secret.json", "./"]
@@ -31,6 +31,6 @@ FROM build AS publish
 RUN dotnet publish "HseAr.WebPlatform.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
-WORKDIR /app
+WORKDIR /app/release
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "HseAr.WebPlatform.Api.dll"]
