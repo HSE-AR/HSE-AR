@@ -24,6 +24,8 @@ namespace HseAr.Data.Entities
 
         public string FloorPlanImg { get; set; }
         
+        public string FloorPlanGltf { get; set; }
+        
         public int ImgHeight { get; set; }
         
         public int ImgWidth { get; set; }

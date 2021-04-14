@@ -60,6 +60,8 @@ namespace HseAr.BusinessLayer.BuildingService
             {
                 await SetFloorIdInPointCloud(floor.PointCloudId, null);
                 FileManager.DeleteFile($"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}");
+                FileManager.DeleteFile($"{_configuration.STORAGE_PATH}{floor.FloorPlanGltf}");
+                
                 await _data.Scenes.Remove(floor.SceneId);
             }
             

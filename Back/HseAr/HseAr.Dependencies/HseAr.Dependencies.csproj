@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\HseAr.BlenderService\HseAr.BlenderService.csproj" />
       <ProjectReference Include="..\HseAr.BusinessLayer\HseAr.BusinessLayer.csproj" />
       <ProjectReference Include="..\HseAr.DataAccess.EFCore\HseAr.DataAccess.EFCore.csproj" />
       <ProjectReference Include="..\HseAr.DataAccess.Mongodb\HseAr.DataAccess.Mongodb.csproj" />

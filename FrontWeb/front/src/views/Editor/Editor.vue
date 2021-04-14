@@ -13,6 +13,7 @@ import { Loader } from '../../../public/threejs/build/three.module.js';
 import axios from 'axios'
 import {mapGetters} from "vuex";
 import {AddObjectCommand} from "../../../public/threejs/editor/js/commands/AddObjectCommand";
+import {GLTFLoader} from "../../../public/threejs/examples/jsm/loaders/GLTFLoader";
 
 Number.prototype.format = function () {
 	return this.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, "$1," );
@@ -128,7 +129,7 @@ export default {
               this.editor.companyId = JSON.parse(localStorage.getItem('company_actions'))[0].id;
               this.editor.loader.MyLoader(response.data.scene);
 
-              this.InitializeFloorPlane(response.data.floorPlan);
+              this.InitializeFloorPlan(response.data.floorPlan);
               this.$Progress.finish()
               this.editor.select( null );
             })
@@ -137,7 +138,7 @@ export default {
                 this.$Progress.fail()
             })
 	},
-    InitializeFloorPlane(floorPlan)
+    InitializeFloorPlan(floorPlan)
     {
       let geometry = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
       let material = new THREE.MeshStandardMaterial();
@@ -158,8 +159,30 @@ export default {
       mesh.scale.set(floorPlan.imgWidth /10,floorPlan.imgHeight/10,1)
       mesh.name = 'FloorPlan Plane';
       this.editor.execute( new AddObjectCommand( this.editor, mesh ) );
+
+      this.InitializeFloorPlanGltf(floorPlan.floorPlanGltf)
+    },
+
+    InitializeFloorPlanGltf(path)
+    {
+      let gltfLoader = new GLTFLoader();
+      gltfLoader.load("https://localhost:5555"+path, (gltf) => {
+
+        var scene = gltf.scene.children[0];
+        scene.name = "Floorplan3d";
+        scene.rotation.y = 180 * Math.PI/180;
+        scene.position.y = -0.2
+        scene.scale.set(10,10,10)
+
+        scene.uuid =  this.editor.floorPlaneGltfUuid
+
+        this.editor.execute( new AddObjectCommand( editor, scene ) );
+      });
     }
-  }
+
+
+  },
+
 
 }
 </script>
