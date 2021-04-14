@@ -181,8 +181,22 @@ function UISpan() {
 UISpan.prototype = Object.create( UIElement.prototype );
 UISpan.prototype.constructor = UISpan;
 
-// UIDiv
+// UIMyDialog
 
+function UIMyDialog() {
+	UIElement.call( this );
+
+	var dom = document.createElement( 'div' );
+	dom.className ="dialog"
+
+	return this;
+}
+
+UIMyDialog.prototype = Object.create( UIElement.prototype );
+UIMyDialog.prototype.constructor = UIMyDialog;
+
+
+//UIDiv
 function UIDiv() {
 
 	UIElement.call( this );
@@ -281,8 +295,8 @@ function UIInput( text ) {
 
 	var dom = document.createElement( 'input' );
 	dom.className = 'Input';
-	dom.style.padding = '2px';
-	dom.style.border = '1px solid transparent';
+	/*dom.style.padding = '2px';
+	dom.style.border = '1px solid transparent';*/
 
 	dom.addEventListener( 'keydown', function ( event ) {
 
@@ -1042,7 +1056,7 @@ function UIButton( value ) {
 	UIElement.call( this );
 
 	var dom = document.createElement( 'button' );
-	dom.className = 'Button';
+	//dom.className = 'Button';
 
 	this.dom = dom;
 	this.dom.textContent = value;
@@ -1339,10 +1353,9 @@ UIListbox.ListboxItem = function ( parent ) {
 	dom.addEventListener( 'click', onClick, false );
 
 	return this;
-
 };
 
 UIListbox.ListboxItem.prototype = Object.create( UIElement.prototype );
 UIListbox.ListboxItem.prototype.constructor = UIListbox.ListboxItem;
 
-export { UIElement, UISpan, UIDiv, UIRow, UIPanel, UIText, UIInput, UITextArea, UISelect, UICheckbox, UIColor, UINumber, UIInteger, UIBreak, UIHorizontalRule, UIButton, UITabbedPanel, UIListbox };
+export { UIElement, UISpan,UIMyDialog, UIDiv, UIRow, UIPanel, UIText, UIInput, UITextArea, UISelect, UICheckbox, UIColor, UINumber, UIInteger, UIBreak, UIHorizontalRule, UIButton, UITabbedPanel, UIListbox };

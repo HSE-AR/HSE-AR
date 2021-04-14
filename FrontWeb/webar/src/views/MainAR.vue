@@ -30,7 +30,7 @@ import {Gltf2Loader as Gltf2LoaderWebXR} from '../../lib/render/loaders/gltf2.js
 // import {mat4, vec3, quat} from '../../lib/render/math/gl-matrix.js';
 // import {Node} from '../../lib/render/core/node.js';
 // import {PbrMaterial} from '../../lib/render/materials/pbr.js';
-// import {InlineViewerHelper} from '../../lib/util/inline-viewer-helper.js';
+ import {InlineViewerHelper} from '../../lib/util/inline-viewer-helper.js';
 
 // import WebXRPolyfill from '../../lib/third-party/webxr-polyfill/build/webxr-polyfill.module.js';
 
@@ -60,7 +60,7 @@ export default {
 
     async LoadSceneFromBack(renderer){
       this.scene.enableStats(false)
-      await axios.get(this.$store.state.portBack +'arapi/scene/'+this.$store.state.floorId,{
+      await axios.get(this.$store.state.portBack +'arapi/scene/'+this.$route.params.floorId,{
         headers: {
           'X-ArClient-Key':this.$store.state.arClientKey
         }
@@ -111,12 +111,12 @@ export default {
       });
       document.body.appendChild(this.gl.canvas);
 
-      /*function onResize(gl) {
+      function onResize(gl) {
         gl.canvas.width = gl.canvas.clientWidth * window.devicePixelRatio;
         gl.canvas.height = gl.canvas.clientHeight * window.devicePixelRatio;
       }
       window.addEventListener('resize', onResize);
-      onResize(this.gl);*/
+      onResize(this.gl);
 
       this.renderer = new Renderer(this.gl);
 
@@ -140,7 +140,7 @@ export default {
           this.xrImmersiveRefSpace  = this.xrImmersiveRefSpace .getOffsetReferenceSpace(
               new XRRigidTransform({x: 0, y: 0, z: -0.5, w: 1}, {x:0, y:0, z:0, w: 1.0}));
         } else {
-          //this.inlineViewerHelper = new InlineViewerHelper(this.gl.canvas, refSpace);
+          this.inlineViewerHelper = new InlineViewerHelper(this.gl.canvas, refSpace);
         }
         session.requestAnimationFrame(this.onXRFrame);
       });

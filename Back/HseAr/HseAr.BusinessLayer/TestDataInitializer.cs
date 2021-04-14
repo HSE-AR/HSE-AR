@@ -12,11 +12,14 @@ using HseAr.BusinessLayer.CompanyService;
 using HseAr.BusinessLayer.CompanyService.Models;
 using HseAr.BusinessLayer.FloorService;
 using HseAr.BusinessLayer.FloorService.Models;
+using HseAr.BusinessLayer.PointCloudService;
+using HseAr.BusinessLayer.PointCloudService.Models;
 using HseAr.Core.Settings;
 using HseAr.Data;
 using HseAr.Data.Entities;
 using HseAr.Data.Enums;
 using HseAr.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HseAr.BusinessLayer
@@ -31,14 +34,17 @@ namespace HseAr.BusinessLayer
             var buildingService = services.GetService<IBuildingService>();
             var companyService = services.GetService<ICompanyService>();
             var floorService = services.GetService<IFloorService>();
+            var pcdService = services.GetService<IPointCloudService>();
             
             var user = await InitializeTestUser(data, configuration);
             
             var ownCompany = await InitializeTestOwnCompany(user, companyService);
 
             var buildingInfo = await InitializerTestBuilding(ownCompany, data);
+
+            var pcd = await InitializePointCloud(ownCompany, pcdService, configuration);
             
-            var floor = await InitializerTestFloor(buildingInfo, floorService, configuration);
+            var floor = await InitializerTestFloor(buildingInfo, pcd, floorService, configuration);
         }
 
         private static async Task<User> InitializeTestUser(IUnitOfWork data, Configuration configuration)
@@ -84,7 +90,8 @@ namespace HseAr.BusinessLayer
                     CompanyId = ownCompany.Id,
                     Title = "Test Title",
                     Address = "Test Address",
-                    Coordinate = "100 100"
+                    Latitude = 55.6147603,
+                    Longitude = 37.6001614,
                 };
                 
                 buildingTest = await data.Buildings.Add(building);
@@ -97,7 +104,31 @@ namespace HseAr.BusinessLayer
             return await data.Buildings.GetById(buildingTest.Id);
         }
 
-        private static async Task<FloorContext> InitializerTestFloor(Building buildingInfo, IFloorService floorService, Configuration configuration)
+        private static async Task<PointCloudContext> InitializePointCloud(CompanyContext company, IPointCloudService pcdService, Configuration configuration)
+        {
+            var pcds = await pcdService.GetPointClouds(company.Id);
+            if (pcds.IsNullOrEmpty())
+            {
+                var pcdPath = $"{configuration.STORAGE_PATH}/pointclouds/testData.xyz";
+                using var stream = new MemoryStream(File.ReadAllBytes(pcdPath).ToArray());
+                var formFile = new FormFile(stream, 0, stream.Length, "streamFile", pcdPath.Split(@"\").Last());
+
+                var pcd = new PointCloudContext()
+                {
+                    Name = "TestPcd"
+                };
+
+                return await pcdService.AddPointCloudToCompany(pcd, formFile, company.Id);
+            }
+
+            return pcds.First();
+        }
+        
+        private static async Task<FloorContext> InitializerTestFloor(
+            Building buildingInfo,
+            PointCloudContext pcd,
+            IFloorService floorService,
+            Configuration configuration)
         {
             if (buildingInfo.Floors.IsNullOrEmpty())
             {
@@ -106,7 +137,8 @@ namespace HseAr.BusinessLayer
                     Number = 1,
                     Title = "Test Title Floor",
                     CreatedAtUtc = DateTime.Now,
-                    BuildingId = buildingInfo.Id
+                    BuildingId = buildingInfo.Id,
+                    PointCloudId = pcd.Id
                 };
                 
                 var imagePath = $"{configuration.STORAGE_PATH}/floorplans/imgs/testData.jpg";

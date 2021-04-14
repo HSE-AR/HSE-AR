@@ -25,14 +25,7 @@ namespace HseAr.Scanner.Api.Controllers
         [Produces(typeof(object))]
         public async Task<ActionResult<object>> Login([FromBody] LoginForm form)
         {
-            try
-            {
-                return new JsonResult(await _authService.Login(form.Email, form.Password));
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            return new JsonResult(await _authService.Login(form.Email, form.Password));
         }
 
     }

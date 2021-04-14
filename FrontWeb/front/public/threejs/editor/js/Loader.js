@@ -44,9 +44,11 @@ function Loader( editor ) {
 
 	};
 
-	//кастомный метод с загрузкой json в сцену
+	this.MyLoaderGltf  = function (data) {
+
+	}
+		//кастомный метод с загрузкой json в сцену
 	this.MyLoader  = function (data) { 
-		
 
 		if ( data.metadata === undefined ) { // 2.0
 
@@ -129,12 +131,9 @@ function Loader( editor ) {
 
 				if ( file ) {
 
-					console.log( 'Loading', url );
-					console.log( '12323123' );
 					return URL.createObjectURL( file );
 
 				}
-				console.log( '12323123!' );
 				return url;
 
 			} );
@@ -154,6 +153,8 @@ function Loader( editor ) {
 
 	this.loadFile = function ( file, manager ) {
 
+		console.log(file)
+		console.log(manager)
 		var filename = file.name;
 		var extension = filename.split( '.' ).pop().toLowerCase();
 
@@ -331,10 +332,14 @@ function Loader( editor ) {
 
 			case 'gltf':
 
+				console.log("!!!12312312312")
 				reader.addEventListener( 'load', function ( event ) {
 
+					console.log(event.target.result)
 					var contents = event.target.result;
 
+					console.log("12312312312")
+					console.log(contents)
 					var loader;
 
 					if ( isGLTF1( contents ) ) {

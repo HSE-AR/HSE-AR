@@ -10,10 +10,15 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\HseAr.BlenderService\HseAr.BlenderService.csproj" />
       <ProjectReference Include="..\HseAr.Core\HseAr.Core.csproj" />
       <ProjectReference Include="..\HseAr.DataAccess.EFCore\HseAr.DataAccess.EFCore.csproj" />
       <ProjectReference Include="..\HseAr.DataAccess.Mongodb\HseAr.DataAccess.Mongodb.csproj" />
       <ProjectReference Include="..\HseAr.Integration.SceneExport\HseAr.Integration.SceneExport.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
 </Project>

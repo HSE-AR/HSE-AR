@@ -11,7 +11,8 @@ namespace HseAr.WebPlatform.Api.Mappers
             {
                 Title = source.Title,
                 Address = source.Address,
-                Coordinate = source.Coordinate
+                Latitude = source.Latitude,
+                Longitude = source.Longitude,
             };
     }
 }

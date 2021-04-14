@@ -26,7 +26,16 @@ namespace HseAr.DataAccess.EFCore.Repositories
             => await _context.Buildings.Include(b => b.Floors).FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<List<Building>> GetListByCompanyId(Guid companyId)
-            => await _context.Buildings.Where(building => building.CompanyId == companyId).ToListAsync();
+            => await _context.Buildings
+                .Where(building => building.CompanyId == companyId)
+                .ToListAsync();
+        
+        public async Task<List<Building>> GetListWithFloorsByCompanyId(Guid companyId)
+            => await _context.Buildings
+                .Include(b => b.Floors)
+                .Where(building => building.CompanyId == companyId)
+                .ToListAsync();
+        
 
   
         public async Task<Building> Add(Building building)
@@ -37,10 +46,11 @@ namespace HseAr.DataAccess.EFCore.Repositories
             return result.Entity;
         }
         
-        public async Task Update(Building building)
+        public async Task<Building> Update(Building building)
         {
-            _context.Buildings.Update(building);
+            var result = _context.Buildings.Update(building);
             await _context.SaveChangesAsync();
+            return result.Entity;
         }
         
         public async Task Delete(Guid id)

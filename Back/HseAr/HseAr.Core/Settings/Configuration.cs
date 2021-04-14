@@ -10,6 +10,12 @@ namespace HseAr.Core.Settings
         public string STORAGE_PATH { get; set; }
         
         public ModelsDatabaseSettings ModelsDatabaseSettings { get; set; }
+        
+        public string PythonPath { get; set; }
+        
+        public string BlenderScriptName { get; set; }
+        
+        public string BlenderPath { get; set; }
 
         public string Issuer { get; set; }
 

@@ -17,7 +17,9 @@ namespace HseAr.BusinessLayer.Mappers
                 BuildingId = source.BuildingId,
                 FloorPlanImg = source.FloorPlanImg ,
                 ImgHeight = source.ImgHeight,
-                ImgWidth = source.ImgWidth
+                ImgWidth = source.ImgWidth,
+                PointCloudId = source.PointCloudId,
+                FloorPlanGltf = source.FloorPlanGltf
             };
 
         public Floor Map(FloorContext source)
@@ -31,7 +33,9 @@ namespace HseAr.BusinessLayer.Mappers
                 BuildingId = source.BuildingId,
                 FloorPlanImg = source.FloorPlanImg,
                 ImgHeight = source.ImgHeight,
-                ImgWidth = source.ImgWidth
+                ImgWidth = source.ImgWidth,
+                PointCloudId = source.PointCloudId,
+                FloorPlanGltf = source.FloorPlanGltf
             };
     }
 }

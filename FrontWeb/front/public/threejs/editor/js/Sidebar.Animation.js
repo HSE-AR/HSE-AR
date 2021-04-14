@@ -81,7 +81,7 @@ function SidebarAnimation( editor ) {
 
 	var animationsRow = new UIRow();
 
-	var animationsSelect = new UISelect().setFontSize( '12px' );
+	var animationsSelect = new UISelect().setFontSize( '16px' );
 	animationsRow.add( animationsSelect );
 	animationsRow.add( new UIButton( strings.getKey( 'sidebar/animations/play' ) ).setMarginLeft( '4px' ).onClick( playAction ) );
 	animationsRow.add( new UIButton( strings.getKey( 'sidebar/animations/stop' ) ).setMarginLeft( '4px' ).onClick( stopAction ) );

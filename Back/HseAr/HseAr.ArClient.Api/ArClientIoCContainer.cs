@@ -1,4 +1,5 @@
-﻿using HseAr.Dependencies;
+﻿using HseAr.ArClient.Api.ViewModelConstructor;
+using HseAr.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HseAr.ArClient.Api
@@ -13,8 +14,16 @@ namespace HseAr.ArClient.Api
                 .RegisterServices()
                 .RegisterIdentity()
                 .RegisterHttpClients();
+
+            services.AddViewModelConstructors();
             
             return services;
+        }
+        
+        private static IServiceCollection AddViewModelConstructors(this IServiceCollection services)
+        {
+            return services
+                .AddTransient<IArPlacesModelConstructor, ArPlacesModelConstructor>();
         }
         
     }

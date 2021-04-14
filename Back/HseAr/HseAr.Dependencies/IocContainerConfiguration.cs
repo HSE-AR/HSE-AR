@@ -1,4 +1,5 @@
 ﻿using System;
+using HseAr.BlenderService;
 using HseAr.BusinessLayer.AccountService;
 using HseAr.BusinessLayer.AccountService.Models;
 using HseAr.BusinessLayer.ArClientService;
@@ -74,6 +75,8 @@ namespace HseAr.Dependencies
             return services
                 .AddSingleton(sp => sp.GetRequiredService<IOptions<Configuration>>().Value)
 
+                .AddTransient<IBlenderService, BlenderService.BlenderService>()
+                
                 .AddTransient<IJwtGenerator, JwtGenerator>()
                 .AddTransient<IBuildingService, BuildingService>()
                 .AddTransient<IFloorService, FloorService>()
@@ -102,7 +105,7 @@ namespace HseAr.Dependencies
                 .AddTransient<IMapper<CompanyContext, Company>, CompanyContextMapper>()
                 .AddTransient<IMapper<User, AccountContext>, AccountContextMapper>()
                 .AddTransient<IMapper<PointCloud, PointCloudContext>, PointCloudContextMapper>()
-                .AddTransient<IMapper<PointCloudContext, PointCloud>, PointCloudContextMapper>(); ;
+                .AddTransient<IMapper<PointCloudContext, PointCloud>, PointCloudContextMapper>(); 
         }
         
         public static IServiceCollection RegisterHttpClients(this IServiceCollection services)

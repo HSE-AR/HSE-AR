@@ -1,14 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainAR from '../views/MainAR.vue'
+import StartPage from '../views/StartPage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: MainAR
+    name: 'StartPage',
+    component: StartPage
+  },
+  {
+    path: '/ar/:buildingId/:floorId',
+    name: 'MainAR',
+    component: MainAR,
+    props: true
   }
 ]
 

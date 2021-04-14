@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "serve": "nodemon index.js",
     "start": "node index.js"
@@ -11,10 +12,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "atob": "^2.1.2",
     "canvas": "^2.6.1",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
+    "image-js": "^0.31.4",
+    "jpeg-js": "^0.4.3",
+    "pngjs": "^6.0.0",
     "three": "^0.125.2",
+    "typedarray": "^0.0.6",
     "vblob": "^1.0.2"
   },
   "devDependencies": {

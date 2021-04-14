@@ -41,6 +41,8 @@ namespace HseAr.WebPlatform.Api
         {
             return services
                 .AddTransient<IMapper<BuildingCreationForm, BuildingContext>, BuildingCreationFormMapper>()
+                .AddTransient<IMapper<BuildingUpdatingForm, BuildingContext>, BuildingUpdatingFormMapper>()
+                .AddTransient<IMapper<FloorUpdatingForm, FloorContext>, FloorUpdatingFormMapper>()
                 .AddTransient<IMapper<FloorCreationForm, FloorContext>, FloorCreationFormMapper>();
         }
         

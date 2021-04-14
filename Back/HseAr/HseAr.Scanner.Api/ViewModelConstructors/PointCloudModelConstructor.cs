@@ -20,7 +20,6 @@ namespace HseAr.Scanner.Api.ViewModelConstructors
                 Id = cloudContext.Id,
                 Name = cloudContext.Name,
                 CompanyId = cloudContext.CompanyId,
-                FloorId = cloudContext.FloorId,
                 FilePath = cloudContext.FilePath
             };
     }

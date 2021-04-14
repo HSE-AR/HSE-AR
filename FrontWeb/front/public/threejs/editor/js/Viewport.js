@@ -23,7 +23,7 @@ function Viewport( editor ) {
 	container.setPosition( 'absolute' );
 
 	//container.add( new ViewportCamera( editor ) );
-	container.add( new ViewportInfo( editor ) );
+	//container.add( new ViewportInfo( editor ) );
 
 	//
 

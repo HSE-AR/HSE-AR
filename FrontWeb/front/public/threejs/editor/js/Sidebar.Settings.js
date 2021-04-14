@@ -42,7 +42,7 @@ function SidebarSettings( editor ) {
 	languageRow.add( new UIText( strings.getKey( 'sidebar/settings/language' ) ).setWidth( '90px' ) );
 	languageRow.add( language );
 
-	container.add( languageRow );
+	//container.add( languageRow );
 
 	// export precision
 
@@ -60,7 +60,7 @@ function SidebarSettings( editor ) {
 	exportPrecisionRow.add( new UIText( strings.getKey( 'sidebar/settings/exportPrecision' ) ).setWidth( '90px' ) );
 	exportPrecisionRow.add( exportPrecision );
 
-	container.add( exportPrecisionRow );
+	//container.add( exportPrecisionRow );
 
 	//
 

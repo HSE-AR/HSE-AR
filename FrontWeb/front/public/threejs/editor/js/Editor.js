@@ -1,5 +1,5 @@
 import * as THREE from '../../build/three.module.js';
-
+import router from "@/router/router";
 import { Config } from './Config.js';
 import { Loader } from './Loader.js';
 import { History as _History } from './History.js';
@@ -88,9 +88,12 @@ function Editor() {
 	////////////////////
 	this.idFromBack = null;
 	this.floorId = null;
-	this.companyId = null
-	this.floorPlaneUuid = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' //id плоскости с чертежем
-	this.sceneUuid = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'
+	this.companyId = null;
+	this.floorPlaneUuid = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF'; //id плоскости с чертежем
+	this.sceneUuid = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA';
+	this.floorPlaneGltfUuid = 'СССССССС-СССС-СССС-СССС-СССССССССССС'
+
+	this.progres =null;
 	////////////////////
 
 	this.config = new Config();
@@ -136,16 +139,23 @@ Editor.prototype = {
 		return false
 	},
 
-	ModificationsLoadToBack: function() {
+	ModificationsLoadToBack: async function(toBack) {
+		this.progres.start()
 		let arrayOfModifications = editor.history.GetArrayOfModification()
-		axios.post('https://localhost:5555/wapi/editor/list', {sceneModifications: arrayOfModifications, floorId: this.floorId}, {
+		await axios.post('https://localhost:5555/wapi/editor/list', {sceneModifications: arrayOfModifications, floorId: this.floorId}, {
 			headers: {
 				"Content-Type": "application/json",
 				'X-Company-Key': this.companyId
 			}
 		})
-			.then(response => console.log(response))
-			.catch(err => console.log(err))
+			.then(response => {
+				this.progres.finish()
+				if(toBack){
+					router.back()
+				}
+			})
+			.catch(err => {console.log(err)
+			this.progres.error()})
 	},
 
 	setScene: function ( scene ) {
@@ -570,7 +580,12 @@ Editor.prototype = {
 
 		}
 
-		if(object == null || !editor.IsEnableToEdit(object.uuid)){
+		let parentUuuid = null
+		if(object.parent !=0){
+			parentUuuid = object.parent.uuid;
+		}
+
+		if(object == null || !editor.IsEnableToEdit(object.uuid) || parentUuuid===editor.floorPlaneGltfUuid ){
 			uuid = null
 			object = null;
 		}

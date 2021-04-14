@@ -90,7 +90,7 @@ function SidebarObject( editor ) {
 	objectUUIDRow.add( objectUUID );
 	objectUUIDRow.add( objectUUIDRenew );
 
-	container.add( objectUUIDRow );
+	//container.add( objectUUIDRow );
 
 	// name
 
@@ -294,7 +294,7 @@ function SidebarObject( editor ) {
 	var objectReceiveShadow = new UIBoolean( false, strings.getKey( 'sidebar/object/receive' ) ).onChange( update );
 	objectShadowRow.add( objectReceiveShadow );
 
-	container.add( objectShadowRow );
+	//container.add( objectShadowRow );
 
 	// shadow bias
 
@@ -305,7 +305,7 @@ function SidebarObject( editor ) {
 	var objectShadowBias = new UINumber( 0 ).setPrecision( 5 ).setStep( 0.0001 ).setNudge( 0.00001 ).onChange( update );
 	objectShadowBiasRow.add( objectShadowBias );
 
-	container.add( objectShadowBiasRow );
+	//container.add( objectShadowBiasRow );
 
 	// shadow normal offset
 
@@ -316,7 +316,7 @@ function SidebarObject( editor ) {
 	var objectShadowNormalBias = new UINumber( 0 ).onChange( update );
 	objectShadowNormalBiasRow.add( objectShadowNormalBias );
 
-	container.add( objectShadowNormalBiasRow );
+	//container.add( objectShadowNormalBiasRow );
 
 	// shadow radius
 
@@ -327,7 +327,7 @@ function SidebarObject( editor ) {
 	var objectShadowRadius = new UINumber( 1 ).onChange( update );
 	objectShadowRadiusRow.add( objectShadowRadius );
 
-	container.add( objectShadowRadiusRow );
+	//container.add( objectShadowRadiusRow );
 
 	// visible
 
@@ -347,7 +347,7 @@ function SidebarObject( editor ) {
 	objectFrustumCulledRow.add( new UIText( strings.getKey( 'sidebar/object/frustumcull' ) ).setWidth( '90px' ) );
 	objectFrustumCulledRow.add( objectFrustumCulled );
 
-	container.add( objectFrustumCulledRow );
+	//container.add( objectFrustumCulledRow );
 
 	// renderOrder
 
@@ -357,7 +357,7 @@ function SidebarObject( editor ) {
 	objectRenderOrderRow.add( new UIText( strings.getKey( 'sidebar/object/renderorder' ) ).setWidth( '90px' ) );
 	objectRenderOrderRow.add( objectRenderOrder );
 
-	container.add( objectRenderOrderRow );
+	//container.add( objectRenderOrderRow );
 
 	// user data
 
@@ -384,7 +384,7 @@ function SidebarObject( editor ) {
 	objectUserDataRow.add( new UIText( strings.getKey( 'sidebar/object/userdata' ) ).setWidth( '90px' ) );
 	objectUserDataRow.add( objectUserData );
 
-	container.add( objectUserDataRow );
+	//container.add( objectUserDataRow );
 
 
 	//

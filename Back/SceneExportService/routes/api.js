@@ -1,7 +1,8 @@
-var express = require('express')
-var methods = require('../controllers/gltf.js')
+import express from 'express'
+import * as methods from '../controllers/gltf.js'
+
 var router = express.Router()
 
 router.post('/exporter/gltf', methods.create)
 
-module.exports.router = router
+export {router}
