@@ -1,38 +1,71 @@
 <template>
-  <div>
-    {{buildings}}
 
-    <div id="app" v-cloak>
+  <div style="text-align: center">
 
-     <div v-if="errorStr">
-       Sorry, but the following error
-        occurred: {{errorStr}}
-      </div>-->
+    <div style="width: 100%; background-color: #04040C; height: 30px;text-align: center;padding-top: 20px;position: fixed;z-index: 100">
+      <span style="font-size: 20px; color:white;" >Web.AR</span>
+    </div>
 
-      <div v-if="gettingLocation">
-        <i>Getting your location...</i>
-     </div>
+    <div style="background-image: linear-gradient(#04040C, rgb(35,34,114));padding-top: 100px;height: 100vh;padding-left: 30px;padding-right: 30px">
 
-    <div v-if="location">
-       Your location data is {{ location.coords.latitude }}, {{ location.coords.longitude}}
+<!--      {{buildings}}-->
+
+<!--      <div  v-cloak>-->
+
+<!--        <div v-if="errorStr">-->
+<!--          Sorry, but the following error-->
+<!--          occurred: {{errorStr}}-->
+<!--        </div>&ndash;&gt;-->
+
+<!--        <div v-if="gettingLocation">-->
+<!--          <i>Getting your location...</i>-->
+<!--        </div>-->
+
+<!--        <div v-if="location">-->
+<!--          Your location data is {{ location.coords.latitude }}, {{ location.coords.longitude}}-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div style="margin-bottom: 20px">
+        <span>Buildings on the map:</span>
       </div>
 
+      <div style="border-radius:15px; border: 0px solid white;overflow: hidden  ">
 
+        <div>
+          <gmap-map
+              id="map"
+              :center="center"
+              :zoom="12"
+              style="width: 100%; height: 300px"
+          >
+            <gmap-marker
+                :key="index"
+                v-for="(m, index) in markers"
+                :position="m.position"
+                :clickable="true"
+                :draggable="false"
+                @click="getSelectedBuilding(m.building)"
+            ></gmap-marker>
+          </gmap-map>
+        </div>
+
+        <div style="background-color: rgba(0,0,0,0.4); padding: 20px">
+            <span v-for="(building,i) in buildings" :key="i">
+              {{building.buildingTitle}}
+            </span>
+
+            <hr style="color: white;margin-top: 20px">
+
+            <span>
+              AR-buildings found: {{buildings.length}}
+            </span>
+        </div>
+
+      </div>
     </div>
-    <gmap-map
-        :center="center"
-        :zoom="17"
-        style="width: 500px; height: 300px"
-    >
-      <gmap-marker
-          :key="index"
-          v-for="(m, index) in markers"
-          :position="m.position"
-          :clickable="true"
-          :draggable="true"
-          @click="getSelectedBuilding(m.building)"
-      ></gmap-marker>
-    </gmap-map>
+
+
   </div>
 
 </template>
@@ -84,6 +117,7 @@ export default {
       }).then(response =>{
         this.buildings = response.data.arPlaces
 
+        console.log(this.buildings)
         this.buildings.forEach((building) =>{
           this.markers.push({
             position: {lat: building.latitude, lng: building.longitude},
@@ -97,30 +131,19 @@ export default {
     async getSelectedBuilding(building){
 
       let floorsForSelect = {}
-      building.floors.forEach((floor) => {
-        floorsForSelect[floor.floorId] = floor.floorNumber
-      })
 
-      const { value: floorId } = await Swal.fire({
-        title: 'Нужно выбрать номер этажа',
-        input: 'select',
-        inputOptions: floorsForSelect,
-        inputPlaceholder: 'Выберите этаж',
+
+      Swal.fire({
+        title: building.buildingTitle,
         showCancelButton: true,
-        inputValidator: (value) => {
-          return new Promise((resolve) => {
-            if(!value){
-              resolve("Не выбран этаж")
-            }
-            resolve()
-          })
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'go to building'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$router.push('/ar/'+building.buildingId )
         }
       })
-
-      if(floorId){
-        this.$router.push('/ar/'+building.buildingId + '/' +  floorId)
-      }
-
     }
   }
 }

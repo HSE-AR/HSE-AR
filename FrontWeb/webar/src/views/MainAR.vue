@@ -5,11 +5,8 @@
         <summary>Immersive AR Session</summary>
         <p>
           This sample demonstrates how to use an 'immersive-ar' XRSession to
-          present a simple WebGL scene to an transparent or passthrough XR
-          device. The logic is largely the same as the corresponding VR sample,
-          with the primary difference being that no background is rendered and
-          the model is scaled down for easier viewing in a real-world space.
-          <a class="back" href="./">Back</a>
+
+          <a @click="backUp" class="back" >Back</a>
         </p>
       </details>
     </header>
@@ -53,10 +50,14 @@ export default {
   },
   async mounted(){
     await this.initXR();
+    this.onRequestSession()
 
   },
 
   methods:{
+    backUp(){
+      this.$router.back();
+    },
 
     async LoadSceneFromBack(renderer){
       this.scene.enableStats(false)
@@ -75,6 +76,7 @@ export default {
     },
 
     initXR() {
+
       this.xrButton = new WebXRButton({
         onRequestSession: this.onRequestSession,
         onEndSession: this.onEndSession,
