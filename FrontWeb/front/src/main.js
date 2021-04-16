@@ -17,6 +17,15 @@ import { Dialog } from '../public/threejs/editor/js/Dialog.js';
 import Axios from 'axios'
 import VueProgressBar from 'vue-progressbar'
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyCq-JaV31-UXfDhvz5_FZMqIyffpWnx5Gs',
+    libraries: 'places', // This is required if you use the Autocomplete plugin
+  },
+
+})
 
 
 Vue.prototype.$http = Axios;
