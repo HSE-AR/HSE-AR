@@ -88,10 +88,10 @@ namespace HseAr.BusinessLayer
                 var building = new Building()
                 {
                     CompanyId = ownCompany.Id,
-                    Title = "Test Title",
-                    Address = "Test Address",
-                    Latitude = 55.6147603,
-                    Longitude = 37.6001614,
+                    Title = "Moscow Institute of Electronics and Mathematics. A.N. Tikhonov",
+                    Address = "Tallinskaya st., 34, Moscow, 123592",
+                    Latitude = 55.803410602,
+                    Longitude = 37.409898016,
                 };
                 
                 buildingTest = await data.Buildings.Add(building);
@@ -113,12 +113,18 @@ namespace HseAr.BusinessLayer
                 using var stream = new MemoryStream(File.ReadAllBytes(pcdPath).ToArray());
                 var formFile = new FormFile(stream, 0, stream.Length, "streamFile", pcdPath.Split(@"\").Last());
 
-                var pcd = new PointCloudContext()
+                var pcd1 = new PointCloudContext()
                 {
-                    Name = "TestPcd"
+                    Name = "Test1Pcd"
+                };
+                
+                var pcd2 = new PointCloudContext()
+                {
+                    Name = "Test1Pcd"
                 };
 
-                return await pcdService.AddPointCloudToCompany(pcd, formFile, company.Id);
+                await pcdService.AddPointCloudToCompany(pcd2, formFile, company.Id);
+                return await pcdService.AddPointCloudToCompany(pcd1, formFile, company.Id);
             }
 
             return pcds.First();
@@ -135,7 +141,7 @@ namespace HseAr.BusinessLayer
                 var floor = new FloorContext()
                 {
                     Number = 1,
-                    Title = "Test Title Floor",
+                    Title = "Part of the first floor",
                     CreatedAtUtc = DateTime.Now,
                     BuildingId = buildingInfo.Id,
                     PointCloudId = pcd.Id
