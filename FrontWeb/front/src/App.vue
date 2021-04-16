@@ -37,5 +37,12 @@
 
 <style lang="css">
   @import 'assets/css/reset.css';
+
+  div#map a,
+  div#map button,
+  div.gm-bundled-control div.gmnoprint,
+  div#map .gm-svpc{
+    display: none !important;
+  }
 </style>
 

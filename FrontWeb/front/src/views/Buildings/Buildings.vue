@@ -33,47 +33,93 @@
             <hr>
             <div class="building__creation_container">
                 <div class="building__creation">
-                    <form class="building__creation__form" @submit.prevent="createBuilding">
-                        <span class="form__input">
+                  <div  style="width: 500px;">
+                        <div class="form__input">
                           <input v-model="title" type="text" id="title" class="input" placeholder="Title..." required>
-                        </span>
-                        <span class="form__input">
+                        </div>
+                        <div class="form__input">
                           <input v-model="address" type="text" id="address" class="input" placeholder="Address..." required>
-                        </span>
-                        <span class="form__input">
-                          <input v-model="coordinate" type="text" id="coordinate" class="input" placeholder="Coordinate..." required>
-                        </span>
-                        <button class="building__creation__submit">Create Building</button>
-                    </form>
+                        </div>
+
+
+                        <gmap-map
+                            id="map"
+                            ref="Map"
+                            :center="center"
+                            :zoom="2"
+                            style="width: 100%; height: 300px"
+                            @click="onMapClick"
+                        >
+                          <gmap-marker
+                              v-for="m in markers"
+                              :key="m.id"
+                              :position="m.position"
+                              :clickable="true"
+                              :draggable="true"
+                              @click="onMarkerClick"
+                          />
+
+                        </gmap-map>
+
+
+                        <button class="building__creation__submit" @click="createBuilding">Create Building</button>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+      </div>
 </template>
 
 <script>
     import {mapGetters} from "vuex";
+    import {gmapApi} from 'vue2-google-maps'
+    import Swal from 'sweetalert2'
 
     export default {
+
         name: 'Buildings',
         data() {
             return {
+              center: {lat: 10.0, lng: 10.0},
+              markers: [],
+              map:null,
+
                 title: null,
                 address: null,
-                coordinate: null,
                 isHidden: true,
             }
         },
-        computed: {
-            ...mapGetters(['buildings'])
+      mounted() {
+        //this.initMap()
+      },
+      computed: {
+        google: gmapApi,
+        ...mapGetters(['buildings']),
+
         },
         methods: {
+          onMapClick(e) {
+            this.markers=[{
+              id: 1 + Math.max(0, ...this.markers.map(n => n.id)),
+              position: e.latLng}]
+
+          },
+          onMarkerClick(e) {
+            this.$refs.Map.panTo(e.latLng);
+          },
+
             async createBuilding() {
+
+                if(this.markers.length == 0){
+                  Swal.fire('put a marker on the map')
+                  return
+                }
                 this.$Progress.start()
                 const data = {
                     title: this.title,
                     address: this.address,
-                    coordinate: this.coordinate
+                    "latitude": this.markers[0].position.lat(),
+                    "longitude": this.markers[0].position.lng()
                 }
                 await this.$store.dispatch('createBuilding', data)
                     .then(response => {
@@ -110,4 +156,5 @@
 
 <style lang="scss" scoped>
     @import 'Buildings.scss';
+
 </style>
