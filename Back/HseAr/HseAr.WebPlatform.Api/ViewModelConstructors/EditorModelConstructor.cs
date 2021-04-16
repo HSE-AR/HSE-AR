@@ -13,10 +13,10 @@ namespace HseAr.WebPlatform.Api.ViewModelConstructors
                 Scene = scene,
                 FloorPlan = new FloorPlanModel()
                 {
-
                     FloorPlanImg = floorContext.FloorPlanImg,
                     ImgHeight = floorContext.ImgHeight,
-                    ImgWidth = floorContext.ImgWidth
+                    ImgWidth = floorContext.ImgWidth,
+                    FloorPlanGltf = floorContext.FloorPlanGltf
                 }
             };
         }

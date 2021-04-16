@@ -12,6 +12,8 @@ namespace HseAr.BusinessLayer.FloorService.Models
         
         public string FloorPlanImg { get; set; }
         
+        public string FloorPlanGltf { get; set; }
+        
         public int ImgHeight { get; set; }
         
         public int ImgWidth { get; set; }

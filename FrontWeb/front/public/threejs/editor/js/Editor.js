@@ -88,9 +88,10 @@ function Editor() {
 	////////////////////
 	this.idFromBack = null;
 	this.floorId = null;
-	this.companyId = null
-	this.floorPlaneUuid = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' //id плоскости с чертежем
-	this.sceneUuid = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'
+	this.companyId = null;
+	this.floorPlaneUuid = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF'; //id плоскости с чертежем
+	this.sceneUuid = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA';
+	this.floorPlaneGltfUuid = 'СССССССС-СССС-СССС-СССС-СССССССССССС'
 
 	this.progres =null;
 	////////////////////
@@ -153,7 +154,8 @@ Editor.prototype = {
 					router.back()
 				}
 			})
-			.catch(err => console.log(err))
+			.catch(err => {console.log(err)
+			this.progres.error()})
 	},
 
 	setScene: function ( scene ) {
@@ -578,7 +580,12 @@ Editor.prototype = {
 
 		}
 
-		if(object == null || !editor.IsEnableToEdit(object.uuid)){
+		let parentUuuid = null
+		if(object.parent !=0){
+			parentUuuid = object.parent.uuid;
+		}
+
+		if(object == null || !editor.IsEnableToEdit(object.uuid) || parentUuuid===editor.floorPlaneGltfUuid ){
 			uuid = null
 			object = null;
 		}

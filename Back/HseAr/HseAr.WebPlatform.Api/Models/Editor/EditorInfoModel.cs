@@ -16,6 +16,8 @@ namespace HseAr.WebPlatform.Api.Models.Editor
         public int ImgWidth { get; set; }
         
         public int ImgHeight { get; set; }
+        
+        public string FloorPlanGltf { get; set; }
     }
     
 }

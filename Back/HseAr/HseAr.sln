@@ -3,6 +3,119 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.BusinessLayer", "HseAr.BusinessLayer\HseAr.BusinessLayer.csproj", "{FFB918C0-B1A7-45DC-BEF1-E3B02C13CA1C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{8923AEB7-9F22-4EF4-8E96-E1FA784003A1}"
+ProjectSection(SolutionItems) = preProject
+	FloorplanToBlender3d\Data = FloorplanToBlender3d\Data
+	FloorplanToBlender3d\Data\0 = FloorplanToBlender3d\Data\0
+	FloorplanToBlender3d\Data\0\transform.txt = FloorplanToBlender3d\Data\0\transform.txt
+	FloorplanToBlender3d\Data\0\wall_faces.txt = FloorplanToBlender3d\Data\0\wall_faces.txt
+	FloorplanToBlender3d\Data\0\wall_verts.txt = FloorplanToBlender3d\Data\0\wall_verts.txt
+	FloorplanToBlender3d\Data\0\floor_faces.txt = FloorplanToBlender3d\Data\0\floor_faces.txt
+	FloorplanToBlender3d\Data\0\floor_verts.txt = FloorplanToBlender3d\Data\0\floor_verts.txt
+	FloorplanToBlender3d\Data\0\rooms_faces.txt = FloorplanToBlender3d\Data\0\rooms_faces.txt
+	FloorplanToBlender3d\Data\0\rooms_verts.txt = FloorplanToBlender3d\Data\0\rooms_verts.txt
+	FloorplanToBlender3d\Docs = FloorplanToBlender3d\Docs
+	FloorplanToBlender3d\Docs\README.md = FloorplanToBlender3d\Docs\README.md
+	FloorplanToBlender3d\Docs\requirements.txt = FloorplanToBlender3d\Docs\requirements.txt
+	FloorplanToBlender3d\Docs\docker-compose.yml = FloorplanToBlender3d\Docs\docker-compose.yml
+	FloorplanToBlender3d\Docs\Floorplan To Blender.pptx = FloorplanToBlender3d\Docs\Floorplan To Blender.pptx
+	FloorplanToBlender3d\Docs\FloorplanToBlenderLibrary.ipynb = FloorplanToBlender3d\Docs\FloorplanToBlenderLibrary.ipynb
+	FloorplanToBlender3d\Images = FloorplanToBlender3d\Images
+	FloorplanToBlender3d\Images\miem = FloorplanToBlender3d\Images\miem
+	FloorplanToBlender3d\Images\miem\1.jpg = FloorplanToBlender3d\Images\miem\1.jpg
+	FloorplanToBlender3d\Images\miem\2.jpg = FloorplanToBlender3d\Images\miem\2.jpg
+	FloorplanToBlender3d\Images\miem\3.jpg = FloorplanToBlender3d\Images\miem\3.jpg
+	FloorplanToBlender3d\Images\miem\4.jpg = FloorplanToBlender3d\Images\miem\4.jpg
+	FloorplanToBlender3d\Images\door.png = FloorplanToBlender3d\Images\door.png
+	FloorplanToBlender3d\Images\logo.png = FloorplanToBlender3d\Images\logo.png
+	FloorplanToBlender3d\Images\text.png = FloorplanToBlender3d\Images\text.png
+	FloorplanToBlender3d\Images\2d-3d.png = FloorplanToBlender3d\Images\2d-3d.png
+	FloorplanToBlender3d\Images\demo1.gif = FloorplanToBlender3d\Images\demo1.gif
+	FloorplanToBlender3d\Images\demo2.gif = FloorplanToBlender3d\Images\demo2.gif
+	FloorplanToBlender3d\Images\door_2.png = FloorplanToBlender3d\Images\door_2.png
+	FloorplanToBlender3d\Images\door_3.png = FloorplanToBlender3d\Images\door_3.png
+	FloorplanToBlender3d\Images\window.png = FloorplanToBlender3d\Images\window.png
+	FloorplanToBlender3d\Images\example.png = FloorplanToBlender3d\Images\example.png
+	FloorplanToBlender3d\Images\example2.png = FloorplanToBlender3d\Images\example2.png
+	FloorplanToBlender3d\Images\example3.png = FloorplanToBlender3d\Images\example3.png
+	FloorplanToBlender3d\Images\example4.png = FloorplanToBlender3d\Images\example4.png
+	FloorplanToBlender3d\Images\Floorplan.png = FloorplanToBlender3d\Images\Floorplan.png
+	FloorplanToBlender3d\Images\powerpoint.gif = FloorplanToBlender3d\Images\powerpoint.gif
+	FloorplanToBlender3d\Target = FloorplanToBlender3d\Target
+	FloorplanToBlender3d\Target\40951e71-b8a5-4e24-ad67-223b0044b767.gltf = FloorplanToBlender3d\Target\40951e71-b8a5-4e24-ad67-223b0044b767.gltf
+	FloorplanToBlender3d\Target\410114ed-23c3-4105-8b10-c3dad8c652ac.gltf = FloorplanToBlender3d\Target\410114ed-23c3-4105-8b10-c3dad8c652ac.gltf
+	FloorplanToBlender3d\Target\c61c4e51-f685-4ae9-a34f-069dbb8cca16.gltf = FloorplanToBlender3d\Target\c61c4e51-f685-4ae9-a34f-069dbb8cca16.gltf
+	FloorplanToBlender3d\Blender = FloorplanToBlender3d\Blender
+	FloorplanToBlender3d\Blender\blender_export_obj_script.py = FloorplanToBlender3d\Blender\blender_export_obj_script.py
+	FloorplanToBlender3d\Blender\floorplan_to_3dObject_in_blender.py = FloorplanToBlender3d\Blender\floorplan_to_3dObject_in_blender.py
+	FloorplanToBlender3d\license = FloorplanToBlender3d\license
+	FloorplanToBlender3d\Testing = FloorplanToBlender3d\Testing
+	FloorplanToBlender3d\Testing\README.md = FloorplanToBlender3d\Testing\README.md
+	FloorplanToBlender3d\Testing\test_find_rooms.py = FloorplanToBlender3d\Testing\test_find_rooms.py
+	FloorplanToBlender3d\Testing\test_walls_and_floor.py = FloorplanToBlender3d\Testing\test_walls_and_floor.py
+	FloorplanToBlender3d\README.md = FloorplanToBlender3d\README.md
+	FloorplanToBlender3d\.gitignore = FloorplanToBlender3d\.gitignore
+	FloorplanToBlender3d\config.ini = FloorplanToBlender3d\config.ini
+	FloorplanToBlender3d\Dockerfile = FloorplanToBlender3d\Dockerfile
+	FloorplanToBlender3d\.gitattributes = FloorplanToBlender3d\.gitattributes
+	FloorplanToBlender3d\CONTRIBUTING.md = FloorplanToBlender3d\CONTRIBUTING.md
+	FloorplanToBlender3d\requirements.txt = FloorplanToBlender3d\requirements.txt
+	FloorplanToBlender3d\CODE_OF_CONDUCT.md = FloorplanToBlender3d\CODE_OF_CONDUCT.md
+	FloorplanToBlender3d\Development Center = FloorplanToBlender3d\Development Center
+	FloorplanToBlender3d\Development Center\README.md = FloorplanToBlender3d\Development Center\README.md
+	FloorplanToBlender3d\Development Center\Detections = FloorplanToBlender3d\Development Center\Detections
+	FloorplanToBlender3d\Development Center\Detections\Room = FloorplanToBlender3d\Development Center\Detections\Room
+	FloorplanToBlender3d\Development Center\Detections\Room\detect_room.py = FloorplanToBlender3d\Development Center\Detections\Room\detect_room.py
+	FloorplanToBlender3d\Development Center\Detections\Room\distance_transform.py = FloorplanToBlender3d\Development Center\Detections\Room\distance_transform.py
+	FloorplanToBlender3d\Development Center\Detections\Walls = FloorplanToBlender3d\Development Center\Detections\Walls
+	FloorplanToBlender3d\Development Center\Detections\Walls\detect_walls.py = FloorplanToBlender3d\Development Center\Detections\Walls\detect_walls.py
+	FloorplanToBlender3d\Development Center\Detections\Corners = FloorplanToBlender3d\Development Center\Detections\Corners
+	FloorplanToBlender3d\Development Center\Detections\Corners\corner.py = FloorplanToBlender3d\Development Center\Detections\Corners\corner.py
+	FloorplanToBlender3d\Development Center\Detections\Corners\corner_detect_evaluation.py = FloorplanToBlender3d\Development Center\Detections\Corners\corner_detect_evaluation.py
+	FloorplanToBlender3d\Development Center\Detections\Experimental = FloorplanToBlender3d\Development Center\Detections\Experimental
+	FloorplanToBlender3d\Development Center\Detections\Experimental\od_test.py = FloorplanToBlender3d\Development Center\Detections\Experimental\od_test.py
+	FloorplanToBlender3d\Development Center\Detections\Experimental\text_reco.py = FloorplanToBlender3d\Development Center\Detections\Experimental\text_reco.py
+	FloorplanToBlender3d\Development Center\Detections\Experimental\ar_visualization.py = FloorplanToBlender3d\Development Center\Detections\Experimental\ar_visualization.py
+	FloorplanToBlender3d\Development Center\Detections\Experimental\template_matching.py = FloorplanToBlender3d\Development Center\Detections\Experimental\template_matching.py
+	FloorplanToBlender3d\Development Center\Detections\Experimental\feature_matching_door.py = FloorplanToBlender3d\Development Center\Detections\Experimental\feature_matching_door.py
+	FloorplanToBlender3d\Development Center\Detections\Experimental\feature_matching_door_to_box.py = FloorplanToBlender3d\Development Center\Detections\Experimental\feature_matching_door_to_box.py
+	FloorplanToBlender3d\Development Center\Detections\Experimental\wall_removal_blur_text_detection.py = FloorplanToBlender3d\Development Center\Detections\Experimental\wall_removal_blur_text_detection.py
+	FloorplanToBlender3d\Development Center\PDF_scripts = FloorplanToBlender3d\Development Center\PDF_scripts
+	FloorplanToBlender3d\Development Center\PDF_scripts\get_image_from_pdf.py = FloorplanToBlender3d\Development Center\PDF_scripts\get_image_from_pdf.py
+	FloorplanToBlender3d\Development Center\PDF_scripts\jpg_implementation.py = FloorplanToBlender3d\Development Center\PDF_scripts\jpg_implementation.py
+	FloorplanToBlender3d\Development Center\Blender_scripts = FloorplanToBlender3d\Development Center\Blender_scripts
+	FloorplanToBlender3d\Development Center\Blender_scripts\simple_house_example.py = FloorplanToBlender3d\Development Center\Blender_scripts\simple_house_example.py
+	FloorplanToBlender3d\Development Center\Blender_scripts\simple_plane_example.py = FloorplanToBlender3d\Development Center\Blender_scripts\simple_plane_example.py
+	FloorplanToBlender3d\Development Center\Blender_scripts\Reformat_blender_to_obj.py = FloorplanToBlender3d\Development Center\Blender_scripts\Reformat_blender_to_obj.py
+	FloorplanToBlender3d\Development Center\FloorplanLibDemo = FloorplanToBlender3d\Development Center\FloorplanLibDemo
+	FloorplanToBlender3d\Development Center\FloorplanLibDemo\find_windows_and_doors.py = FloorplanToBlender3d\Development Center\FloorplanLibDemo\find_windows_and_doors.py
+	FloorplanToBlender3d\Development Center\FloorplanLibDemo\multi_create_coordinates.py = FloorplanToBlender3d\Development Center\FloorplanLibDemo\multi_create_coordinates.py
+	FloorplanToBlender3d\Development Center\FloorplanLibDemo\find_walls_and_floor_and_rooms.py = FloorplanToBlender3d\Development Center\FloorplanLibDemo\find_walls_and_floor_and_rooms.py
+	FloorplanToBlender3d\Development Center\FloorplanLibDemo\find_walls_and_floor_and_rooms_scale1.py = FloorplanToBlender3d\Development Center\FloorplanLibDemo\find_walls_and_floor_and_rooms_scale1.py
+	FloorplanToBlender3d\Development Center\FloorplanLibDemo\find_walls_and_floor_and_rooms_scale2.py = FloorplanToBlender3d\Development Center\FloorplanLibDemo\find_walls_and_floor_and_rooms_scale2.py
+	FloorplanToBlender3d\Development Center\Image-Processing = FloorplanToBlender3d\Development Center\Image-Processing
+	FloorplanToBlender3d\Development Center\Image-Processing\remove_noise.py = FloorplanToBlender3d\Development Center\Image-Processing\remove_noise.py
+	FloorplanToBlender3d\Development Center\Image-Processing\rescale_image.py = FloorplanToBlender3d\Development Center\Image-Processing\rescale_image.py
+	FloorplanToBlender3d\Development Center\Image-Processing\detect_rescale.py = FloorplanToBlender3d\Development Center\Image-Processing\detect_rescale.py
+	FloorplanToBlender3d\Development Center\requirements.txt = FloorplanToBlender3d\Development Center\requirements.txt
+	FloorplanToBlender3d\docker-compose.yml = FloorplanToBlender3d\docker-compose.yml
+	FloorplanToBlender3d\FloorplanToBlenderLib = FloorplanToBlender3d\FloorplanToBlenderLib
+	FloorplanToBlender3d\FloorplanToBlenderLib\IO.py = FloorplanToBlender3d\FloorplanToBlenderLib\IO.py
+	FloorplanToBlender3d\FloorplanToBlenderLib\detect.py = FloorplanToBlender3d\FloorplanToBlenderLib\detect.py
+	FloorplanToBlender3d\FloorplanToBlenderLib\dialog.py = FloorplanToBlender3d\FloorplanToBlenderLib\dialog.py
+	FloorplanToBlender3d\FloorplanToBlenderLib\__init__.py = FloorplanToBlender3d\FloorplanToBlenderLib\__init__.py
+	FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__ = FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__
+	FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\IO.cpython-38.pyc = FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\IO.cpython-38.pyc
+	FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\detect.cpython-38.pyc = FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\detect.cpython-38.pyc
+	FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\__init__.cpython-38.pyc = FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\__init__.cpython-38.pyc
+	FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\generate.cpython-38.pyc = FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\generate.cpython-38.pyc
+	FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\execution.cpython-38.pyc = FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\execution.cpython-38.pyc
+	FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\transform.cpython-38.pyc = FloorplanToBlender3d\FloorplanToBlenderLib\__pycache__\transform.cpython-38.pyc
+	FloorplanToBlender3d\FloorplanToBlenderLib\generate.py = FloorplanToBlender3d\FloorplanToBlenderLib\generate.py
+	FloorplanToBlender3d\FloorplanToBlenderLib\execution.py = FloorplanToBlender3d\FloorplanToBlenderLib\execution.py
+	FloorplanToBlender3d\FloorplanToBlenderLib\transform.py = FloorplanToBlender3d\FloorplanToBlenderLib\transform.py
+	FloorplanToBlender3d\create_single_model_script.py = FloorplanToBlender3d\create_single_model_script.py
+	FloorplanToBlender3d\create_blender_project_from_floorplan.py = FloorplanToBlender3d\create_blender_project_from_floorplan.py
+EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.UnitTests", "HseAr.UnitTests\HseAr.UnitTests.csproj", "{5064662B-7013-4E6C-8E81-A0382BC5D449}"
 EndProject
@@ -36,6 +149,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integrations", "Integrations", "{14409B26-8581-4330-A324-38C4FD5A04F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.Integration.SceneExport", "HseAr.Integration.SceneExport\HseAr.Integration.SceneExport.csproj", "{27FFE65E-7C76-4CC2-A30A-20745D32A2FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.BlenderService", "HseAr.BlenderService\HseAr.BlenderService.csproj", "{6786D9D2-C026-4885-91A5-211D0A4A3292}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +206,10 @@ Global
 		{27FFE65E-7C76-4CC2-A30A-20745D32A2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27FFE65E-7C76-4CC2-A30A-20745D32A2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27FFE65E-7C76-4CC2-A30A-20745D32A2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6786D9D2-C026-4885-91A5-211D0A4A3292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6786D9D2-C026-4885-91A5-211D0A4A3292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6786D9D2-C026-4885-91A5-211D0A4A3292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6786D9D2-C026-4885-91A5-211D0A4A3292}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5064662B-7013-4E6C-8E81-A0382BC5D449} = {8923AEB7-9F22-4EF4-8E96-E1FA784003A1}
@@ -98,5 +217,6 @@ Global
 		{F9225AB4-AC73-48E8-85CD-8E95D3294ADF} = {B0E9A420-E369-40B3-B087-ECC75968B328}
 		{D5185693-1DE1-4060-B2CE-E4DBEF81AAD3} = {B0E9A420-E369-40B3-B087-ECC75968B328}
 		{27FFE65E-7C76-4CC2-A30A-20745D32A2FC} = {14409B26-8581-4330-A324-38C4FD5A04F5}
+		{6786D9D2-C026-4885-91A5-211D0A4A3292} = {8923AEB7-9F22-4EF4-8E96-E1FA784003A1}
 	EndGlobalSection
 EndGlobal

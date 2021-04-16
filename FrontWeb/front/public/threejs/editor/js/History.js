@@ -331,7 +331,8 @@ History.prototype = {
 				objectModificationData.forEach((mod) => {arrayOfModifications.push(mod)})
 			}
 			else if(objectModificationData.SceneId !== null
-			&& editor.IsEnableToEdit(this.undos[i].object.uuid) )
+			&& editor.IsEnableToEdit(this.undos[i].object.uuid)
+			&& this.undos[i].object.uuid != editor.floorPlaneGltfUuid )
 			{
 				arrayOfModifications.push(objectModificationData)
 			}

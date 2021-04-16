@@ -11,6 +11,8 @@ namespace HseAr.WebPlatform.Api.Models.Floor
         public string Title { get; set; }
         
         public string FloorPlanImage { get; set; }
+        
+        public string FloorPlanGltf { get; set; }
 
         public DateTime CreatedAtUtc { get; set; }
 

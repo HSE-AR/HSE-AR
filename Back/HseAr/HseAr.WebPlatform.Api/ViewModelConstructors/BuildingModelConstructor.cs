@@ -72,7 +72,8 @@ namespace HseAr.WebPlatform.Api.ViewModelConstructors
                 Title = floor.Title,
                 CreatedAtUtc = floor.CreatedAtUtc,
                 SceneId = floor.SceneId,
-                FloorPlanImage = floor.FloorPlanImg
+                FloorPlanImage = floor.FloorPlanImg,
+                FloorPlanGltf = floor.FloorPlanGltf
             };
         }
     }
