@@ -1,8 +1,8 @@
 .buildings__heading_container {
   display: flex;
   justify-content: center;
+  margin-top: 40px;
   align-items: center;
-  margin-top: 20px;
   .buildings__heading {
     font-size: 20px;
     text-transform: uppercase;
@@ -15,6 +15,7 @@
 .buildings__cards {
   margin: 20px;
   display:grid;
+
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
@@ -22,10 +23,11 @@
 
 .building__container {
   position: relative;
+  z-index: 0;
   background: white;
   color: black;
   padding: 20px;
-  border: 5px solid black;
+  border: 1px solid black;
 }
 .building__header {
   font-weight: 800;
@@ -92,4 +94,10 @@ input[type=number] {
       fill: red;
     }
   }
+}
+
+.building__creation__submit {
+  border: 1px solid black;
+  background-color: white;
+  margin-top: 20px;
 }

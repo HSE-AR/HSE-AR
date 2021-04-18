@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1>Админка</h1>
-    <hr>
-    <h2>USER:</h2>
-    <hr>
-    <h1 v-if="user">Hello, {{user.name}} </h1>
-    <hr>
-    <h2>YOUR COMPANY:</h2>
-    <hr>
-    <h1 v-if="company_actions">{{company_actions}}</h1>
-    <hr>
+    <div class="admin__heading_container">
+      <h1 class="admin__heading">Административная панель</h1>
+      <div class="admin__heading_user">
+        <h1 v-if="user">Hello, {{user.name}} </h1>
+      </div>
+    </div>
+    <div class="admin__company">
+      <h1>Ваша компания:</h1>
+      <p>{{company_actions}}</p>
+    </div>
     <router-view/>
   </div>
 </template>
