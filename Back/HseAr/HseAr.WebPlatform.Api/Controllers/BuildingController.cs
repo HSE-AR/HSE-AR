@@ -60,7 +60,7 @@ namespace HseAr.WebPlatform.Api.Controllers
             var companyId = this.GetCompanyId();
             
             var buildingContext = _mapper.Map<BuildingCreationForm, BuildingContext>(form);
-            await _buildingService.CreateBuilding(buildingContext, companyId);
+            await _buildingService.CreateBuilding(buildingContext, form.ImgBase64, companyId);
 
             return _buildingConstructor.ConstructModels(await _buildingService.GetBuildingsByCompanyId(companyId));
         }
@@ -103,7 +103,7 @@ namespace HseAr.WebPlatform.Api.Controllers
             var companyId = this.GetCompanyId();
             var buildingContext = _mapper.Map<BuildingUpdatingForm, BuildingContext>(form);
             
-            var buildingContextNew =await _buildingService.UpdateBuilding(buildingContext, companyId);
+            var buildingContextNew =await _buildingService.UpdateBuilding(buildingContext, form.ImgBase64, companyId);
             
             return await _buildingConstructor.ConstructCurrentModel(buildingContextNew);
         }

@@ -7,7 +7,7 @@ namespace HseAr.BusinessLayer.BuildingService
 {
     public interface IBuildingService
     {
-        Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, Guid companyId);
+        Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, string imgBase64, Guid companyId);
         
         Task<List<BuildingContext>> GetBuildingsByCompanyId(Guid companyId);
         
@@ -15,6 +15,6 @@ namespace HseAr.BusinessLayer.BuildingService
 
         Task DeleteBuilding(Guid id, Guid companyId);
 
-        Task<BuildingContext> UpdateBuilding(BuildingContext buildingContext, Guid companyId);
+        Task<BuildingContext> UpdateBuilding(BuildingContext buildingContext, string imgBase64, Guid companyId);
     }
 }

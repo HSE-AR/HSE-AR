@@ -15,6 +15,8 @@ namespace HseAr.Data.Entities
         
         public double Longitude { get; set; }
         
+        public string ImgPath { get; set; }
+        
         public Guid CompanyId { get; set; }
         
         public List<Floor> Floors { get; set; } = new List<Floor>();

@@ -40,7 +40,7 @@ namespace HseAr.BusinessLayer
             
             var ownCompany = await InitializeTestOwnCompany(user, companyService);
 
-            var buildingInfo = await InitializerTestBuilding(ownCompany, data);
+            var buildingInfo = await InitializerTestBuilding(ownCompany, data,buildingService, configuration);
 
             var pcd = await InitializePointCloud(ownCompany, pcdService, configuration);
             
@@ -78,14 +78,18 @@ namespace HseAr.BusinessLayer
                 : companies.FirstOrDefault(c => c.TariffPlan == TariffPlanType.OwnTariff);
         }
 
-        private static async Task<Building> InitializerTestBuilding(CompanyContext ownCompany, IUnitOfWork data)
+        private static async Task<BuildingContext> InitializerTestBuilding(
+            CompanyContext ownCompany,
+            IUnitOfWork data,
+            IBuildingService _buildingService,
+            Configuration configuration)
         {
             Building buildingTest;
             var buildings = await data.Buildings.GetListByCompanyId(ownCompany.Id);
             
             if (buildings.IsNullOrEmpty())
             {
-                var building = new Building()
+                var building = new BuildingContext()
                 {
                     CompanyId = ownCompany.Id,
                     Title = "Moscow Institute of Electronics and Mathematics. A.N. Tikhonov",
@@ -94,14 +98,26 @@ namespace HseAr.BusinessLayer
                     Longitude = 37.409898016,
                 };
                 
-                buildingTest = await data.Buildings.Add(building);
+                var imagePath = $"{configuration.STORAGE_PATH}/buildings/imgs/testData.jpg";
+                using (var image = Image.FromFile(imagePath))
+                {
+                    using (var m = new MemoryStream())
+                    {
+                        image.Save(m, image.RawFormat);
+                        var imageBytes = m.ToArray();
+
+                        // Convert byte[] to Base64 String
+                        var base64String = Convert.ToBase64String(imageBytes);
+                        return await  _buildingService.CreateBuilding(building, base64String, ownCompany.Id);
+                    }
+                }
             }
             else
             {
                 buildingTest = buildings.First();
             }
 
-            return await data.Buildings.GetById(buildingTest.Id);
+            return await _buildingService.GetBuildingById(buildingTest.Id, ownCompany.Id);
         }
 
         private static async Task<PointCloudContext> InitializePointCloud(CompanyContext company, IPointCloudService pcdService, Configuration configuration)
@@ -131,12 +147,12 @@ namespace HseAr.BusinessLayer
         }
         
         private static async Task<FloorContext> InitializerTestFloor(
-            Building buildingInfo,
+            BuildingContext buildingInfo,
             PointCloudContext pcd,
             IFloorService floorService,
             Configuration configuration)
         {
-            if (buildingInfo.Floors.IsNullOrEmpty())
+            if (buildingInfo.FloorIds.IsNullOrEmpty())
             {
                 var floor = new FloorContext()
                 {
@@ -163,7 +179,7 @@ namespace HseAr.BusinessLayer
                 }
             }
 
-            return await floorService.GetFloorById(buildingInfo.Floors.First().Id, buildingInfo.CompanyId);
+            return await floorService.GetFloorById(buildingInfo.FloorIds.First(), buildingInfo.CompanyId);
         }
     }
 }

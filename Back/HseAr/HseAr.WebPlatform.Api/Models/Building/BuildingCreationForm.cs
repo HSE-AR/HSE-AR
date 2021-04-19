@@ -15,5 +15,11 @@
         /// долгота
         /// </summary>
         public double Longitude { get; set; }
+        
+        /// <summary>
+        /// Изображение здания
+        /// <example>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAAQAQMAAADOJ....</example>
+        /// </summary>
+        public string ImgBase64 { get; set; }
     }
 }

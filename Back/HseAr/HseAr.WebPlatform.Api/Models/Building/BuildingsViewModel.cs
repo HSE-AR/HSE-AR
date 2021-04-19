@@ -38,5 +38,11 @@ namespace HseAr.WebPlatform.Api.Models.Building
         /// долгота
         /// </summary>
         public double Longitude { get; set; }
+        
+        /// <summary>
+        /// Путь к изображению
+        /// <example>
+        /// </summary>
+        public string ImgPath{ get; set; }
     }
 }
