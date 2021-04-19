@@ -66,6 +66,7 @@ export default {
                     .then(response => {
                         const buildings = response.data.buildings
                         const token = context.getters.token
+                        console.log(payload)
                         localStorage.setItem('buildings', JSON.stringify(buildings))
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
                         context.commit('set_buildings_success', buildings )

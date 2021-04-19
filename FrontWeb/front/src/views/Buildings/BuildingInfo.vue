@@ -2,11 +2,9 @@
   <div>
     <div>
       <h2>BuildingInfo</h2>
-      <h1>{{this.$route.query.buildingId}}</h1>
-      <h1 v-if="building_info">{{building_info}}</h1>
-      <button @click="isHidden = !isHidden">{{ isHidden ? 'Show Floors' : 'Hide Floors' }}</button>
 
-      <div class="building__info" v-if="!isHidden">
+
+      <div class="building__info">
       <ul>
           <li
                   v-for="floor in building_info.floors"
@@ -24,19 +22,19 @@
       </div>
       <div class="floor__creation">
         <form class="floor__creation__form" @submit.prevent="createFloor">
-                        <span class="form__input">
-                          <input v-model="title" type="text" id="title" class="input" placeholder="Title..." required>
-                        </span>
-                        <span class="form__input">
-                          <input v-model="number" type="number" id="number" class="input" placeholder="Number..." required>
-                        </span>
-                        <span class="form__input">
-                          <input v-model="pointCloudId" type="text" id="pointCloudId" class="input" placeholder="pointCloudId..." required>
-                        </span>
-                        <span class="form__input">
-                          <input type="file" ref="floorPlanImg" id="floorPlanImg" @change="convertImage" accept="image/*" class="input" placeholder="floorPlanImg..." required>
-                        </span>
-          <button class="building__creation__submit">Create Floor</button>
+          <span class="form__input">
+            <input v-model="title" type="text" id="title" class="input" placeholder="Title..." required>
+          </span>
+          <span class="form__input">
+            <input v-model="number" type="number" id="number" class="input" placeholder="Number..." required>
+          </span>
+          <span class="form__input">
+            <input v-model="pointCloudId" type="text" id="pointCloudId" class="input" placeholder="pointCloudId..." required>
+          </span>
+          <span class="form__input">
+            <input type="file" ref="floorPlanImg" id="floorPlanImg" @change="convertImage" accept="image/*" class="input" placeholder="floorPlanImg..." required>
+          </span>
+          <button class="building__creation__submit">Add floor</button>
         </form>
       </div>
     </div>
@@ -45,9 +43,15 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import { Hooper, Slide } from 'hooper';
+    import 'hooper/dist/hooper.css';
 
     export default {
         name: "BuildingInfo",
+        components: {
+            Hooper,
+            Slide
+        },
         data() {
           return {
               title: null,
@@ -55,7 +59,6 @@
               pointCloudId: null,
               floorPlanImg: null,
               buildingId: this.$route.query.buildingId,
-              isHidden: true,
           }
         },
         computed: {

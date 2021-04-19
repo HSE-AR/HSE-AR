@@ -131,7 +131,7 @@
               if (input.files && input.files[0]) {
                   let reader = new FileReader()
                   reader.onload = (e) => {
-                      this.floorPlanImg = e.target.result
+                      this.buildingImage = e.target.result
                   }
                   reader.readAsDataURL(input.files[0]);
               }
@@ -162,7 +162,8 @@
                   title: this.title,
                   address: this.address,
                   "latitude": this.markers[0].position.lat(),
-                  "longitude": this.markers[0].position.lng()
+                  "longitude": this.markers[0].position.lng(),
+                  buildingImage: this.buildingImage.toString(),
               }
               await this.$store.dispatch('createBuilding', data)
                   .then(response => {
@@ -171,6 +172,7 @@
                       this.title = ""
                       this.address = ""
                       this.coordinate = ""
+                      this.buildingImage = ""
                   })
                   .catch(err => {
                       console.log(err)

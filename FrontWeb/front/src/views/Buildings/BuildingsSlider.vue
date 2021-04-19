@@ -69,7 +69,9 @@
 </template>
 
 <script>
+
     export default {
+
         name: "BuildingsSlider",
         props: {
             buildings: {
