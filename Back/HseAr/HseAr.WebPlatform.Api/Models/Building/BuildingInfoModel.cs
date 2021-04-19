@@ -31,6 +31,8 @@ namespace HseAr.WebPlatform.Api.Models.Building
         /// </summary>
         public double Longitude { get; set; }
         
+        public string ImgPath { get; set; }
+        
         /// <summary>
         /// Список этажей
         /// </summary>
