@@ -25,10 +25,11 @@
         name: "SidebarAdmin",
         data: () => ({
             links: [
-                {title: 'My Profile', url: '/admin/profile'},
-                {title: 'Buildings', url: '/admin/buildings'},
-                {title: 'Help', url: '/admin/help'},
-                {title: 'About', url: '/admin/about'},
+                {title: 'Maps', url: '/admin/maps'},
+                {title: 'API', url: '/admin/api'},
+                {title: 'Docs', url: '/admin/docs'},
+                {title: 'Support', url: '/admin/support'},
+                {title: 'Downloads', url: '/admin/downloads'},
 
             ]
         })

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
+import VueGlide from 'vue-glide-js'
+import 'vue-glide-js/dist/vue-glide.css'
 // import * as THREE from './js/three/build/three.module.js';
 /* eslint-disable */
 import * as THREE from '../public/threejs/build/three.module'
@@ -26,6 +28,7 @@ Vue.use(VueGoogleMaps, {
   },
 
 })
+Vue.use(VueGlide)
 
 
 Vue.prototype.$http = Axios;
