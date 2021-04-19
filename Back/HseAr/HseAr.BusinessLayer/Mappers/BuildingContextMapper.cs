@@ -16,7 +16,8 @@ namespace HseAr.BusinessLayer.Mappers
                 Latitude = source.Latitude,
                 Longitude = source.Longitude,
                 FloorIds = source.Floors.Select(x => x.Id).ToList(),
-                CompanyId = source.CompanyId
+                CompanyId = source.CompanyId,
+                ImgPath = source.ImgPath
             };
         
         public Building Map(BuildingContext source)
@@ -27,7 +28,8 @@ namespace HseAr.BusinessLayer.Mappers
                 Address = source.Address,
                 Latitude = source.Latitude,
                 Longitude = source.Longitude,
-                CompanyId = source.CompanyId
+                CompanyId = source.CompanyId,
+                ImgPath = source.ImgPath
                 //этажи не нужны здесь (при добавлении здания и при изменении здания этажи не изменяются)
             };
         

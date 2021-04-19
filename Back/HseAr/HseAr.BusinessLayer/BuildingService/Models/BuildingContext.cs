@@ -17,6 +17,8 @@ namespace HseAr.BusinessLayer.BuildingService.Models
         
         public Guid CompanyId { get; set; }
         
+        public string ImgPath { get; set; }
+        
         public List<Guid> FloorIds { get; set; } =new List<Guid>();
     }
 }
