@@ -48,7 +48,7 @@
               <input v-model="address" type="text" id="address" class="input" placeholder="Map address*" required>
             </div>
             <span class="form__input">
-              <input type="file" ref="buildingImage" id="buildingImage" @change="convertImage" accept="image/*" class="input" placeholder="Image*" required>
+              <input type="file" ref="imgPath" id="imgPath" @change="convertImage" accept="image/*" class="input" placeholder="Image*" required>
             </span>
           </div>
           <gmap-map
@@ -104,7 +104,7 @@
               title: null,
               address: null,
               isHidden: true,
-              buildingImage: null,
+              imgPath: null,
               isModalVisible: false,
             }
         },
@@ -118,6 +118,7 @@
               .then(response => {
                   console.log(response)
                   this.$Progress.finish()
+
               })
               .catch(err => {
                   console.log(err)
@@ -131,7 +132,7 @@
               if (input.files && input.files[0]) {
                   let reader = new FileReader()
                   reader.onload = (e) => {
-                      this.buildingImage = e.target.result
+                      this.imgPath = e.target.result
                   }
                   reader.readAsDataURL(input.files[0]);
               }
@@ -163,7 +164,7 @@
                   address: this.address,
                   "latitude": this.markers[0].position.lat(),
                   "longitude": this.markers[0].position.lng(),
-                  buildingImage: this.buildingImage.toString(),
+                  imgBase64: this.imgPath.toString(),
               }
               await this.$store.dispatch('createBuilding', data)
                   .then(response => {
@@ -172,7 +173,7 @@
                       this.title = ""
                       this.address = ""
                       this.coordinate = ""
-                      this.buildingImage = ""
+                      this.imgPath = ""
                   })
                   .catch(err => {
                       console.log(err)

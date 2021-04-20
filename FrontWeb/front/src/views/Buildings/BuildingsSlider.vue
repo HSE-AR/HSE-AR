@@ -1,13 +1,15 @@
 <template>
+
   <vue-glide  class="buildings-slider">
     <vue-glide-slide
             class="buildings-slide"
             v-for="building in buildings"
             :key="building.id"
     >
+
       <div class="building-card">
         <div class="building-image">
-          <img src="src/assets/unnamed.jpg" alt="image">
+          <img :src="`https://localhost:5555${building.imgPath}`" style="max-width: 100%; max-height: 100%;" alt="image">
         </div>
         <div class="building-actions">
           <router-link :to="{path: `/admin/mapsinfo/`, query: {buildingId: building.id}}">
@@ -48,6 +50,7 @@
         </div>
         <div class="building-content">
           <div class="building-heading">{{building.title}}</div>
+
           <div class="building-address">
             {{building.address}}
           </div>

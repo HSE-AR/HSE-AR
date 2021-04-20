@@ -4,11 +4,13 @@ export default {
     state: {
         buildings: JSON.parse(localStorage.getItem('buildings')) || null,
         building_info: JSON.parse(localStorage.getItem('building_info')) || null,
+        pointclouds:  null,
     },
 
     getters: {
         buildings: state => state.buildings,
         building_info: state => state.building_info,
+        pointclouds: state => state.pointclouds,
     },
 
     actions: {
@@ -54,6 +56,28 @@ export default {
                             reject(err)
                         })
                 })
+        },
+
+        getPointClouds(context) {
+            return new Promise((resolve, reject) => {
+                axios.get(`https://localhost:5555/wapi/pointcloud`, {
+                    headers: {
+                        'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
+                    }
+                })
+                    .then(response => {
+                        const pointclouds = response.data
+                        const token = context.getters.token
+                        localStorage.setItem('pointclouds', JSON.stringify(pointclouds))
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+                        context.commit('set_pointclouds_success', pointclouds)
+                        resolve(response)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(err)
+                    })
+            })
         },
 
         createBuilding(context, payload) {
@@ -152,6 +176,9 @@ export default {
         set_buildingInfo_success(state, buildingInfo) {
             state.building_info = buildingInfo
         },
+        set_pointclouds_success(state, pointclouds) {
+            state.pointclouds = pointclouds
+        }
 
     },
 }
