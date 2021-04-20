@@ -15,7 +15,14 @@
 
           </slide>
         </hooper>
-
+        <button
+                style="margin-top: 40px;"
+                type="button"
+                class="btn-create"
+                @click="showModal"
+        >
+          Create another floor
+        </button>
       </div>
       <div v-else class="buildings-not-created">
         <span>You haven't created any floors yet</span>
@@ -46,7 +53,7 @@
           </span>
             <span class="form__input">
             <select v-model="pointCloudId" type="text" id="pointCloudId" class="select_point" required>
-              <option selected="selected" v-for="pointcloud in pointclouds" :value="pointcloud.filePath">{{pointcloud.filePath}}</option>
+              <option selected="selected" v-for="pointcloud in pointclouds" :value="pointcloud.id">{{pointcloud.name}}</option>
             </select>
             </span>
             <div style="height: 40px;" class="form__input">
