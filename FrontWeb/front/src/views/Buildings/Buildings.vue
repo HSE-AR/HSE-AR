@@ -174,6 +174,7 @@
                       this.address = ""
                       this.coordinate = ""
                       this.imgPath = ""
+                    this.$store.state.buildings = response.data.buildings
                   })
                   .catch(err => {
                       console.log(err)

@@ -44,6 +44,10 @@ export default {
             token: 'token',
         })
     },
+  mounted(){
+    this.toolbar = new Toolbar( this.editor );
+    document.body.appendChild( this.toolbar.dom );
+  },
 
   async created(){
     window.URL = window.URL || window.webkitURL;
@@ -57,10 +61,10 @@ export default {
 
     this.viewport = new Viewport( this.editor );
     document.body.appendChild( this.viewport.dom );
-
-	this.toolbar = new Toolbar( this.editor );
-    document.body.appendChild( this.toolbar.dom );
-      
+  //
+	// this.toolbar = new Toolbar( this.editor );
+  //   document.body.appendChild( this.toolbar.dom );
+  //
 
 	this.sidebar = new Sidebar( this.editor );
 	document.body.appendChild( this.sidebar.dom );
