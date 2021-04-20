@@ -4,11 +4,13 @@ export default {
     state: {
         buildings: JSON.parse(localStorage.getItem('buildings')) || null,
         building_info: JSON.parse(localStorage.getItem('building_info')) || null,
+        pointclouds:  null,
     },
 
     getters: {
         buildings: state => state.buildings,
         building_info: state => state.building_info,
+        pointclouds: state => state.pointclouds,
     },
 
     actions: {
@@ -56,6 +58,28 @@ export default {
                 })
         },
 
+        getPointClouds(context) {
+            return new Promise((resolve, reject) => {
+                axios.get(`https://localhost:5555/wapi/pointcloud`, {
+                    headers: {
+                        'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
+                    }
+                })
+                    .then(response => {
+                        const pointclouds = response.data
+                        const token = context.getters.token
+                        localStorage.setItem('pointclouds', JSON.stringify(pointclouds))
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+                        context.commit('set_pointclouds_success', pointclouds)
+                        resolve(response)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        reject(err)
+                    })
+            })
+        },
+
         createBuilding(context, payload) {
             return new Promise((resolve, reject) => {
                 axios.post(`https://localhost:5555/wapi/building`, payload, {
@@ -66,6 +90,7 @@ export default {
                     .then(response => {
                         const buildings = response.data.buildings
                         const token = context.getters.token
+                        console.log(payload)
                         localStorage.setItem('buildings', JSON.stringify(buildings))
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
                         context.commit('set_buildings_success', buildings )
@@ -151,6 +176,9 @@ export default {
         set_buildingInfo_success(state, buildingInfo) {
             state.building_info = buildingInfo
         },
+        set_pointclouds_success(state, pointclouds) {
+            state.pointclouds = pointclouds
+        }
 
     },
 }

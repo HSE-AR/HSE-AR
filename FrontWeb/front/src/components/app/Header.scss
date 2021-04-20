@@ -7,11 +7,10 @@ a:focus {
   left: 0;
   background:black;
   width: 100%;
+  z-index: 3;
 }
-
 .wrapper {
-  width: 1440px;
-  margin: 0 auto;
+  max-width: 100%;
 }
 
 .header__wrapper {
@@ -25,14 +24,16 @@ a:focus {
     width: 100px;
     height: 60px;
   }
+  margin-left: 40px;
 }
 .header__acc-menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-right: 40px;
 }
 .header__logout {
-  margin-left: 20px;
+  margin-left: 10px;
   svg {
     fill:white;
     transition: 0.3s;
