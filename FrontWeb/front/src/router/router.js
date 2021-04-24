@@ -46,13 +46,13 @@ const routes = [
     component: AdminPage,
   },
   {
-    path: '/admin/buildings',
+    path: '/admin/maps',
     name: 'buildings',
     meta: {layout: 'main'},
     component: Buildings,
   },
   {
-    path: '/admin/buildinginfo/',
+    path: '/admin/mapsinfo',
     name: 'buildingInfo',
     meta: {layout: 'main'},
     component: BuildingInfo,

@@ -40,7 +40,7 @@ namespace HseAr.BusinessLayer
             
             var ownCompany = await InitializeTestOwnCompany(user, companyService);
 
-            var buildingInfo = await InitializerTestBuilding(ownCompany, data);
+            var buildingInfo = await InitializerTestBuilding(ownCompany, data,buildingService, configuration);
 
             var pcd = await InitializePointCloud(ownCompany, pcdService, configuration);
             
@@ -78,30 +78,46 @@ namespace HseAr.BusinessLayer
                 : companies.FirstOrDefault(c => c.TariffPlan == TariffPlanType.OwnTariff);
         }
 
-        private static async Task<Building> InitializerTestBuilding(CompanyContext ownCompany, IUnitOfWork data)
+        private static async Task<BuildingContext> InitializerTestBuilding(
+            CompanyContext ownCompany,
+            IUnitOfWork data,
+            IBuildingService _buildingService,
+            Configuration configuration)
         {
             Building buildingTest;
             var buildings = await data.Buildings.GetListByCompanyId(ownCompany.Id);
             
             if (buildings.IsNullOrEmpty())
             {
-                var building = new Building()
+                var building = new BuildingContext()
                 {
                     CompanyId = ownCompany.Id,
-                    Title = "Test Title",
-                    Address = "Test Address",
-                    Latitude = 55.6147603,
-                    Longitude = 37.6001614,
+                    Title = "Moscow Institute of Electronics and Mathematics. A.N. Tikhonov",
+                    Address = "Tallinskaya st., 34, Moscow, 123592",
+                    Latitude = 55.803410602,
+                    Longitude = 37.409898016,
                 };
                 
-                buildingTest = await data.Buildings.Add(building);
+                var imagePath = $"{configuration.STORAGE_PATH}/buildings/imgs/testData.jpg";
+                using (var image = Image.FromFile(imagePath))
+                {
+                    using (var m = new MemoryStream())
+                    {
+                        image.Save(m, image.RawFormat);
+                        var imageBytes = m.ToArray();
+
+                        // Convert byte[] to Base64 String
+                        var base64String = Convert.ToBase64String(imageBytes);
+                        return await  _buildingService.CreateBuilding(building, base64String, ownCompany.Id);
+                    }
+                }
             }
             else
             {
                 buildingTest = buildings.First();
             }
 
-            return await data.Buildings.GetById(buildingTest.Id);
+            return await _buildingService.GetBuildingById(buildingTest.Id, ownCompany.Id);
         }
 
         private static async Task<PointCloudContext> InitializePointCloud(CompanyContext company, IPointCloudService pcdService, Configuration configuration)
@@ -113,29 +129,35 @@ namespace HseAr.BusinessLayer
                 using var stream = new MemoryStream(File.ReadAllBytes(pcdPath).ToArray());
                 var formFile = new FormFile(stream, 0, stream.Length, "streamFile", pcdPath.Split(@"\").Last());
 
-                var pcd = new PointCloudContext()
+                var pcd1 = new PointCloudContext()
                 {
-                    Name = "TestPcd"
+                    Name = "Test1Pcd"
+                };
+                
+                var pcd2 = new PointCloudContext()
+                {
+                    Name = "Test1Pcd"
                 };
 
-                return await pcdService.AddPointCloudToCompany(pcd, formFile, company.Id);
+                await pcdService.AddPointCloudToCompany(pcd2, formFile, company.Id);
+                return await pcdService.AddPointCloudToCompany(pcd1, formFile, company.Id);
             }
 
             return pcds.First();
         }
         
         private static async Task<FloorContext> InitializerTestFloor(
-            Building buildingInfo,
+            BuildingContext buildingInfo,
             PointCloudContext pcd,
             IFloorService floorService,
             Configuration configuration)
         {
-            if (buildingInfo.Floors.IsNullOrEmpty())
+            if (buildingInfo.FloorIds.IsNullOrEmpty())
             {
                 var floor = new FloorContext()
                 {
                     Number = 1,
-                    Title = "Test Title Floor",
+                    Title = "Part of the first floor",
                     CreatedAtUtc = DateTime.Now,
                     BuildingId = buildingInfo.Id,
                     PointCloudId = pcd.Id
@@ -157,7 +179,7 @@ namespace HseAr.BusinessLayer
                 }
             }
 
-            return await floorService.GetFloorById(buildingInfo.Floors.First().Id, buildingInfo.CompanyId);
+            return await floorService.GetFloorById(buildingInfo.FloorIds.First(), buildingInfo.CompanyId);
         }
     }
 }

@@ -37,5 +37,21 @@
 
 <style lang="css">
   @import 'assets/css/reset.css';
+
+  div#map a,
+  div#map button,
+  div.gm-bundled-control div.gmnoprint,
+  div#map .gm-svpc{
+    display: none !important;
+  }
+
+  .hooper-slide{
+    border-radius: 15px;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+  }
 </style>
 

@@ -47,7 +47,7 @@
         this.$store.dispatch('getTokenAndLogin', data)
           .then(() => {
               this.$Progress.finish()
-              this.$router.push('/admin/profile')
+              this.$router.push('/admin/maps')
           })
           .catch(err => {
               console.log(err)

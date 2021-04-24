@@ -14,6 +14,8 @@ namespace HseAr.BusinessLayer.BuildingService
 {
     public class BuildingService : IBuildingService
     {
+        private const string StorageBuildingImgs = "/buildings/imgs/";
+
         private readonly IUnitOfWork _data;
         private readonly IMapper _mapper;
         private readonly Configuration _configuration;
@@ -25,10 +27,13 @@ namespace HseAr.BusinessLayer.BuildingService
             _configuration = configuration;
         }
         
-        public async Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, Guid companyId)
+        public async Task<BuildingContext> CreateBuilding(BuildingContext buildingContext, string imgBase64, Guid companyId)
         {
             buildingContext.CompanyId = companyId;
-            
+            buildingContext.Id = Guid.NewGuid();
+                
+            UploadImage(ref buildingContext, imgBase64,  buildingContext.Id);
+                
             var building = _mapper.Map<BuildingContext, Building>(buildingContext);
             var buildingResult = await _data.Buildings.Add(building);
             return _mapper.Map<Building, BuildingContext>(buildingResult);
@@ -65,10 +70,12 @@ namespace HseAr.BusinessLayer.BuildingService
                 await _data.Scenes.Remove(floor.SceneId);
             }
             
+            FileManager.DeleteFile($"{_configuration.STORAGE_PATH}{building.ImgPath}");
+            
             await _data.Buildings.Delete(building.Id);
         }
 
-        public async Task<BuildingContext> UpdateBuilding(BuildingContext buildingContext, Guid companyId)
+        public async Task<BuildingContext> UpdateBuilding(BuildingContext buildingContext, string imgBase64, Guid companyId)
         {
             var building = await _data.Buildings.GetById(buildingContext.Id);
             Ensure.IsNotNull(building, nameof(building));
@@ -78,6 +85,12 @@ namespace HseAr.BusinessLayer.BuildingService
             building.Title = buildingContext.Title;
             building.Longitude = buildingContext.Longitude;
             building.Latitude = buildingContext.Latitude;
+
+            if (imgBase64 != null)
+            {
+                FileManager.DeleteFile($"{_configuration.STORAGE_PATH}{building.ImgPath}");
+                UploadImage(ref buildingContext, imgBase64,  buildingContext.Id);
+            }
 
              var result = await _data.Buildings.Update(building);
              return _mapper.Map<Building, BuildingContext>(result);
@@ -93,6 +106,15 @@ namespace HseAr.BusinessLayer.BuildingService
                 pointCloud.FloorId = newValue;
                 await _data.PointClouds.Update(pointCloud);
             }
+        }
+        
+        private void UploadImage(ref BuildingContext buildingContext, string imageBase64, Guid buildingId)
+        {
+            var imagePathWithoutFormat = $"{_configuration.STORAGE_PATH}{StorageBuildingImgs}{buildingId}";
+            var image = ImageManager.GetImage(imageBase64);
+            var format = ImageManager.UploadImage(image, imagePathWithoutFormat);
+            
+            buildingContext.ImgPath = $"{StorageBuildingImgs}{buildingId}.{ImageManager.GetFormatString(format)}";
         }
     }
 }
