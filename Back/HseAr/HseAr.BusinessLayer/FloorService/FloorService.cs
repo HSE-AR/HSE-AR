@@ -128,7 +128,7 @@ namespace HseAr.BusinessLayer.FloorService
                 FileManager.DeleteFile($"{_configuration.STORAGE_PATH}{floor.FloorPlanGltf}");
                 
                 UploadFloorPlanImage(ref floorContext, img, floorContext.Id);
-                await CreateAndSaveFloorPlanGltf(floorContext, floorContext.Id);
+                //await CreateAndSaveFloorPlanGltf(floorContext, floorContext.Id);
             }
 
             await _data.Floors.Update(floor);

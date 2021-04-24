@@ -25,19 +25,35 @@ services:
    - "postgres"
    - "mongodb"
   image: webapi
+  environment:
+    ASPNETCORE_ENVIRONMENT: Development
+    ASPNETCORE_URLS: "https://+;http://+"
+    ASPNETCORE_HTTPS_PORT: "5555"
+    Kestrel__Certificates__Default__Path: "/https/cert-aspnetcore.pfx"
+    Kestrel__Certificates__Default__Password: "hsear"    
   ports:
+   - "5555:5555"
    - "5005:5005"
   volumes:
    - "C:/Users/X1CARBON/source/repos/HSE-AR/Back/data:/data"
+   - "C:/aspnetcore_secret/:/https:ro"
  scannerapi:
+  environment:
+    ASPNETCORE_ENVIRONMENT: Development
+    ASPNETCORE_URLS: "https://+;http://+"
+    ASPNETCORE_HTTPS_PORT: "5555"
+    Kestrel__Certificates__Default__Path: "/https/cert-aspnetcore.pfx"
+    Kestrel__Certificates__Default__Password: hsear   
   depends_on: 
    - "postgres"
    - "mongodb"
   image: scanner
   ports:
    - "3003:3003"
+   - "3333:3333"
   volumes:
    - "C:/Users/X1CARBON/source/repos/HSE-AR/Back/data:/data"
+   - "C:/aspnetcore_secret:/https:ro"
  sceneexport:
   image: sceneexportservice
   ports:
@@ -50,3 +66,15 @@ services:
    - webapi
   ports:
    - "5000:5000"
+  volumes:
+   - "/etc/ssl/hsear.ru.crt:/app/hsear.ru.crt:ro"
+   - "/etc/ssl/hsear.ru.key:/app/hsear.ru.key:ro"
+ webar:
+  image: webar
+  depends_on:
+   - webapi
+  ports:
+   - "2000:2000"
+  volumes:
+    - "/etc/ssl/hsear.ru.crt:/app/hsear.ru.crt:ro"
+    - "/etc/ssl/hsear.ru.key:/app/hsear.ru.key:ro"

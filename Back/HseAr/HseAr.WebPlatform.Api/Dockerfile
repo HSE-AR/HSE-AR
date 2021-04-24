@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 RUN apt-get update && apt-get install -y libgdiplus
 WORKDIR /app
-EXPOSE 5005
+EXPOSE 5005 5555
 
 
 WORKDIR "/app"
@@ -22,6 +22,7 @@ COPY ["HseAr/HseAr.Data/HseAr.Data.csproj", "HseAr.Data/"]
 COPY ["HseAr/HseAr.DataAccess.EFCore/HseAr.DataAccess.EFCore.csproj", "HseAr.DataAccess.EFCore/"]
 COPY ["HseAr/HseAr.Integration.SceneExport/HseAr.Integration.SceneExport.csproj", "HseAr.Integration.SceneExport/"]
 COPY ["HseAr/HseAr.BusinessLayer/HseAr.BusinessLayer.csproj", "HseAr.BusinessLayer/"]
+COPY ["HseAr/FloorplanToBlender3d/", "FloorplanToBlender3d/"]
 RUN dotnet restore "HseAr.WebPlatform.Api/HseAr.WebPlatform.Api.csproj"
 COPY HseAr/ .
 WORKDIR "/src/HseAr.WebPlatform.Api"
