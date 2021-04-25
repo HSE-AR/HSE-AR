@@ -1,9 +1,0 @@
-cd FrontWeb/front
-docker build -t front  .
-cd ../../Back/SceneExportService
-docker build -t sceneexportservice .
-cd ../
-docker build -t webapi -f HseAr/HseAr.WebPlatform.Api/Dockerfile .
-docker build -t scanner -f HseAr/HseAr.Scanner.Api/Dockerfile .
-cd ../
-docker compose up -d
