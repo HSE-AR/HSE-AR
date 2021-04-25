@@ -92,9 +92,9 @@ export default {
                         const buildings = response.data.buildings
                         const token = context.getters.token
                         console.log(payload)
-                        localStorage.setItem('buildings', JSON.stringify(buildings))
+                        context.commit("set_buildings_success",buildings)
+                        localStorage.setItem('buildings', JSON.stringify(buildings)) //delete
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-                        context.commit('set_buildings_success', buildings )
                         resolve(response)
                     })
                     .catch(err => {

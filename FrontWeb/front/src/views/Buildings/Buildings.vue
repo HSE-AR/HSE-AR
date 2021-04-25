@@ -5,7 +5,11 @@
             <span>You have already created {{buildings.length}} map(s)</span>
           </div>
           <div class="buildings_wrapper">
-            <BuildingsSlider :buildings="buildings"/>
+
+            <BuildingsSlider/>
+
+
+
             <button
                     style="margin-top: 20px;"
                     type="button"
@@ -174,11 +178,12 @@
                       this.address = ""
                       this.coordinate = ""
                       this.imgPath = ""
-                    this.$store.state.buildings = response.data.buildings
+                    this.isModalVisible = false;
                   })
                   .catch(err => {
                       console.log(err)
                       this.$Progress.fail()
+                    this.isModalVisible = false;
                   })
           },
 

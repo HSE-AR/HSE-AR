@@ -1,12 +1,9 @@
 <template>
 
-  <vue-glide  class="buildings-slider">
-    <vue-glide-slide
-            class="buildings-slide"
-            v-for="building in buildings"
-            :key="building.id"
-    >
+<div>
 
+  <hooper style="width: 900px;height: 300px;"  :itemsToShow="3" >
+    <slide v-for="building in buildings" :key="building.id" style="margin-left: 10px">
       <div class="building-card">
         <div class="building-image">
           <img :src="$store.state.port + building.imgPath" style="max-width: 100%; max-height: 100%;" alt="image">
@@ -59,31 +56,29 @@
           </div>
         </div>
       </div>
-    </vue-glide-slide>
-    <template slot="control">
-      <button class="btn-control" data-glide-dir="<">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
-      </button>
-      <button class="btn-control" data-glide-dir=">">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
-      </button>
-    </template>
-  </vue-glide>
+
+    </slide>
+
+  </hooper>
+
+
+  </div>
 </template>
 
 <script>
+import { Hooper, Slide } from 'hooper';
+import {mapGetters} from "vuex";
+import 'hooper/dist/hooper.css';
 
     export default {
-
+      components: {
+        Hooper,
+        Slide
+      },
+      computed: {
+        ...mapGetters(['buildings']),
+      },
         name: "BuildingsSlider",
-        props: {
-            buildings: {
-                type: Array,
-                default() {
-                    return []
-                }
-            }
-        },
         methods: {
             async deleteBuilding(buildingId) {
                 this.$Progress.start()
