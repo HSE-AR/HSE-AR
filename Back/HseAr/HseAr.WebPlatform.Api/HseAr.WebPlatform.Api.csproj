@@ -9,6 +9,7 @@
       <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.2" />
+      <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
       <PackageReference Include="MongoDB.Driver" Version="2.12.0-beta1" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
       <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
@@ -26,6 +27,8 @@
     <PropertyGroup>
 		  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 		  <NoWarn>$(NoWarn);1591</NoWarn>
+		  <UserSecretsId>c9a08e8a-5311-48c2-8433-a7395e5d95f8</UserSecretsId>
+		  <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
 	  </PropertyGroup>
 
 

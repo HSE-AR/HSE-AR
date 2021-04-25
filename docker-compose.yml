@@ -1,0 +1,80 @@
+version: '3.3'
+services:
+ postgres:
+  image: "postgres"
+  restart: always
+  environment:
+   POSTGRES_DB: HseAr
+   POSTGRES_USER: hsear
+   POSTGRES_PASSWORD: hsear
+   PGDATA: /var/lib/postgresql/data
+  volumes:
+   - "/var/www/postgresql/data:/var/lib/postgresql/data"
+  ports:
+   - "5432:5432"
+ mongodb:
+  image: mongo
+  environment:
+   MONGODB_DATABASE: ModelsDb
+  volumes:
+   - "/var/www/mongodb/data:/var/lib/mongodb/data"
+  ports:
+   - "27017:27017"
+ webapi:
+  depends_on: 
+   - "postgres"
+   - "mongodb"
+  image: webapi
+  environment:
+    ASPNETCORE_ENVIRONMENT: Development
+    ASPNETCORE_URLS: "https://+;http://+"
+    ASPNETCORE_HTTPS_PORT: "5555"
+    Kestrel__Certificates__Default__Path: "/https/cert-aspnetcore.pfx"
+    Kestrel__Certificates__Default__Password: "hsear"    
+  ports:
+   - "5555:443"
+   - "5005:80"
+  volumes:
+   - "/var/www/HSE-AR/Back/data:/data"
+   - "/etc/ssl/self-signed/:/https/:ro"
+ scannerapi:
+  environment:
+    ASPNETCORE_ENVIRONMENT: Development
+    ASPNETCORE_URLS: "https://+;http://+"
+    ASPNETCORE_HTTPS_PORT: "3333"
+    Kestrel__Certificates__Default__Path: "/https/cert-aspnetcore.pfx"
+    Kestrel__Certificates__Default__Password: hsear   
+  depends_on: 
+   - "postgres"
+   - "mongodb"
+  image: scanner
+  ports:
+   - "3003:80"
+   - "3333:443"
+  volumes:
+   - "/var/www/HSE-AR/Back/data:/data"
+   - "/etc/ssl/self-signed/:/https/:ro"
+ sceneexport:
+  image: sceneexportservice
+  ports:
+   - "3000:3000"
+  volumes:
+   - "/var/www/HSE-AR/Back/data:/usr/src/data"
+ front:
+  image: front
+  depends_on:
+   - webapi
+  ports:
+   - "5000:5000"
+  volumes:
+   - "/etc/ssl/localhost.crt:/app/localhost.crt:ro"
+   - "/etc/ssl/localhost.key:/app/localhost.key:ro"
+ webar:
+  image: webar
+  depends_on:
+   - webapi
+  ports:
+   - "2000:2000"
+  volumes:
+    - "/etc/ssl/localhost.crt:/app/localhost.crt:ro"
+    - "/etc/ssl/localhost.key:/app/localhost.key:ro"

@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.BusinessLayer", "HseAr.BusinessLayer\HseAr.BusinessLayer.csproj", "{FFB918C0-B1A7-45DC-BEF1-E3B02C13CA1C}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.BusinessLayer", "HseAr.BusinessLayer\HseAr.BusinessLayer.csproj", "{FFB918C0-B1A7-45DC-BEF1-E3B02C13CA1C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{8923AEB7-9F22-4EF4-8E96-E1FA784003A1}"
 ProjectSection(SolutionItems) = preProject
@@ -117,38 +120,43 @@ ProjectSection(SolutionItems) = preProject
 	FloorplanToBlender3d\create_blender_project_from_floorplan.py = FloorplanToBlender3d\create_blender_project_from_floorplan.py
 EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.UnitTests", "HseAr.UnitTests\HseAr.UnitTests.csproj", "{5064662B-7013-4E6C-8E81-A0382BC5D449}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.UnitTests", "HseAr.UnitTests\HseAr.UnitTests.csproj", "{5064662B-7013-4E6C-8E81-A0382BC5D449}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{B0E9A420-E369-40B3-B087-ECC75968B328}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.Data", "HseAr.Data\HseAr.Data.csproj", "{D3462E33-1DD4-40F3-9721-6A56EA3CE4AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.Data", "HseAr.Data\HseAr.Data.csproj", "{D3462E33-1DD4-40F3-9721-6A56EA3CE4AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.DataAccess.Mongodb", "HseAr.DataAccess.Mongodb\HseAr.DataAccess.Mongodb.csproj", "{F9225AB4-AC73-48E8-85CD-8E95D3294ADF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.DataAccess.Mongodb", "HseAr.DataAccess.Mongodb\HseAr.DataAccess.Mongodb.csproj", "{F9225AB4-AC73-48E8-85CD-8E95D3294ADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.DataAccess.EFCore", "HseAr.DataAccess.EFCore\HseAr.DataAccess.EFCore.csproj", "{D5185693-1DE1-4060-B2CE-E4DBEF81AAD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.DataAccess.EFCore", "HseAr.DataAccess.EFCore\HseAr.DataAccess.EFCore.csproj", "{D5185693-1DE1-4060-B2CE-E4DBEF81AAD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.Core", "HseAr.Core\HseAr.Core.csproj", "{39869E98-6A5B-4DC3-9075-CDF2288B1A61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.Core", "HseAr.Core\HseAr.Core.csproj", "{39869E98-6A5B-4DC3-9075-CDF2288B1A61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.WebPlatform.Api", "HseAr.WebPlatform.Api\HseAr.WebPlatform.Api.csproj", "{C53A0E42-1C2E-4CE8-B609-2A67D8217D8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.WebPlatform.Api", "HseAr.WebPlatform.Api\HseAr.WebPlatform.Api.csproj", "{C53A0E42-1C2E-4CE8-B609-2A67D8217D8D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{DB637EC9-41B5-4DE8-ADD4-5887FDF073C3}"
-ProjectSection(SolutionItems) = preProject
-	global.json = global.json
-	global.Development.json = global.Development.json
-	secret.json = secret.json
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		global.Development.json = global.Development.json
+		global.json = global.json
+		secret.json = secret.json
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.Scanner.Api", "HseAr.Scanner.Api\HseAr.Scanner.Api.csproj", "{B76059C5-7BDA-41C0-ABD1-DE027D3221F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.Scanner.Api", "HseAr.Scanner.Api\HseAr.Scanner.Api.csproj", "{B76059C5-7BDA-41C0-ABD1-DE027D3221F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.Infrastructure", "HseAr.Infrastructure\HseAr.Infrastructure.csproj", "{198679DE-17EA-498F-8011-868234C54933}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.Infrastructure", "HseAr.Infrastructure\HseAr.Infrastructure.csproj", "{198679DE-17EA-498F-8011-868234C54933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.Dependencies", "HseAr.Dependencies\HseAr.Dependencies.csproj", "{4BB8F8C6-C33A-4B09-AC9C-461D202DE5A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.Dependencies", "HseAr.Dependencies\HseAr.Dependencies.csproj", "{4BB8F8C6-C33A-4B09-AC9C-461D202DE5A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.ArClient.Api", "HseAr.ArClient.Api\HseAr.ArClient.Api.csproj", "{3C41E279-2965-4AFC-84DB-5572C2396E95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.ArClient.Api", "HseAr.ArClient.Api\HseAr.ArClient.Api.csproj", "{3C41E279-2965-4AFC-84DB-5572C2396E95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integrations", "Integrations", "{14409B26-8581-4330-A324-38C4FD5A04F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.Integration.SceneExport", "HseAr.Integration.SceneExport\HseAr.Integration.SceneExport.csproj", "{27FFE65E-7C76-4CC2-A30A-20745D32A2FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HseAr.Integration.SceneExport", "HseAr.Integration.SceneExport\HseAr.Integration.SceneExport.csproj", "{27FFE65E-7C76-4CC2-A30A-20745D32A2FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{576BB285-1A20-4B8A-AF26-9F1D35C4D6E3}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HseAr.BlenderService", "HseAr.BlenderService\HseAr.BlenderService.csproj", "{6786D9D2-C026-4885-91A5-211D0A4A3292}"
 EndProject
@@ -211,6 +219,9 @@ Global
 		{6786D9D2-C026-4885-91A5-211D0A4A3292}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6786D9D2-C026-4885-91A5-211D0A4A3292}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5064662B-7013-4E6C-8E81-A0382BC5D449} = {8923AEB7-9F22-4EF4-8E96-E1FA784003A1}
 		{D3462E33-1DD4-40F3-9721-6A56EA3CE4AE} = {B0E9A420-E369-40B3-B087-ECC75968B328}
@@ -218,5 +229,8 @@ Global
 		{D5185693-1DE1-4060-B2CE-E4DBEF81AAD3} = {B0E9A420-E369-40B3-B087-ECC75968B328}
 		{27FFE65E-7C76-4CC2-A30A-20745D32A2FC} = {14409B26-8581-4330-A324-38C4FD5A04F5}
 		{6786D9D2-C026-4885-91A5-211D0A4A3292} = {8923AEB7-9F22-4EF4-8E96-E1FA784003A1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61A1B9ED-9847-43F3-8D4B-E72DBD1AA290}
 	EndGlobalSection
 EndGlobal
