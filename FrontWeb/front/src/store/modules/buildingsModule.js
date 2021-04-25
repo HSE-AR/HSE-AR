@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "@/store/store";
 
 export default {
     state: {
@@ -16,7 +17,7 @@ export default {
     actions: {
         getBuildingsFromUser(context) {
             return new Promise((resolve, reject) => {
-                axios.get('https://localhost:5555/wapi/building', {
+                axios.get(store.state.port + 'wapi/building', {
                     headers: {
                         'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }
@@ -38,7 +39,7 @@ export default {
 
         getBuildingInfo(context, payload) {
             return new Promise((resolve, reject) => {
-                axios.get(`https://localhost:5555/wapi/building/${payload}`, {
+                axios.get(store.state.port + `wapi/building/${payload}`, {
                     headers: {
                         'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }
@@ -60,7 +61,7 @@ export default {
 
         getPointClouds(context) {
             return new Promise((resolve, reject) => {
-                axios.get(`https://localhost:5555/wapi/pointcloud`, {
+                axios.get(store.state.port + `wapi/pointcloud`, {
                     headers: {
                         'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }
@@ -82,7 +83,7 @@ export default {
 
         createBuilding(context, payload) {
             return new Promise((resolve, reject) => {
-                axios.post(`https://localhost:5555/wapi/building`, payload, {
+                axios.post(store.state.port + `wapi/building`, payload, {
                     headers: {
                         'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }
@@ -105,7 +106,7 @@ export default {
 
         deleteBuilding(context, payload) {
               return new Promise((resolve, reject) => {
-                  axios.delete(`https://localhost:5555/wapi/building/${payload}`, {
+                  axios.delete(store.state.port + `wapi/building/${payload}`, {
                       headers: {
                           'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                       }
@@ -126,7 +127,7 @@ export default {
         },
         deleteFloor(context, payload) {
             return new Promise((resolve, reject) => {
-                axios.delete(`https://localhost:5555/wapi/floor/${payload.floorId}/building/${payload.buildingId}`, {
+                axios.delete(store.state.port + `wapi/floor/${payload.floorId}/building/${payload.buildingId}`, {
                     headers: {
                         'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }
@@ -147,7 +148,7 @@ export default {
         },
         createFloor(context, payload) {
             return new Promise((resolve, reject) => {
-                axios.post(`https://localhost:5555/wapi/floor`, payload, {
+                axios.post(store.state.port + `wapi/floor`, payload, {
                     headers: {
                         'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
                     }

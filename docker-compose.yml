@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.3'
 services:
  postgres:
   image: "postgres"
@@ -9,7 +9,7 @@ services:
    POSTGRES_PASSWORD: hsear
    PGDATA: /var/lib/postgresql/data
   volumes:
-   - ./var/lib/postgresql/data
+   - "/var/www/postgresql/data:/var/lib/postgresql/data"
   ports:
    - "5432:5432"
  mongodb:
@@ -17,7 +17,7 @@ services:
   environment:
    MONGODB_DATABASE: ModelsDb
   volumes:
-   - ./var/lib/mongodb/data
+   - "/var/www/mongodb/data:/var/lib/mongodb/data"
   ports:
    - "27017:27017"
  webapi:
@@ -32,16 +32,16 @@ services:
     Kestrel__Certificates__Default__Path: "/https/cert-aspnetcore.pfx"
     Kestrel__Certificates__Default__Password: "hsear"    
   ports:
-   - "5555:5555"
-   - "5005:5005"
+   - "5555:443"
+   - "5005:80"
   volumes:
-   - "C:/Users/X1CARBON/source/repos/HSE-AR/Back/data:/data"
-   - "C:/aspnetcore_secret/:/https:ro"
+   - "/var/www/HSE-AR/Back/data:/data"
+   - "/etc/ssl/self-signed/:/https/:ro"
  scannerapi:
   environment:
     ASPNETCORE_ENVIRONMENT: Development
     ASPNETCORE_URLS: "https://+;http://+"
-    ASPNETCORE_HTTPS_PORT: "5555"
+    ASPNETCORE_HTTPS_PORT: "3333"
     Kestrel__Certificates__Default__Path: "/https/cert-aspnetcore.pfx"
     Kestrel__Certificates__Default__Password: hsear   
   depends_on: 
@@ -49,17 +49,17 @@ services:
    - "mongodb"
   image: scanner
   ports:
-   - "3003:3003"
-   - "3333:3333"
+   - "3003:80"
+   - "3333:443"
   volumes:
-   - "C:/Users/X1CARBON/source/repos/HSE-AR/Back/data:/data"
-   - "C:/aspnetcore_secret:/https:ro"
+   - "/var/www/HSE-AR/Back/data:/data"
+   - "/etc/ssl/self-signed/:/https/:ro"
  sceneexport:
   image: sceneexportservice
   ports:
    - "3000:3000"
   volumes:
-   - "C:/Users/X1CARBON/source/repos/HSE-AR/Back/data:/usr/src/data"
+   - "/var/www/HSE-AR/Back/data:/usr/src/data"
  front:
   image: front
   depends_on:
@@ -67,8 +67,8 @@ services:
   ports:
    - "5000:5000"
   volumes:
-   - "/etc/ssl/hsear.ru.crt:/app/hsear.ru.crt:ro"
-   - "/etc/ssl/hsear.ru.key:/app/hsear.ru.key:ro"
+   - "/etc/ssl/localhost.crt:/app/localhost.crt:ro"
+   - "/etc/ssl/localhost.key:/app/localhost.key:ro"
  webar:
   image: webar
   depends_on:
@@ -76,5 +76,5 @@ services:
   ports:
    - "2000:2000"
   volumes:
-    - "/etc/ssl/hsear.ru.crt:/app/hsear.ru.crt:ro"
-    - "/etc/ssl/hsear.ru.key:/app/hsear.ru.key:ro"
+    - "/etc/ssl/localhost.crt:/app/localhost.crt:ro"
+    - "/etc/ssl/localhost.key:/app/localhost.key:ro"

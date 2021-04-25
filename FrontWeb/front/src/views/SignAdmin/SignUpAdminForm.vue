@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import Swal from 'sweetalert2'
 
   export default {
     name: 'SignUpAdmin',
@@ -62,6 +62,11 @@
           .catch(err => {
               console.log(err)
               this.$Progress.fail()
+              Swal.fire(
+                  'Error',
+                  'Login and password are not correct',
+                  'error'
+              )
           })
 
       }
