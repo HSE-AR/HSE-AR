@@ -29,7 +29,7 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{https}://{ServiceHost}:{5005}/swagger",
+      "launchUrl": "{https}://{ServiceHost}:{5555}/swagger",
       "publishAllPorts": true,
       "useSSL": true
     }
