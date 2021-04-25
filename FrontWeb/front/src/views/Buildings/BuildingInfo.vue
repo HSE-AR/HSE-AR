@@ -1,13 +1,18 @@
 <template>
   <div>
+    <div style="font-size: 30px; margin: 10px">{{building_info.title}}</div>
     <div class="buildings-container">
       <div v-if="building_info.floors.length !== 0" class="building__info">
-        <hooper :vertical="true" style="height: 400px" :itemsToShow="1.5" :centerMode="true">
+        <hooper  :vertical="true" style="height: 600px;width: 300px" :itemsToShow="1.5" :centerMode="true">
           <slide
                   v-for="floor in building_info.floors"
                   :key="floor.id"
+                  style="margin-top: 5px"
           >
-            <h1>{{floor.title}}</h1>
+            <div>
+              <img style="width: 290px" :src="$store.state.port + floor.floorPlanImage">
+            </div>
+            <h1>{{floor.number}}. {{floor.title}}</h1>
             <router-link :to="{path: `/admin/editor/`, query: {floorId: floor.id}}" class="editFloor">Edit Floor</router-link>
             <button @click="deleteFloor(floor.id)" class="floor__deletion">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
@@ -60,9 +65,6 @@
               <input type="file" ref="floorPlanImg" id="floorPlanImg" @change="convertImage" accept="image/*" class="input" placeholder="floorPlanImg..." required>
             </div>
           </form>
-          <div class="image-wrapper">
-            <img src="#" alt="image">
-          </div>
         </template>
         <template v-slot:footer>
           <button class="building__creation__submit" @click="createFloor">Save</button>
@@ -176,10 +178,12 @@
                       this.number = ""
                       this.pointCloudId = ""
                       this.floorPlanImg = ""
+                    this.isModalVisible = false;
                   })
                   .catch(err => {
                       console.log(err)
                       this.$Progress.fail()
+                    this.isModalVisible = false;
                   })
             },
             async deleteFloor(floorId) {

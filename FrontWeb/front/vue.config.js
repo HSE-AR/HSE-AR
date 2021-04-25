@@ -9,5 +9,7 @@ module.exports = {
         //cert: fs.readFileSync('./localhost.cert', 'utf8'),
       https: true,
       hotOnly: false,
+        disableHostCheck: true
     },
+
   }
