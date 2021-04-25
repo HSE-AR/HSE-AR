@@ -90,7 +90,7 @@ namespace HseAr.ArClient.Api
                 .AllowAnyMethod());*/
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ARapi"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/arapi/swagger/v1/swagger.json", "ARapi"));
 
             app.UseEndpoints(endpoints =>
             {

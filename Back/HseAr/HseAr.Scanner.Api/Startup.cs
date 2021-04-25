@@ -87,7 +87,7 @@ namespace HseAr.Scanner.Api
             app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ScannerApi"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/sapi/swagger/v1/swagger.json", "ScannerApi"));
 
             app.UseEndpoints(endpoints =>
             {
