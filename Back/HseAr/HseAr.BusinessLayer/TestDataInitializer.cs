@@ -136,7 +136,7 @@ namespace HseAr.BusinessLayer
                 
                 var pcd2 = new PointCloudContext()
                 {
-                    Name = "Test1Pcd"
+                    Name = "Test2Pcd"
                 };
 
                 await pcdService.AddPointCloudToCompany(pcd2, formFile, company.Id);

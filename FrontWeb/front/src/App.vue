@@ -38,6 +38,19 @@
 <style lang="css">
   @import 'assets/css/reset.css';
 
+  .myActionButton{
+   cursor: pointer;
+   text-align: center;
+    padding: 5px;
+    border: 0px solid black;
+    border-radius: 10px;
+  }
+
+  .myActionButton:hover{
+    background-color: rgba(0,0,0,0.5);
+
+  }
+
   div#map a,
   div#map button,
   div.gm-bundled-control div.gmnoprint,
