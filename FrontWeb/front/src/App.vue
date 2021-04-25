@@ -53,5 +53,17 @@
     align-items: center;
     flex-flow: column;
   }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 50px white; /* цвет вашего фона */
+    -webkit-text-fill-color: black; /* цвет текста */
+  }
+
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 5px 0    blue,   /* ваш box-shadow для :focus */
+    inset 0 0 0   50px white;  /* цвет вашего фона */
+    -webkit-text-fill-color: black;          /* цвет текста */
+  }
+
 </style>
 

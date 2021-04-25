@@ -15,20 +15,24 @@
     <span class="form__input">
       <input v-model="password" type="password" id="password" class="password-input" placeholder="Password..." required>
     </span>
+
     <div class="sign">
       <button class="sign__button" type="submit">
-        <span>Sign in</span>
+      Sign in
       </button>
-
     </div>
-    <router-link to="/signup/admin">Sign Up</router-link>
+
+    <div style="width: 100%;text-align: center; padding: 10px">
+      <router-link to="/signup/admin">Sign Up</router-link>
+    </div>
+
 
   </form>
 
 </template>
 
 <script>
-  import axios from 'axios'
+  import Swal from 'sweetalert2'
   export default {
     name: 'SignInAdmin',
     data() {
@@ -52,11 +56,12 @@
           .catch(err => {
               console.log(err)
               this.$Progress.fail()
+              Swal.fire(
+                  'Error',
+                  'Login and password are not correct',
+                  'error'
+              )
           })
-
-
-
-
       },
     }
   }

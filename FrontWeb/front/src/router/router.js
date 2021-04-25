@@ -9,6 +9,7 @@ import Buildings from "../views/Buildings/Buildings";
 import About from "../views/About";
 import Help from "../views/Help";
 import BuildingInfo from "../views/Buildings/BuildingInfo";
+import PointCloud from "../views/PointCloud/PointCloud";
 
 
 Vue.use(Router)
@@ -74,6 +75,12 @@ const routes = [
     name: 'about',
     meta: {layout: 'main'},
     component: About,
+  },
+  {
+    path: '/admin/pcd',
+    name: 'pcd',
+    meta: {layout: 'main'},
+    component: PointCloud
   },
 
 

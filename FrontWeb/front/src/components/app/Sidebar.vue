@@ -26,10 +26,7 @@
         data: () => ({
             links: [
                 {title: 'Maps', url: '/admin/maps'},
-                {title: 'API', url: '/admin/api'},
-                {title: 'Docs', url: '/admin/docs'},
-                {title: 'Support', url: '/admin/support'},
-                {title: 'Downloads', url: '/admin/downloads'},
+                {title: 'PointClouds', url: '/admin/pcd'}
 
             ]
         })
