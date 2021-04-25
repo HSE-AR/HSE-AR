@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 RUN apt-get update && apt-get install -y libgdiplus
 WORKDIR /app
-EXPOSE 5005 5555
+EXPOSE 443 80
 
 
 WORKDIR "/app"
