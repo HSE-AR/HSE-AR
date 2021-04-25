@@ -52,28 +52,34 @@
     outline: none;
     padding-left: 18px;
   }
-  .sign {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-  }
-  .sign__button {
-    outline: none;
-    border: 1px solid #4B9CFF;
-    border-radius: 25px;
-    background: radial-gradient(314.57% 7618.49% at 10.63% 49.74%, rgba(0, 0, 0, 0.38) 0%, rgba(31, 28, 28, 0.1102) 100%);
-    width: 260px;
-    height: 60px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
-    span {
-      color: white;
-      font-weight: 500;
-      line-height: 35px;
-      font-size: 28px;
-    }
-  }
 
 }
 
+
+
+.sign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+
+  :hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.sign__button {
+  outline: none;
+  border: 1px solid #4B9CFF;
+  border-radius: 25px;
+  background: radial-gradient(314.57% 7618.49% at 10.63% 49.74%, rgba(0, 0, 0, 0.38) 0%, rgba(31, 28, 28, 0.1102) 100%);
+  width: 260px;
+  height: 60px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+  color: white;
+  font-weight: 500;
+  line-height: 35px;
+  font-size: 28px;
+
+}

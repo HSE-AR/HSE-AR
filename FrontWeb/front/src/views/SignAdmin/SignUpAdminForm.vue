@@ -24,10 +24,14 @@
 
     <div class="sign">
       <button @submit.prevent="signUp" class="sign__button" type="submit">
-        <span>Sign up</span>
+        Sign up
       </button>
     </div>
-    <router-link to="/signin/admin">Sign In</router-link>
+
+    <div style="text-align: center; padding: 10px">
+      <router-link to="/signin/admin">Sign In</router-link>
+    </div>
+
 
   </form>
 
