@@ -49,5 +49,15 @@ namespace HseAr.Scanner.Api.Controllers
             var result = await _pointCloudService.AddPointCloudToCompany(cloudContext, file, this.GetCompanyId());
             return _pointCloudModelConstructor.ConstructCurrentModel(result);
         }
+        
+        /// <summary>
+        /// Получения списка доступных поинтклаудов
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<List<PointCloudContext>>> Get()
+        {
+            return await _pointCloudService.GetPointClouds(this.GetCompanyId());
+        }
     }
 }

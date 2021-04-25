@@ -1,7 +1,9 @@
-﻿using HseAr.BusinessLayer.PointCloudService.Models;
+﻿using HseAr.BusinessLayer.CompanyService.Models;
+using HseAr.BusinessLayer.PointCloudService.Models;
 using HseAr.Dependencies;
 using HseAr.Infrastructure;
 using HseAr.Scanner.Api.Mappers;
+using HseAr.Scanner.Api.Models;
 using HseAr.Scanner.Api.Models.PointCloud;
 using HseAr.Scanner.Api.ViewModelConstructors;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +38,8 @@ namespace HseAr.Scanner.Api
         private static IServiceCollection AddMappers(this IServiceCollection services)
         {
             return services
-                .AddTransient<IMapper<PointCloudCreationForm, PointCloudContext>, PointCloudCreationFormMapper>();
+                .AddTransient<IMapper<PointCloudCreationForm, PointCloudContext>, PointCloudCreationFormMapper>()
+                .AddTransient<IMapper<CompanyContext, CompanyModel>, CompanyModelMapper>();
         }
 
     }
