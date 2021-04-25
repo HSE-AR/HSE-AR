@@ -20,13 +20,13 @@
 
       <carousel-3d  :width="200" :height="150">
         <slide style="border: 0px solid white;border-radius: 15px" :index="0">
-          <img width="100%" height="100%" src="../assets/11.jpg">
+          <img width="100%" height="100%" :src="$store.state.portBack +'/staticImgs/11.jpg'">
         </slide>
         <slide style="border: 0px solid white;border-radius: 15px" :index="1">
-          <img width="100%" height="100%" src="../assets/2.jpg">
+          <img width="100%" height="100%" :src="$store.state.portBack + '/staticImgs/2.jpg'">
         </slide>
         <slide style="border: 0px solid white;border-radius: 15px" :index="2">
-          <img width="100%" height="100%" src="../assets/2.jpg">
+          <img width="100%" height="100%" :src="$store.state.portBack + '/staticImgs/2.jpg'">
         </slide>
       </carousel-3d>
 
