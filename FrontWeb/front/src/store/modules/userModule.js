@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "@/store/store";
 
 
 export default {
@@ -23,7 +24,7 @@ export default {
         getTokenAndLogin({ commit }, user) {
             return new Promise((resolve, reject) => {
                 commit('auth_request')
-                axios.post('https://localhost:5555/wapi/auth/login', user)
+                axios.post(store.state.port + 'wapi/auth/login', user)
                     .then(response => {
                         const token = response.data
                         localStorage.setItem('token', token)
@@ -43,7 +44,7 @@ export default {
 
         getUserFromToken(context) {
             return new Promise((resolve, reject) => {
-                axios.get('https://localhost:5555/wapi/account')
+                axios.get(store.state.port + 'wapi/account')
                     .then(response => {
                         const user = response.data
                         const token = context.getters.token
@@ -61,7 +62,7 @@ export default {
 
         getCompanyFromToken(context) {
             return new Promise((resolve, reject) => {
-                axios.get('https://localhost:5555/wapi/company')
+                axios.get(store.state.port + 'wapi/company')
                     .then(response => {
                         const companyActions = response.data
                         const token = context.getters.token
@@ -80,7 +81,7 @@ export default {
         registerUser({ commit }, user) {
             return new Promise((resolve, reject) => {
                 commit('auth_request')
-                axios.post('https://localhost:5555/wapi/auth/register', user)
+                axios.post(store.state.port + 'wapi/auth/register', user)
                     .then(response => {
                         const token = response.data
                         localStorage.setItem('token', token)

@@ -44,16 +44,13 @@ export default {
             token: 'token',
         })
     },
-  mounted(){
-    this.toolbar = new Toolbar( this.editor );
-    document.body.appendChild( this.toolbar.dom );
-  },
 
   async created(){
     window.URL = window.URL || window.webkitURL;
     window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
     
     this.editor = new Editor();
+    this.editor.portBack = this.$store.state.port;
     window.editor = this.editor; // Expose editor to Console
 	window.THREE = THREE; // Expose THREE to APP Scripts and Console
 
@@ -61,10 +58,9 @@ export default {
 
     this.viewport = new Viewport( this.editor );
     document.body.appendChild( this.viewport.dom );
-  //
-	// this.toolbar = new Toolbar( this.editor );
-  //   document.body.appendChild( this.toolbar.dom );
-  //
+
+	 this.toolbar = new Toolbar( this.editor );
+    document.body.appendChild( this.toolbar.dom );
 
 	this.sidebar = new Sidebar( this.editor );
 	document.body.appendChild( this.sidebar.dom );
@@ -118,7 +114,7 @@ export default {
 	async LoadSceneFromBack()
 	{
         this.$Progress.start()
-      	await axios.get(`https://localhost:5555/wapi/editor/${this.$route.query.floorId}`, {
+      	await axios.get(this.$store.state.port + `wapi/editor/${this.$route.query.floorId}`, {
       	    headers: {
                 'X-Company-Key': JSON.parse(localStorage.getItem('company_actions'))[0].id
             }
@@ -148,7 +144,7 @@ export default {
       let material = new THREE.MeshStandardMaterial();
       let loader = new THREE.TextureLoader();
 
-      let img = "https://localhost:5555"+ floorPlan.floorPlanImg;
+      let img = this.$store.state.port + floorPlan.floorPlanImg;
       loader.load(img,
           function(texture) {
             console.log(img + ' downloaded successfully');
@@ -170,7 +166,7 @@ export default {
     InitializeFloorPlanGltf(path)
     {
       let gltfLoader = new GLTFLoader();
-      gltfLoader.load("https://localhost:5555"+path, (gltf) => {
+      gltfLoader.load(this.$store.state.port + path, (gltf) => {
 
         var scene = gltf.scene.children[0];
         scene.name = "Floorplan3d";

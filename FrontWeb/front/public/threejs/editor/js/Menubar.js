@@ -19,7 +19,7 @@ function Menubar( editor ) {
 	c.setClass( 'menu' );
 
 	var translateIcon = document.createElement( 'img' );
-	translateIcon.src = '/logo.svg';
+	translateIcon.src = editor.portBack + 'staticImgs/logo.svg';
 
 	var translate = new UIPanel();
 	translate.setClass('logodiv')

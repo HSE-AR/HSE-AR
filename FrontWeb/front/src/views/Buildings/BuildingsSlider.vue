@@ -9,7 +9,7 @@
 
       <div class="building-card">
         <div class="building-image">
-          <img :src="`https://localhost:5555${building.imgPath}`" style="max-width: 100%; max-height: 100%;" alt="image">
+          <img :src="$store.state.port + building.imgPath" style="max-width: 100%; max-height: 100%;" alt="image">
         </div>
         <div class="building-actions">
           <router-link :to="{path: `/admin/mapsinfo/`, query: {buildingId: building.id}}">

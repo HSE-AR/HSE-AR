@@ -69,7 +69,7 @@ function Toolbar( editor ) {
 	//home
 	var homeIcon = document.createElement( 'img' );
 	homeIcon.title = "home";
-	homeIcon.src = '/home.svg';
+	homeIcon.src = editor.portBack + 'staticImgs/home.svg';
 
 	var home = new UIButton();
 	home.setClass('myToolButton')
@@ -83,7 +83,7 @@ function Toolbar( editor ) {
 	// translate / rotate / scale
 	var translateIcon = document.createElement( 'img' );
 	translateIcon.title = strings.getKey( 'toolbar/translate' );
-	translateIcon.src = '/translate.svg';
+	translateIcon.src = editor.portBack + 'staticImgs/translate.svg';
 
 	var translate = new UIButton();
 	translate.dom.className = 'myToolButton selected';
@@ -99,7 +99,7 @@ function Toolbar( editor ) {
 
 
 	rotateIcon.title = strings.getKey( 'toolbar/rotate' );
-	rotateIcon.src = '/rotate.svg';
+	rotateIcon.src = editor.portBack + 'staticImgs/rotate.svg';
 
 	var rotate = new UIButton();
 	rotate.setClass('myToolButton')
@@ -113,7 +113,7 @@ function Toolbar( editor ) {
 
 	var scaleIcon = document.createElement( 'img' );
 	scaleIcon.title = strings.getKey( 'toolbar/scale' );
-	scaleIcon.src = '/scale.svg';
+	scaleIcon.src = editor.portBack + 'staticImgs/scale.svg';
 
 	var scale = new UIButton();
 	scale.setClass('myToolButton')
@@ -128,7 +128,7 @@ function Toolbar( editor ) {
 	//save
 	var saveIcon = document.createElement( 'img' );
 	saveIcon.title = "save";
-	saveIcon.src = '/save.svg';
+	saveIcon.src = editor.portBack + 'staticImgs/save.svg';
 
 	var save = new UIButton();
 	save.setClass('myToolButton')
