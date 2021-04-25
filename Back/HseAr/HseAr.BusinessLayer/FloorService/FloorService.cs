@@ -31,10 +31,10 @@ namespace HseAr.BusinessLayer.FloorService
             IUnitOfWork data,
             ISceneService sceneService ,
             IMapper mapper,
-            //IBlenderService blenderService,
+            IBlenderService blenderService,
             Configuration configuration)
         {
-           // _blenderService = blenderService;
+            _blenderService = blenderService;
             _data = data;
             _sceneService = sceneService;
             _mapper = mapper;
@@ -134,19 +134,19 @@ namespace HseAr.BusinessLayer.FloorService
             await _data.Floors.Update(floor);
         }
 
-        //private async Task CreateAndSaveFloorPlanGltf(FloorContext floor, Guid floorId )
-        //{
-        //    if(floor.FloorPlanImg == null)
-        //        return;
+        private async Task CreateAndSaveFloorPlanGltf(FloorContext floor, Guid floorId )
+        {
+            if(floor.FloorPlanImg == null)
+                return;
             
-        //    var gltfPathWithoutFormat = $"{_configuration.STORAGE_PATH}{StorageFloorplanGltfs}{floorId}";
-        //    var imagePath = $"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}";
+            var gltfPathWithoutFormat = $"{_configuration.STORAGE_PATH}{StorageFloorplanGltfs}{floorId}";
+            var imagePath = $"{_configuration.STORAGE_PATH}{floor.FloorPlanImg}";
 
-        //    await _blenderService.CreateFloorplanGltf(imagePath, gltfPathWithoutFormat);
-        //    //нужно научиться проверять получилось ли создать 3д модель этажа
+            await _blenderService.CreateFloorplanGltf(imagePath, gltfPathWithoutFormat);
+            //нужно научиться проверять получилось ли создать 3д модель этажа
             
-        //    floor.FloorPlanGltf =$"{StorageFloorplanGltfs}{floorId}.gltf";
-        //}
+            floor.FloorPlanGltf =$"{StorageFloorplanGltfs}{floorId}.gltf";
+        }
         
         private async Task SetFloorIdInPointCloud(Guid? pcdId, Guid? newValue)
         {
