@@ -86,6 +86,7 @@ function Editor() {
 
 	};
 	////////////////////
+	this.portBack = null;
 	this.idFromBack = null;
 	this.floorId = null;
 	this.companyId = null;
@@ -142,7 +143,7 @@ Editor.prototype = {
 	ModificationsLoadToBack: async function(toBack) {
 		this.progres.start()
 		let arrayOfModifications = editor.history.GetArrayOfModification()
-		await axios.post('https://localhost:5555/wapi/editor/list', {sceneModifications: arrayOfModifications, floorId: this.floorId}, {
+		await axios.post(this.portBack + 'wapi/editor/list', {sceneModifications: arrayOfModifications, floorId: this.floorId}, {
 			headers: {
 				"Content-Type": "application/json",
 				'X-Company-Key': this.companyId
