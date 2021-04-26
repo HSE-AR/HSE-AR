@@ -17,7 +17,7 @@ namespace HseAr.Integration.SceneExport
 {
     public class SceneExportApiClient : ISceneExportApiClient
     {
-        private const string Url = "http://localhost:3000";
+        private readonly string url;
         private const string AuthTokenHeaderName = "X-Auth-Token";
 
         private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings()
@@ -33,6 +33,7 @@ namespace HseAr.Integration.SceneExport
         {
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            url = configuration.SceneExportService;
         }
         
         public async Task<bool> ExportScene(Scene scene)
@@ -43,7 +44,7 @@ namespace HseAr.Integration.SceneExport
         
         private async Task<TResponse> Execute<TResponse>(BaseRequest<TResponse> request ) where TResponse : class
         {
-            var uri = $"{Url}{request.Path}";
+            var uri = $"{url}{request.Path}";
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, uri);
 
             var stringBody = request.Content != null
