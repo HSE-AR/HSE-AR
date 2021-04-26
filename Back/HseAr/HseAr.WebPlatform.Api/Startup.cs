@@ -86,9 +86,16 @@ namespace HseAr.WebPlatform.Api
 
             app.UseAuthentication(); 
             app.UseAuthorization();
-            
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/wapi/swagger/v1/swagger.json", "Wapi"));
+
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "wapi/swagger/{documentname}/swagger.json";
+            });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/wapi/swagger/v1/swagger.json", "Wapi");
+                c.RoutePrefix = "wapi/swagger";
+            });
             app.UseHttpsRedirection();
             app.UseEndpoints(endpoints =>
             {
