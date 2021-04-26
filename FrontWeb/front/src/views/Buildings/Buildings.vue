@@ -7,9 +7,6 @@
           <div class="buildings_wrapper">
 
             <BuildingsSlider/>
-
-
-
             <button
                     style="margin-top: 20px;"
                     type="button"
@@ -51,9 +48,9 @@
             <div class="form__input">
               <input v-model="address" type="text" id="address" class="input" placeholder="Map address*" required>
             </div>
-            <span class="form__input">
+            <div class="form__input">
               <input type="file" ref="imgPath" id="imgPath" @change="convertImage" accept="image/*" class="input" placeholder="Image*" required>
-            </span>
+            </div>
           </div>
           <gmap-map
                   id="map"

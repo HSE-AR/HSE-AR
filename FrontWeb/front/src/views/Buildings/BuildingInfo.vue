@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="font-size: 30px; margin: 10px">{{building_info.title}}</div>
+    <div style="font-size: 20px; margin: 20px; text-align: center">{{building_info.title}}</div>
     <div class="buildings-container">
       <div v-if="building_info.floors.length !== 0" class="building__info">
         <hooper  :vertical="true" style="height: 600px;width: 300px" :itemsToShow="1.5" :centerMode="true">
@@ -58,6 +58,7 @@
           </span>
             <span class="form__input">
             <select v-model="pointCloudId" type="text" id="pointCloudId" class="select_point" required>
+              <option value="" hidden>Select pointcloud</option>
               <option selected="selected" v-for="pointcloud in pointclouds" :value="pointcloud.id">{{pointcloud.name}}</option>
             </select>
             </span>
@@ -65,6 +66,12 @@
               <input type="file" ref="floorPlanImg" id="floorPlanImg" @change="convertImage" accept="image/*" class="input" placeholder="floorPlanImg..." required>
             </div>
           </form>
+          <div class="image-preview" v-if="floorPlanImg.length === 0">
+            <img style="max-width: 100%; max-height: 100%;" class="preview" src="@/assets/unnamed.jpg">
+          </div>
+          <div class="image-preview" v-if="floorPlanImg.length > 0">
+            <img style="max-width: 100%; max-height: 100%;" class="preview" :src="floorPlanImg">
+          </div>
         </template>
         <template v-slot:footer>
           <button class="building__creation__submit" @click="createFloor">Save</button>
@@ -92,7 +99,7 @@
               title: null,
               number: null,
               pointCloudId: null,
-              floorPlanImg: null,
+              floorPlanImg: "",
               buildingId: this.$route.query.buildingId,
               isModalVisible: false,
           }
