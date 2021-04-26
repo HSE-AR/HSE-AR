@@ -19,7 +19,7 @@ services:
    MONGO_INITDB_ROOT_USERNAME: hsear
    MONGO_INITDB_ROOT_PASSWORD: hsear
   volumes:
-   - "/var/www/mongodb/data:/var/lib/mongodb/data"
+   - "/var/www/mongodb/data:/data/db"
   ports:
    - "27017:27017"
  webapi:
