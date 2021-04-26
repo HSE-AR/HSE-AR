@@ -141,7 +141,7 @@ export default {
         confirmButtonText: 'go to building'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$router.push('/ar/'+building.buildingId )
+          this.$router.push('/webar/ar/'+building.buildingId )
         }
       })
     }
