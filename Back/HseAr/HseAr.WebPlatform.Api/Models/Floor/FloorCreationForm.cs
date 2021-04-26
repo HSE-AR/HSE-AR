@@ -17,7 +17,7 @@ namespace HseAr.WebPlatform.Api.Models.Floor
         /// <summary>
         /// Id документа с облаком точек
         /// </summary>
-        public Guid PointCloudId { get; set; }
+        public Guid? PointCloudId { get; set; }
         
         /// <summary>
         /// Изображение чертежа этажа

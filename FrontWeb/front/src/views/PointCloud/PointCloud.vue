@@ -9,7 +9,7 @@
       <th>Action</th>
     </tr>
 
-    <tr v-for="pcd in $store.state.pointCloudsInfo">
+    <tr v-for="pcd in $store.state.pointCloudsInfo" >
       <td>{{pcd.id}}</td>
       <td>{{pcd.name}}</td>
       <td>{{pcd.floorName}}</td>
