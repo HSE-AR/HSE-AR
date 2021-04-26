@@ -49,13 +49,18 @@
   outline: none;
   padding-left: 18px;
 }
-.main .sign {
+
+.sign {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
 }
-.main .sign__button {
+.sign :hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.sign__button {
   outline: none;
   border: 1px solid #4B9CFF;
   border-radius: 25px;
@@ -63,8 +68,6 @@
   width: 260px;
   height: 60px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-.main .sign__button span {
   color: white;
   font-weight: 500;
   line-height: 35px;

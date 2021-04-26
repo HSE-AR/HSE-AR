@@ -2,11 +2,10 @@
 
 <div>
 
-  <hooper style="width: 900px;height: 300px;"  :itemsToShow="3" >
-    <slide v-for="building in buildings" :key="building.id" style="margin-left: 10px">
-      <div class="building-card">
+  <hooper style="width: 690px; height: 300px;" :itemsToShow="3" :itemsToSlide="1" >
+    <slide v-for="building in buildings" :key="building.id" class="building-card">
         <div class="building-image">
-          <img :src="$store.state.port + building.imgPath" style="max-width: 100%; max-height: 100%;" alt="image">
+          <img :src="$store.state.port + building.imgPath" style="border-top-left-radius: 15px; border-top-right-radius: 15px; width: 100%; height: 100%;" alt="image">
         </div>
         <div class="building-actions">
           <router-link :to="{path: `/admin/mapsinfo/`, query: {buildingId: building.id}}">
@@ -55,8 +54,6 @@
             {{building.coordinate}}
           </div>
         </div>
-      </div>
-
     </slide>
 
   </hooper>
