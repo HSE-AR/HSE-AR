@@ -32,6 +32,7 @@
 </template>
 
 <script>
+
   import Swal from 'sweetalert2'
   export default {
     name: 'SignInAdmin',
@@ -42,7 +43,7 @@
       }
     },
     methods: {
-      signIn() {
+       signIn() {
         this.$Progress.start()
         const data = {
           email: this.email,

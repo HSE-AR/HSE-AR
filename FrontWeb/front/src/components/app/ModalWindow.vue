@@ -72,7 +72,7 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     overflow-x: auto;
-    width: 1000px;
+    width: 800px;
     font-family: "Montserrat", sans-serif;
     display: flex;
     border: 1px solid #4AAE9B;

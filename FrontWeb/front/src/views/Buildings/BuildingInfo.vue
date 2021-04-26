@@ -1,13 +1,18 @@
 <template>
   <div>
+    <div style="font-size: 20px; margin: 20px; text-align: center">{{building_info.title}}</div>
     <div class="buildings-container">
       <div v-if="building_info.floors.length !== 0" class="building__info">
-        <hooper :vertical="true" style="height: 400px" :itemsToShow="1.5" :centerMode="true">
+        <hooper  :vertical="true" style="height: 600px;width: 300px" :itemsToShow="1.5" :centerMode="true">
           <slide
                   v-for="floor in building_info.floors"
                   :key="floor.id"
+                  style="margin-top: 5px"
           >
-            <h1>{{floor.title}}</h1>
+            <div>
+              <img style="width: 290px" :src="$store.state.port + floor.floorPlanImage">
+            </div>
+            <h1>{{floor.number}}. {{floor.title}}</h1>
             <router-link :to="{path: `/admin/editor/`, query: {floorId: floor.id}}" class="editFloor">Edit Floor</router-link>
             <button @click="deleteFloor(floor.id)" class="floor__deletion">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
@@ -53,6 +58,7 @@
           </span>
             <span class="form__input">
             <select v-model="pointCloudId" type="text" id="pointCloudId" class="select_point" required>
+              <option value="" hidden>Select pointcloud</option>
               <option selected="selected" v-for="pointcloud in pointclouds" :value="pointcloud.id">{{pointcloud.name}}</option>
             </select>
             </span>
@@ -60,8 +66,11 @@
               <input type="file" ref="floorPlanImg" id="floorPlanImg" @change="convertImage" accept="image/*" class="input" placeholder="floorPlanImg..." required>
             </div>
           </form>
-          <div class="image-wrapper">
-            <img src="#" alt="image">
+          <div class="image-preview" v-if="floorPlanImg.length === 0">
+            <img style="max-width: 100%; max-height: 100%;" class="preview" src="@/assets/unnamed.jpg">
+          </div>
+          <div class="image-preview" v-if="floorPlanImg.length > 0">
+            <img style="max-width: 100%; max-height: 100%;" class="preview" :src="floorPlanImg">
           </div>
         </template>
         <template v-slot:footer>
@@ -90,7 +99,7 @@
               title: null,
               number: null,
               pointCloudId: null,
-              floorPlanImg: null,
+              floorPlanImg: "",
               buildingId: this.$route.query.buildingId,
               isModalVisible: false,
           }
@@ -176,10 +185,12 @@
                       this.number = ""
                       this.pointCloudId = ""
                       this.floorPlanImg = ""
+                    this.isModalVisible = false;
                   })
                   .catch(err => {
                       console.log(err)
                       this.$Progress.fail()
+                    this.isModalVisible = false;
                   })
             },
             async deleteFloor(floorId) {
