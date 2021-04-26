@@ -59,7 +59,6 @@
             <span class="form__input">
             <select v-model="pointCloudId" type="text" id="pointCloudId" class="select_point" required>
               <option value="" hidden>Select pointcloud</option>
-              <option :value="null" hidden>Without pointcloud</option>
               <option selected="selected" v-for="pointcloud in pointclouds" :value="pointcloud.id">{{pointcloud.name}}</option>
             </select>
             </span>

@@ -9,7 +9,6 @@
       <th>Action</th>
     </tr>
 
-
     <tr v-for="pcd in $store.state.pointCloudsInfo" :key="pcd.id">
       <td>{{pcd.id}}</td>
       <td>{{pcd.name}}</td>

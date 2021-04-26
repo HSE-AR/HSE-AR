@@ -123,7 +123,7 @@
               })
               .catch(err => {
                   console.log(err)
-                  //this.$Progress.fail()
+                  this.$Progress.fail()
 
               })
       },
