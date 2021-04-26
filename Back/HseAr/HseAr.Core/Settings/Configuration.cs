@@ -11,6 +11,8 @@ namespace HseAr.Core.Settings
         
         public ModelsDatabaseSettings ModelsDatabaseSettings { get; set; }
         
+        public string SceneExportService { get; set; }
+        
         public string PythonPath { get; set; }
         
         public string BlenderScriptName { get; set; }
