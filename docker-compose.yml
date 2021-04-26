@@ -49,6 +49,7 @@ services:
   depends_on: 
    - "postgres"
    - "mongodb"
+   - "webapi"
   image: scanner
   ports:
    - "3003:80"
@@ -66,6 +67,8 @@ services:
   depends_on: 
    - "postgres"
    - "mongodb"
+   - "webapi"
+   - "scannerapi"
   image: arclientapi
   ports:
    - "4004:80"
