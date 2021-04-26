@@ -143,8 +143,8 @@ export default {
       let geometry = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
       let material = new THREE.MeshStandardMaterial();
       let loader = new THREE.TextureLoader();
-
       let img = this.$store.state.port + floorPlan.floorPlanImg;
+      console.log(img)
       loader.load(img,
           function(texture) {
             console.log(img + ' downloaded successfully');
