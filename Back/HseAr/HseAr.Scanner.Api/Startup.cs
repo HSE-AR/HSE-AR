@@ -86,8 +86,15 @@ namespace HseAr.Scanner.Api
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseHttpsRedirection();
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ScannerApi"));
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "sapi/swagger/{documentname}/swagger.json";
+            });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/sapi/swagger/v1/swagger.json", "Sapi");
+                c.RoutePrefix = "sapi/swagger";
+            });
 
             app.UseEndpoints(endpoints =>
             {

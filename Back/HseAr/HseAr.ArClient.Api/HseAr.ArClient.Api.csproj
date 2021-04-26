@@ -13,6 +13,7 @@
       <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.2" />
+      <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
       <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.0.1" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.0.1" />
@@ -22,6 +23,8 @@
     <PropertyGroup>
       <GenerateDocumentationFile>true</GenerateDocumentationFile>
       <NoWarn>$(NoWarn);1591</NoWarn>
+      <UserSecretsId>67d6900f-8e59-46f4-a0e4-ae51cf2841ed</UserSecretsId>
+      <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
 </Project>

@@ -83,14 +83,21 @@ namespace HseAr.ArClient.Api
             app.UseExceptionHandler(err => err.UseCustomErrors(env));
 
             app.UseRouting();
-            
+
             /*app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod());*/
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ARapi"));
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "arapi/swagger/{documentname}/swagger.json";
+            });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/arapi/swagger/v1/swagger.json", "ARapi");
+                c.RoutePrefix = "arapi/swagger";
+            });
 
             app.UseEndpoints(endpoints =>
             {

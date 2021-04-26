@@ -2,7 +2,7 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 RUN apt-get update && apt-get install -y libgdiplus
-EXPOSE 3003 3333
+EXPOSE 443 80
 
 WORKDIR "/app"
 COPY ["HseAr/global.json", "./"]
