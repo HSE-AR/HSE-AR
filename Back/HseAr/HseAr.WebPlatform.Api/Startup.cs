@@ -89,7 +89,7 @@ namespace HseAr.WebPlatform.Api
             
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wapi"));
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
