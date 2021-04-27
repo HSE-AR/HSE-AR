@@ -20,11 +20,13 @@ export default new Vuex.Store({
     port:'https://localhost:5555/', //ip адрес компа,(https://192.168.0.103:5555)
     sceneTestId: '5fea51e7c4c61e2e98e97794', //id можно посмотреть в монге
     pointCloudsInfo:[],
+
   },
   mutations:{
     setPointCloudsInfo(state ,newPcds){
       state.pointCloudsInfo = newPcds
     },
+
   },
   plugins: [vuexLocalStorage.plugin]
 })
