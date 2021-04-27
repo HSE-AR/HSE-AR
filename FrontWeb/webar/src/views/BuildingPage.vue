@@ -85,7 +85,7 @@ export default {
 
   methods:{
     backUp(){
-      this.$router.push('/webar/');
+      this.$router.push('/');
     },
 
     startAr(){
@@ -94,7 +94,7 @@ export default {
       }
       else {
 
-        this.$router.push('/webar/ar/'+this.$route.params.buildingId + '/' +  this.selectedFloor.code)
+        this.$router.push('/ar/'+this.$route.params.buildingId + '/' +  this.selectedFloor.code)
       }
     },
 
