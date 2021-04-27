@@ -1,6 +1,10 @@
 <template>
+
     <div class="buildings-container">
-        <div v-if="buildings.length !== 0">
+      <div v-if="loadingStatus"  class="loading-div">
+        <vue-spinner text-fg-color="white" line-fg-color="#B55CFE" message="Loading buildings..."/>
+      </div>
+        <div v-else-if="buildings.length !== 0">
           <div class="buildings-length-container">
             <span>You have already created {{buildings.length}} map(s)</span>
           </div>
@@ -87,6 +91,7 @@
     import Sidebar from "../../components/app/Sidebar";
     import ModalWindow from "../../components/app/ModalWindow"
     import BuildingsSlider from "./BuildingsSlider";
+    import Spinner from "vue-simple-spinner";
 
     export default {
 
@@ -95,7 +100,8 @@
             ModalWindow,
             BuildingsSlider,
             [Glide.name]: Glide,
-            [GlideSlide.name]: GlideSlide
+            [GlideSlide.name]: GlideSlide,
+            vueSpinner: Spinner
         },
         data() {
             return {
@@ -112,6 +118,7 @@
       computed: {
         google: gmapApi,
         ...mapGetters(['buildings']),
+          ...mapGetters(['loadingStatus']),
         },
       async created() {
           this.$Progress.start()
@@ -176,11 +183,22 @@
                       this.coordinate = ""
                       this.imgPath = ""
                     this.isModalVisible = false;
+                      Swal.fire(
+                          'Success',
+                          'Building is created successfully!',
+                          'success'
+                      )
+
                   })
                   .catch(err => {
                       console.log(err)
                       this.$Progress.fail()
                     this.isModalVisible = false;
+                      Swal.fire(
+                          'Error',
+                          'Please try one more time',
+                          'error'
+                      )
                   })
           },
 

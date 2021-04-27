@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <vue-progress-bar></vue-progress-bar>
+
     <component :is="layout">
       <router-view />
     </component>
@@ -16,7 +17,9 @@
   import SignLayout from "./layouts/SignLayout/SignLayout";
   import MainLayout from "./layouts/MainLayout/MainLayout";
   import Editor from "./views/Editor/Editor";
+  import Spinner from 'vue-simple-spinner'
   import axios from "axios";
+  import {mapGetters} from "vuex";
   export default {
     name: 'App',
 
@@ -24,10 +27,11 @@
       layout() {
         return (this.$route.meta.layout || 'sign') + '-layout'
       },
+
     },
 
     components: {
-      SignLayout, MainLayout, LandingLayout, Editor
+      SignLayout, MainLayout, LandingLayout, Editor,
     }
 
 
