@@ -5,14 +5,7 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "App",
-    created() {
-    this.$router.push("/webar/")
-    }
-}
-</script>
+
 <style lang="scss">
 
 body{
