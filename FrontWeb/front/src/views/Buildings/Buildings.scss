@@ -173,8 +173,16 @@ input[type=number] {
 
 .building-card {
   position: relative;
-}
+  border: none;
+  background: white;
+  color: black;
+  margin-left: 2px;
 
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.building-card:last-child {
+  margin-right: 2px;
+}
 .building-actions {
   position: absolute;
   display: flex;
@@ -187,7 +195,14 @@ input[type=number] {
   opacity: 0.3;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
+  transition: 0.3s;
+
+  :hover {
+    color: black;
+  }
 }
+
+
 .image-preview {
   height: 300px;
   width: 300px;
@@ -247,6 +262,13 @@ input[type=number] {
   background: rgba(58, 50, 50, 0.5);
 
 }
+
+.building__info {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
 .image-wrapper {
   border: 1px solid white;
   height: 400px;
@@ -254,6 +276,33 @@ input[type=number] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.floor-card {
+  margin-top: 10px;
+  height: 300px;
+  position:relative;
+  background: white;
+  color: black;
+  border:none;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+
+.floor-image-wrapper {
+  border-bottom: 1px solid #ebebeb;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  height: 150px;
+  justify-content: center;
+  align-items: center;
+}
+
+.floor_content {
+  margin-top: 120px;
 }
 
 

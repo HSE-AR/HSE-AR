@@ -1,9 +1,9 @@
 <template>
 
-<div>
-
-  <hooper style="width: 690px; height: 300px;" :itemsToShow="3" :itemsToSlide="1" >
+<div >
+  <hooper style="width: 690px; height: 300px" :itemsToShow="3" :itemsToSlide="1" >
     <slide v-for="building in buildings" :key="building.id" class="building-card">
+
         <div class="building-image">
           <img :src="$store.state.port + building.imgPath" style="border-top-left-radius: 15px; border-top-right-radius: 15px; width: 100%; height: 100%;" alt="image">
         </div>
@@ -66,6 +66,7 @@
 import { Hooper, Slide } from 'hooper';
 import {mapGetters} from "vuex";
 import 'hooper/dist/hooper.css';
+import Swal from "sweetalert2";
 
     export default {
       components: {
@@ -83,10 +84,20 @@ import 'hooper/dist/hooper.css';
                     .then(response => {
                         console.log(response)
                         this.$Progress.finish()
+                        Swal.fire(
+                            'Success',
+                            'Building is deleted successfully!',
+                            'success'
+                        )
                     })
                     .catch(err => {
                         console.log(err)
                         this.$Progress.fail()
+                        Swal.fire(
+                            'Error',
+                            'Please try one more time',
+                            'error'
+                        )
                     })
             }
         }
