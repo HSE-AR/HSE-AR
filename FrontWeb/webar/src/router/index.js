@@ -8,18 +8,18 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/webar/',
+    path: '/',
     name: 'StartPage',
     component: StartPage
   },
   {
-    path: '/webar/ar/:buildingId',
+    path: '/ar/:buildingId',
     name: 'Building',
     component: BuildingPage,
     props: true
   },
   {
-    path: '/webar/ar/:buildingId/:floorId',
+    path: '/ar/:buildingId/:floorId',
     name: 'MainAR',
     component: MainAR,
     props: true
