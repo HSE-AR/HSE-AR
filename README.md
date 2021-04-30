@@ -8,6 +8,12 @@
   * ArClient.Api
   * Scanner.Api
 
+[Докуметация разработчика](https://docs.google.com/document/d/1ScNqvy1N3wdSQ2FqJOHTadbu-mglgfYPuqScMB__vxY/edit)
+
+[Документация пользователя](https://docs.google.com/document/u/1/d/1NenNtg4eAKgTLXODt24MvOeUMfg3HPg5JXUIs77sTOs/edit#heading=h.bpbywicj4wnc)
+
+[Презентация](https://docs.google.com/presentation/d/1JsraKqkp_aOL4CSbxh_KSZ_EbySfWY9S_zLVts_Rs-U/edit)
+
 ## Краткая архитектура
 
 ![platform](https://github.com/HSE-AR/HSE-AR/blob/default/media/platform.png)
